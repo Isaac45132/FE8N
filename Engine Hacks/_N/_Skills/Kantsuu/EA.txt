@@ -58,10 +58,10 @@ hasVengeance:
     HAS_OCCULT
     WORD VengeanceID
 hasStun:
-    HAS_COMBAT
+    HAS_OCCULT
     WORD StunID
 hasScream:
-    HAS_COMBAT
+    HAS_OCCULT
     WORD ScreamID
 hasIgnis:
     HAS_OCCULT
