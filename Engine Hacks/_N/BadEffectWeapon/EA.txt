@@ -8,13 +8,20 @@ ORG	0x17680
 #incbin "FlexibleTurn.gba"
 
 ORG	0x02b824
-#incbin "sleepEND.gba"
-
+WORD	$46874800 //r0
+POIN	stone_sleepEND
 
 ORG	0x02b58c
 WORD	$468F4900
 POIN	SSaki
+
 POP
+
+stone_sleepEND:
+#incbin "sleepEND.gba"
+POIN afterAttack
+ALIGN 4
+
 SSaki:
 #incbin "aki.gba"
 ALIGN 4
