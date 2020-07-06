@@ -32,6 +32,6 @@
 #include "StatusUp\EA.txt"
 #include "VoidCurse\EA.txt"
 #include "Equipment\EA.txt"
-
+#include "thiefskill\EA.txt"
 
 //#include "my_skill\EA.txt"
