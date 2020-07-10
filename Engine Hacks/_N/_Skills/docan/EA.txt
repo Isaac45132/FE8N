@@ -11,6 +11,7 @@ docan:
 POIN hasCancel
 POIN hasWrath
 POIN hasFortune
+POIN hasCancela
 
 hasCancel:
     HAS_NIHIL
@@ -19,5 +20,10 @@ hasCancel:
 hasWrath:
     HAS_NIHIL
     WORD WrathID
+
+hasCancela:
+    HAS_NIHIL
+    WORD CancelaID
     
+
 ALIGN 4
