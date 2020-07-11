@@ -171,3 +171,4 @@
 #define MasterOfArmsID 173 //0xAD 武芸者
 #define PierceID 174 //0xAE 貫通
 #define CancelaID 175 //0xAFキャンセル(旧)
+#define DominationID 176 //0xB0支配
