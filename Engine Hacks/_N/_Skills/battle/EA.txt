@@ -53,7 +53,8 @@ battle_before:
     POIN HasDartingStance
     POIN combat_art_table
     WORD COMBAT_ART_LIST_SIZE
-    
+    POIN HasDomination
+
 battle_after:
     #incbin main.dmp
     POIN hasLifeAndDeath
@@ -231,3 +232,6 @@ HAS_CHARGE:
     HAS_SKILL
     WORD ChargingStrikeID
 
+HasDomination:
+    HAS_NIHIL
+    WORD DominationID
