@@ -390,5 +390,15 @@ haguro2:
 Georugu:
   #incext PortraitFormatter Georugu.png
 
+ setMugEntry($C9, Soldier1,3, 5, 3, 3, 1)　　///上級兵士１（青色）
+setMugExtra($C9, 0, 0, 8, 0)
+Soldier1:
+  #incext PortraitFormatter Soldier1.png
+
+ setMugEntry($CA, Soldier2,3, 5, 3, 3, 1)　　///上級兵士２（赤色）
+setMugExtra($CA, 0, 0, 8, 0)
+Soldier2:
+  #incext PortraitFormatter Soldier2.png
+
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
