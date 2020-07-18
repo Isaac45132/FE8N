@@ -15,6 +15,7 @@ POP
 karikari:
 #incbin "shienMAX.gba"
     POIN hasCharm
+    POIN hasKarisuma
 ALIGN 4
 
     
@@ -22,3 +23,6 @@ hasCharm:
     HAS_SKILL
     WORD CharmID
     
+hasKarisuma:
+    HAS_SKILL
+    WORD KarisumaID
