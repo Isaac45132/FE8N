@@ -172,3 +172,4 @@
 #define PierceID 174 //0xAE 貫通
 #define CancelaID 175 //0xAFキャンセル(旧)
 #define DominationID 176 //0xB0支配
+#define KarisumaID 177 //0xB1カリスマ(弱)
