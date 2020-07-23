@@ -131,7 +131,7 @@ setMugEntry($35, ha,3, 5, 3, 3, 1)
 ha:
   #incext PortraitFormatter ha.png    
   
-setMugEntry($0E, zoku,2, 5, 3, 3, 1)
+setMugEntry($0E, zoku,3, 5, 3, 3, 1)
 //setMugExtra($0E, 0, 4, 10, 4)
 zoku:
   #incext PortraitFormatter zoku.png       
