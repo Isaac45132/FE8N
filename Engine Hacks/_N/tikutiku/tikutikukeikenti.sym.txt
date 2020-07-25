@@ -1,0 +1,3 @@
+exp=$12
+tikutiku=$16
+end=$3C

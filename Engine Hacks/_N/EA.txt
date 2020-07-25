@@ -38,6 +38,7 @@
 	#include "growth\EA.txt"
 	#include "prediction\EA.txt"
 	#include "kyotenidouMAX\EA.txt"
+	#include "tikutiku\EA.txt"
 
 
 
