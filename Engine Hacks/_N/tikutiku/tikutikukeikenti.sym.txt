@@ -1,3 +1,5 @@
 exp=$12
 tikutiku=$16
-end=$3C
+end=$58
+saiteiti=$38
+zero=$56
