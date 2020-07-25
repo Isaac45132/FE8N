@@ -1,5 +1,3 @@
-TRUE = (1)
-FALSE = (0)
 XENO_ADR = (adr+4)
 REVERSE_XENO = (adr+12)
 SET_SKILLANIME_ATK_FUNC = (adr+16)
@@ -56,14 +54,14 @@ Xeno:
     @攻め側
         mov r0, r5
         mov r1, r6
-        mov r2, #TRUE
+        mov r2, #1	@TRUE
         bl HasXeno
         cmp r0, #1
         beq firstXeno
     @受け側
         mov r0, r6
         mov r1, r5
-        mov r2, #FALSE
+        mov r2, #0	@FALSE
         bl HasXeno
         cmp r0, #1
         beq secondXeno
@@ -103,7 +101,7 @@ HasXeno:
         mov r5, r2
         mov r4, r0
         
-        cmp r5, #FALSE
+        cmp r5, #0	@FALSE
         beq Reverse
 
         mov r0, r4
@@ -153,14 +151,28 @@ Xeno_impl:
     jumpXeno:
         strb r0, [r1]
         
-        mov r1, #90
+        mov r1, #90		@攻撃
         ldsb r0, [r3, r1]
         add r0, #10
         strb r0, [r3, r1]
         
-        mov r1, #94
+        mov r1, #92		@防御
+        ldsb r0, [r3, r1]
+        add r0, #10
+        strb r0, [r3, r1]
+
+        mov r1, #94		@攻速
         ldsb r0, [r3, r1]
         add r0, #3
+        strb r0, [r3, r1]
+        
+        mov r1, #100		@最終命中
+        ldsb r0, [r3, r1]
+        add r0, #20
+	cmp r0, #100
+	blt jumpHit
+	mov r0, #100
+jumpHit:
         strb r0, [r3, r1]
         
         bx lr
