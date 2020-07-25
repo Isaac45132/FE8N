@@ -158,7 +158,7 @@ Xeno_impl:
         
         mov r1, #92		@防御
         ldsb r0, [r3, r1]
-        add r0, #10
+        add r0, #20
         strb r0, [r3, r1]
 
         mov r1, #94		@攻速
