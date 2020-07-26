@@ -20,6 +20,7 @@
 	#include "ChangePortrait\PATCH_Fix EnemyCapture_GetUnitPortraitId.txt"
 	
 	#include "Installer\BattleScreen.event"
+	#include "LevelUp\LevelUp.event"
 	
 	
 //	#include "256 colors titlebackground\titlebackgroundinstaller.event"
