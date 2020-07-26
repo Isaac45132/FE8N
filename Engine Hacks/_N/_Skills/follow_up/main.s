@@ -12,44 +12,19 @@ HAS_DARTING_FUNC = (Adr+36)
     and r0, r1
     bne normal @闘技場なら終了
 
-    bl followup_skill
+    bl GetFollowUpPoint
 
-    cmp r0, r1
-    bgt greater1
-    blt greater2
-equal:
     cmp r0, #0
-    bge normal
+    bgt active      @追撃値プラス
+    blt disable     @追撃値マイナス
+    b normal
+
 disable:
     ldr r0, =0x0802af80 @追撃無し
     mov pc, r0
 
-greater1:
-    cmp r0, #0
-    bgt active1 @絶対追撃
-    blt disable @追撃不可
-@自分は追撃可能性あり、相手は追撃不可
-@    mov r0, r5
-@    mov r1, r6
-@    bl cancel
-    b normal
-
-greater2:
-    b disable           @新仕様だとここに入った時点でdisableで問題ない
-    cmp r1, #0
-    bgt active2 @絶対追撃
-    blt disable @追撃不可
-@相手は追撃可能性あり、自分は追撃不可
-    mov r1, r5
-    mov r0, r6
-    bl cancel
-    b normal
-
-active1:
-    ldr r0, =0x0802af56
-    mov pc, r0
-active2:
-    ldr r0, =0x0802af5c
+active:    @攻守続投
+    ldr r0, =0x0802af60
     mov pc, r0
 normal: @通常追撃判定
     mov r0, r5
@@ -59,57 +34,57 @@ normal: @通常追撃判定
     ldr r1, =0x0802af24
     mov pc, r1
 
-cancel:
-        add r0, #94
-        ldrh r0, [r0]
-        add r1, #94
-        ldrh r2, [r1]
-        cmp r0, r2
-        bgt endCancel	@r0の方が速いので不要
-@キャンセル発動
-        strh r0, [r1]
-    endCancel:
-        bx lr
 
-followup_skill:
-        push {r5, r6, lr}
+GetFollowUpPoint:
+        push {r4, r5, r6, r7, lr}
         mov r5, #0
         mov r6, #0
-        
-        ldr r0, [r4]
-        ldr r1, [r7]
+        ldr r4, [r4]
+        ldr r7, [r7]
+
+        ldr r0, =0x03004df0
+        ldr r0, [r0]
+        ldrb r0, [r0, #0xB]
+        ldrb r1, [r4, #0xB]
+        cmp r0, r1
+        beq notReverse  @r4が攻め側なので反転不要
+        eor r7, r4
+        eor r4, r7
+        eor r7, r4
+        bl followup_skills_def
+        eor r0, r1
+        eor r1, r0
+        eor r0, r1
+        b endReverse
+    notReverse:
+        bl followup_skills_atk
+    endReverse:
+        pop {r4, r5, r6, r7, pc}
+
+
+followup_skills_atk:
+        push {lr}
+    @守備隊形
+        mov r0, r4
+        mov r1, r7
         bl waryFighter_judgeActivate    @守備隊形
         cmp r0, #0
         beq jumpWaryFighter
-    @守備隊形発動中
         sub r5, #1
         sub r6, #1
     jumpWaryFighter:
 
-        ldr r0, [r4]
-        ldr r1, [r7]
+    @差し違え
+        mov r0, r4
+        mov r1, r7
         bl BrashAssault @差し違え
         cmp r0, #0
         beq jumpBrashAssault
         add r5, #1
     jumpBrashAssault:
 
-        ldr r1, [r4]
-        ldr r0, [r7]
-        bl QuickRiposte @切り返し
-        cmp r0, #0
-        beq jumpQuickRiposte
-        add r6, #1
-    jumpQuickRiposte:
-
-        ldr r0, [r4]
-        ldr r1, [r7]
-        bl Impact   @瞬撃
-        cmp r0, #0
-        beq jumpImpact
-        sub r6, #1
-    jumpImpact:
-        ldr r0, [r4]
+    @戦技
+        mov r0, r4
         bl WarSkill @戦技
         cmp r0, #0
         beq jumpWar
@@ -118,7 +93,42 @@ followup_skill:
 
         mov r0, r5
         mov r1, r6
-        pop {r5, r6, pc}
+        pop {pc}
+
+
+followup_skills_def:
+        push {lr}
+    @守備隊形
+        mov r0, r4
+        mov r1, r7
+        bl waryFighter_judgeActivate    @守備隊形
+        cmp r0, #0
+        beq jumpWaryFighter_def
+        sub r5, #1
+        sub r6, #1
+    jumpWaryFighter_def:
+
+    @切り返し
+        mov r0, r7
+        mov r1, r4
+        bl QuickRiposte @切り返し
+        cmp r0, #0
+        beq jumpQuickRiposte
+        add r6, #1
+    jumpQuickRiposte:
+
+    @瞬撃
+        mov r0, r4
+        mov r1, r7
+        bl Impact   @瞬撃
+        cmp r0, #0
+        beq jumpImpact
+        sub r6, #1
+    jumpImpact:
+
+        mov r0, r5
+        mov r1, r6
+        pop {pc}
 
 WarSkill:
         ldrb r1, [r0, #0xB]
@@ -145,10 +155,6 @@ WarSkill:
 
 Impact:
         push {r4, r5, lr}
-        ldr r2, =0x0203a4e8
-        cmp r0, r2
-        bne falseDarting
-
         mov r4, r0
         mov r5, r1
 
@@ -195,12 +201,17 @@ waryFighter_judgeActivate:
         
 BrashAssault:   @差し違え
         push {r4, r5, lr}
-        ldr r2, =0x0203a4e8
-        cmp r0, r2
-        bne non_bold
-
         mov r4, r0
         mov r5, r1
+
+        mov r0, #72
+        ldrh r0, [r4, r0]   @反撃されないなら不可
+        cmp r0, #0
+        beq non_bold
+        mov r0, #72
+        ldrh r0, [r5, r0]   @反撃されないなら不可
+        cmp r0, #0
+        beq non_bold
 
         mov r0, r4
         mov r1, r5
@@ -210,14 +221,6 @@ BrashAssault:   @差し違え
         cmp r0, #0
         beq	non_bold
 
-        mov r0, #72
-        ldrh r0, [r4, r0]	@反撃されないなら不可
-        cmp r0, #0
-        beq non_bold
-        mov r0, #72
-        ldrh r0, [r5, r0]	@反撃されないなら不可
-        cmp r0, #0
-        beq non_bold
         mov r0, #1
         .short 0xE000
     non_bold:
@@ -226,12 +229,24 @@ BrashAssault:   @差し違え
 
 QuickRiposte: @切り返し
         push {r4, r5, lr}
-        ldr r2, =0x0203a4e8
-        cmp r0, r2
-        beq non_vengeful
-
         mov r4, r0
         mov r5, r1
+
+        ldrb r0, [r4, #0xB]
+            ldr r1, =0x08019108
+            mov lr, r1
+            .short 0xF800
+        
+        ldrb r0, [r0, #19]  @現在
+        ldrb r1, [r4, #18]
+        asr r1, r1, #1
+        cmp r0, r1
+        blt non_vengeful    @HP半分
+
+        mov r0, #72
+        ldrh r0, [r5, r0]   @反撃されないなら不可
+        cmp r0, #0
+        beq non_vengeful
 
         mov r0, r4
         mov r1, r5
@@ -336,6 +351,7 @@ QuickRiposte: @切り返し
                 mov r0, #0
             pop {r4, r5, pc}
 
+.align
 HasWaryFighter:
 ldr r2, Adr+40
 mov pc, r2

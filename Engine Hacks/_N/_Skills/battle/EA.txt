@@ -1,4 +1,4 @@
-
+#include _config.txt
 
 
 PUSH
@@ -69,6 +69,8 @@ battle_after:
     POIN hasKnightkneeler
     POIN hasMonsterBlast
     POIN hasAtrocity
+    WORD CHARGING_LANCE_COEF
+    WORD CHARGING_LANCE_ITEM_EFFECT_ID
     
     
 battle_down:

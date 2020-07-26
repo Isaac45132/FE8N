@@ -23,7 +23,8 @@ next:
     bl WarSkill
     bl EffectiveBonus
     bl godBless
-	
+    bl ChagingLance
+
 Return:
     ldr r5, [r4, #76]
     ldr r0, =0x0802ad44
@@ -294,6 +295,61 @@ endBless:
     mov r0, #0
     pop {pc}
 
+ChagingLance:
+        push {lr}
+        bl GET_ATTACKER_ADDR
+        ldr r0, [r0]
+        ldrb r0, [r0, #0xB]
+        ldrb r1, [r4, #0xB]
+        cmp r0, r1
+        bne endCharge       @攻めてない
+
+        mov r0, #74
+        ldrh r0, [r4, r0]
+        bl GET_ITEM_EFFECT
+
+        mov r1, r0
+        bl GET_CHARGING_EFFECT_ID
+        cmp r0, r1
+        bne endCharge
+        
+        mov r0, r4
+        bl GetWalked
+        cmp r0, #8
+        ble jumpCharge
+        mov r0, #8
+    jumpCharge:
+
+        bl MUL_CHARGING_COEF
+        mov r1, #90
+        ldrh r2, [r4, r1]
+        add r2, r0
+        strh r2, [r4, r1] @自分
+    endCharge:
+        pop {pc}
+
+GetWalked:
+        mov r1, r0
+        ldr r2, =0x0202be44
+        ldrb r0, [r1, #16]
+        ldrb r3, [r2, #0]
+        sub r0, r0, r3
+        bge jump1Walked
+        neg r0, r0  @絶対値取得
+    jump1Walked:
+
+        ldrb r1, [r1, #17]
+        ldrb r2, [r2, #2]
+        sub r2, r1, r2
+        bge jump2Walked
+        neg r2, r2  @絶対値取得
+    jump2Walked:
+        add r0, r0, r2
+        bx lr
+GetDistance:
+    ldr r0, =0x0203a4d2
+    bx lr
+
 SHISEN_ADR = (adr+0)
 NIHIL_ADR = (adr+12)
 LULL_ADR = (adr+16)
@@ -304,6 +360,13 @@ ARMOR_E_ADR = (adr+32)
 HORSE_E_ADR = (adr+36)
 MONSTER_E_ADR = (adr+40)
 HAS_ATROCITY_ADR = (adr+44)
+
+GET_ITEM_EFFECT:
+    ldr r1, =0x080174e4
+    mov pc, r1
+GET_ATTACKER_ADDR:
+    ldr r0, =0x03004df0
+    bx lr
 
 
 HasAtrocity:
@@ -331,6 +394,15 @@ recalcSpd:
 HasLull:
     ldr r2, LULL_ADR
     mov pc, r2
+
+MUL_CHARGING_COEF:
+    ldr r1, (adr+48)
+    mul r0, r1
+    bx lr
+.align
+GET_CHARGING_EFFECT_ID:
+    ldr r0, (adr+52)
+    bx lr
 
 .ltorg
 .align
