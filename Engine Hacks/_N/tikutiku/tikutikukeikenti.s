@@ -16,6 +16,19 @@ mov	pc, r3
 
 tikutiku:
 push	{r1, r2, lr}
+cmp	r0, #0
+beq	end		@獲得経験値0なら終了
+ldrb	r1, [r5, #0xB]	@戦闘時右側
+sub	r1, #0x41
+bmi	migi		@自軍なら分岐
+ldrb	r1, [r4, #0xB]	@戦闘時左側
+sub	r1, #0x41
+bmi	end		@敵軍なら終了
+
+ldrb	r1, [r5, #0x13]
+.short	0xE000
+
+migi:
 ldrb	r1, [r4, #0x13]
 cmp	r1, #0
 beq	end		@敵の現在ＨＰ0=撃破するなら終了
@@ -26,10 +39,10 @@ and	r1, r2
 cmp	r1, #0
 beq	end		@ハードモードでないなら終了
 mov	r1, #0x37
-add	r3, r1, r7
-ldrb	r1, [r3, #0]
+add	r2, r1, r7
+ldrb	r1, [r2, #0]	@敵のチクチク値
 sub	r1, #4		@経験値減算を開始するチクチク値
-bmi	saiteiti	@チクチク値が4未満なら終了
+bmi	saiteiti	@チクチク値が4未満なら分岐
 add	r1, #1
 sub	r0, r0, r1	@獲得経験値
 
@@ -37,20 +50,9 @@ saiteiti:
 cmp	r0, #1
 bpl	end		@獲得経験値が1以上なら終了
 mov	r0, #1		@最低経験値1
-ldr	r1, [r4, #0]	@ユニット判定
-ldr	r2, [r4, #4]	@クラス判定
-ldr	r1, [r1, #0x28]	@ユニット特性
-ldr	r2, [r2, #0x28]	@クラス特性
-lsr	r1, r1, #24	@特性4
-lsr	r2, r2, #24	@特性4
-orr	r1, r2
-cmp	r1, #1		@虚無の呪い
-beq	zero
-ldrb	r1, [r3, #0]
+ldrb	r1, [r2, #0]	@敵のチクチク値
 cmp	r1, #10
 bmi	end
-
-zero:
 mov	r0, #0		@10戦目以降は最低経験値0
 
 end:

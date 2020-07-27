@@ -1,5 +1,5 @@
 exp=$12
 tikutiku=$16
-end=$58
-saiteiti=$38
-zero=$56
+end=$5A
+migi=$2C
+saiteiti=$4C
