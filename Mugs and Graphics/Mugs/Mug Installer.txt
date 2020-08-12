@@ -385,7 +385,7 @@ Joel:
 haguro2:
   #incext PortraitFormatter haguro2.png
 
- setMugEntry($43, Georugu,3, 6, 3, 4, 1)　　///ゲオルグ
+ setMugEntry($43, Georugu,3, 5, 3, 3, 1)　　///ゲオルグ
 //setMugExtra($43, 0, 4, 10, 4)
 Georugu:
   #incext PortraitFormatter Georugu.png
