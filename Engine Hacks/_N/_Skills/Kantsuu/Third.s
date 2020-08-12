@@ -299,8 +299,7 @@ Stan:
     bl HasStan
     cmp r0, #0
     beq endWar
-    mov r1, #ORACLE_FLAG
-    mov r10, r1
+
     ldrb r0, [r7, #8]	@Lv
     mov r1, #0
     bl random
@@ -336,8 +335,7 @@ Stone:
 	bl HasScream
     cmp r0, #0
     beq endWar
-    mov r1, #ORACLE_FLAG
-    mov r10, r1
+
     ldrb r0, [r7, #8]	@Lv
     mov r1, #0
     bl random
