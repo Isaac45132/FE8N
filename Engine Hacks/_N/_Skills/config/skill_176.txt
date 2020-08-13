@@ -1,12 +1,12 @@
 skill_176_unit:
    BYTE $00 $00 0 
 skill_176_class:
-   BYTE $00 $00 0 
+   BYTE $21 $00 0 
 skill_176_weapon:
    BYTE $00 $00 0 
 skill_176_item:
    BYTE $00 $00 0 
-#define SKL_HELP_176 $0000
+#define SKL_HELP_176 $05B7
 #define SKL_COLOR_176 $FF
  
 #define COMBAT_ART_176_ATK 00 

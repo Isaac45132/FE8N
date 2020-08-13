@@ -1,4 +1,4 @@
-skill_207_unit:  ///キャンセル（旧）
+skill_207_unit:  
    BYTE $00 $00 0 
 skill_207_class:
    BYTE $00 $00 0 
