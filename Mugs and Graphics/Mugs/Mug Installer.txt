@@ -400,5 +400,9 @@ setMugExtra($CA, 0, 0, 8, 0)
 Soldier2:
   #incext PortraitFormatter Soldier2.png
 
+ setMugEntry($38, Evan,3, 5, 3, 3, 1)@@///Ch8Boss ´³Ş§İ
+setMugExtra($38, 0, 0, 8, 0)
+Evan:
+  #incext PortraitFormatter Evan.png
 
 //////////////////////////ã“ã“ã¾ã§é¡”ç”»åƒ
