@@ -401,7 +401,7 @@ Soldier2:
   #incext PortraitFormatter Soldier2.png
 
  setMugEntry($38, Evan,3, 5, 3, 3, 1)Å@Å@///Ch8Boss ¥≥ﬁß›
-setMugExtra($38, 0, 0, 8, 0)
+setMugExtra($38, 0, 4, 10, 4)
 Evan:
   #incext PortraitFormatter Evan.png
 
