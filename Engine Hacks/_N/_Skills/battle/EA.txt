@@ -71,6 +71,7 @@ battle_after:
     POIN hasAtrocity
     WORD CHARGING_LANCE_COEF
     WORD CHARGING_LANCE_ITEM_EFFECT_ID
+    POIN HAS_REIN
     
     
 battle_down:
@@ -234,6 +235,11 @@ HAS_CHARGE:
     HAS_SKILL
     WORD ChargingStrikeID
 
+HAS_REIN:
+    HAS_SKILL
+    WORD ReinID
+
 HasDomination:
     HAS_NIHIL
     WORD DominationID
+
