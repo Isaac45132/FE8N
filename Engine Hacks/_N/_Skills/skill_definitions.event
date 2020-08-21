@@ -173,6 +173,7 @@
 #define ScreamMasteryID         175 //0xAF 奥義叫喚
 #define StunMasteryID           176 //0xB0 奥義衝撃
 #define CancelRadianceID        177 //0xB1 キャンセル(蒼炎)
+#define ReinID                  178 //0xB1 牽制
 
 #define DominationID 208 //0xD0支配
 #define KarisumaID 209 //0xD1カリスマ(弱)
