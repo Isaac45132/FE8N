@@ -405,4 +405,9 @@ setMugExtra($38, 0, 4, 10, 4)
 Evan:
   #incext PortraitFormatter Evan.png
 
+ setMugEntry($71, Viola,3, 5, 3, 3, 1)　　///ヴィオラ
+//setMugExtra($71, 0, 4, 10, 4)
+Viola:
+  #incext PortraitFormatter Viola.png
+
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
