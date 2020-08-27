@@ -274,7 +274,7 @@ rozari:
 
   #incext PortraitFormatter sere.png      
 
-setMugEntry($2F, Meido, 2, 6, 3, 4, 1)
+setMugEntry($2F, Meido, 3, 6, 3, 4, 1)
 //setMugExtra($2F, 0, 2, 5, 2)
 Meido:
   #incext PortraitFormatter Meido.png   
