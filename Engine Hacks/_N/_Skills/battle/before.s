@@ -1,8 +1,7 @@
-
-@ 0802a90c
+.thumb
+@0802a90c
 @ステータス画面にも影響がある
 @相手が存在するとは限らない(ダミーかもしれない)
-.thumb
     bl AvoidUp
     
 @闘技場チェック
@@ -32,6 +31,7 @@ gotSkill:
 	bl Fort
     bl Bond
     bl BladeSession
+	bl MagicSword
 
 endNoEnemy:
 
@@ -54,8 +54,13 @@ endNoEnemy:
 endNeedEnemy:
 
 @マイナス処理
-    bl Heartseeker
+    bl Domination
+    cmp r2, #0
+    bne RETURN
     bl Daunt
+    cmp r2, #0
+    bne RETURN
+    bl Heartseeker
 
 RETURN:
     pop {r4, r5}
@@ -177,13 +182,13 @@ ShieldSession:
         mov r0, #6
         mov r1, #2
         mul r1, r7
-        sub r0, r1
+        sub r0, r0, r1
         bgt jumpShieldSession
         mov r0, #0
     jumpShieldSession:
         mov r1, #92
         ldrh r2, [r4, r1]
-        add r2, r0
+        add r2, r2, r0
         strh r2, [r4, r1]
     endShieldSession:
         pop {r5, r6, r7, pc}
@@ -338,11 +343,11 @@ BladeSessionOne:
     limitBladeSession:
         mov r1, #90
         ldrh r0, [r4, r1]
-        add r0, r2
+        add r0, r0, r2
         strh r0, [r4, r1] @自分
         mov r1, #94
         ldrh r0, [r4, r1]
-        add r0, r2
+        add r0, r0, r2
         strh r0, [r4, r1] @自分
     falseBladeSession:
         pop {pc}
@@ -365,6 +370,87 @@ ImpregnableWall:
         mov r0, #0
         pop {pc}
 
+Domination:
+@青は赤に対して効く
+@赤は青と緑に対して効く
+@緑は赤に対して効く
+        push {r4, r5, r6, r7, lr}
+    
+        ldrb r0, [r4, #0xB]
+        lsl r0, r0, #24
+        bmi isRedDomination
+        mov r6, #0x80
+        bl Domination_impl
+        b endDomination
+    isRedDomination:
+        mov r6, #0x00
+        bl Domination_impl
+	cmp r2, #0
+	bne endDomination
+        mov r6, #0x40
+        bl Domination_impl
+    endDomination:
+        pop {r4, r5, r6, r7, pc}
+
+Domination_impl:
+        push {lr}
+        mov r7, #0
+    loopDomination:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq resultDomination	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopDomination	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopDomination	@死亡判定2
+    
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1	@居ないフラグ+救出されている
+        and r0, r1
+        bne loopDomination
+    
+        mov r0, #3  @範囲指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopDomination @近くにいない
+    
+        mov r0, r5
+        mov r1, r4
+        bl HasDomination
+        cmp r0, #0
+        beq loopDomination    @相手が恐怖未所持
+    
+        mov r7, #1
+        b loopDomination
+    
+    resultDomination:
+        mov r2, #20 @マイナス20
+        mul r2, r7
+    
+        mov r1, #98 @回避
+        ldrh r0, [r4, r1]
+        sub r0, r0, r2
+        bgt limitDomination1
+        mov r0, #0
+    limitDomination1:
+        strh r0, [r4, r1]
+
+        mov r1, #102 @必殺
+        ldrh r0, [r4, r1]
+        sub r0, r0, r2
+        bgt limitDomination2
+        mov r0, #0
+    limitDomination2:
+        strh r0, [r4, r1]
+        pop {pc}
+
 Daunt:
 @青は赤に対して効く
 @赤は青と緑に対して効く
@@ -380,6 +466,8 @@ Daunt:
     isRedDaunt:
         mov r6, #0x00
         bl Daunt_impl
+	cmp r2, #0
+	bne endDaunt
         mov r6, #0x40
         bl Daunt_impl
     endDaunt:
@@ -420,16 +508,16 @@ Daunt_impl:
         cmp r0, #0
         beq loopDaunt    @相手が恐怖未所持
     
-        add r7, #1
+        mov r7, #1
         b loopDaunt
     
     resultDaunt:
-        mov r2, #15 @マイナス15
+        mov r2, #10 @マイナス10
         mul r2, r7
     
         mov r1, #98 @回避
         ldrh r0, [r4, r1]
-        sub r0, r2
+        sub r0, r0, r2
         bgt limitDaunt1
         mov r0, #0
     limitDaunt1:
@@ -437,7 +525,7 @@ Daunt_impl:
 
         mov r1, #102 @必殺
         ldrh r0, [r4, r1]
-        sub r0, r2
+        sub r0, r0, r2
         bgt limitDaunt2
         mov r0, #0
     limitDaunt2:
@@ -459,6 +547,8 @@ Heartseeker:
     isRedHeartseeker:
         mov r6, #0x00
         bl Heartseeker_impl
+	cmp r2, #0
+	bne endHeartseeker
         mov r6, #0x40
         bl Heartseeker_impl
     endHeartseeker:
@@ -499,7 +589,7 @@ Heartseeker_impl:
         cmp r0, #0
         beq loopHeartseeker    @相手が呪縛未所持
     
-        add r7, #1
+        mov r7, #1
         b loopHeartseeker
     
     resultHeartseeker:
@@ -508,7 +598,7 @@ Heartseeker_impl:
     
         mov r1, #98 @回避
         ldrh r0, [r4, r1]
-        sub r0, r2
+        sub r0, r0, r2
         bgt limitHeartseeker
         mov r0, #0
     limitHeartseeker:
@@ -532,7 +622,7 @@ WarSkill:
         cmp r0, r2
         bne endWar
 
-        mov r0, #STR_ADDR
+        mov r0, #0x43
         ldrb r0, [r4, r0]
         bl GetWarList
         cmp r0, #0
@@ -544,7 +634,7 @@ WarSkill:
         ldrh r0, [r4, r1]
         mov r2, #1
         ldsb r2, [r3, r2]
-        add r0, r2
+        add r0, r0, r2
         cmp r0, #0
         bge jumpWar2
         mov r0, #0
@@ -555,7 +645,7 @@ WarSkill:
         ldrh r0, [r4, r1]
         mov r2, #3
         ldsb r2, [r3, r2]
-        add r0, r2
+        add r0, r0, r2
         cmp r0, #0
         bge jumpWar3
         mov r0, #0
@@ -566,7 +656,7 @@ WarSkill:
         ldrh r0, [r4, r1]
         mov r2, #2
         ldsb r2, [r3, r2]
-        add r0, r2
+        add r0, r0, r2
         cmp r0, #0
         bge jumpWar4
         mov r0, #0
@@ -628,11 +718,11 @@ Bond:
     limitBond:
         mov r1, #90
         ldrh r0, [r4, r1]
-        add r0, r2
+        add r0, r0, r2
         strh r0, [r4, r1] @自分
         mov r1, #92
         ldrh r0, [r4, r1]
-        add r0, r2
+        add r0, r0, r2
         strh r0, [r4, r1] @自分
     falseBond:
         pop {r4, r5, r6, r7, pc}
@@ -680,15 +770,15 @@ shisen_A:	@自分死線
         mov r1, r4
         mov r0, #90
         ldrh r0, [r1, r0]
-        add r0, #5
+        add r0, #10
         add r1, #90
         strh r0, [r1] @自分
-        mov r1, r4
-        mov r0, #94
-        ldrh r0, [r1, r0]
-        add r0, #5
-        add r1, #94
-        strh r0, [r1] @自分
+@       mov r1, r4
+@       mov r0, #94
+@       ldrh r0, [r1, r0]
+@       add r0, #10
+@       add r1, #94
+@       strh r0, [r1] @自分
         mov r0, #1
         b endShisen
     falseShisen:
@@ -696,6 +786,33 @@ shisen_A:	@自分死線
     endShisen:
         pop {pc}
 
+MagicSword:
+        push	{r2, lr}
+	mov	r0, #80
+	ldrb	r0, [r4, r0]
+	cmp	r0, #0		@剣
+	bne	endMagicSword
+
+	ldr	r0, [r4, #4]
+	ldrb	r0, [r0, #4]
+	cmp	r0, #0x29	@マージナイト
+	beq	madou
+	cmp	r0, #0x2A	@マージナイト
+	bne	endMagicSword
+madou:
+	ldrb	r0, [r4, #20]
+	ldrb	r1, [r4, #26]
+	cmp	r0, r1
+	bpl	endMagicSword
+	mov	r2, #90
+	ldr	r2, [r4, r2]
+	sub	r0, r2, r0
+	add	r0, r0, r1
+	mov	r2, #90
+	strh	r0, [r4, r2]
+
+endMagicSword:
+        pop	{r2, pc}
 
 Solo:
         push {r4, r5, r6, lr}
@@ -1043,7 +1160,7 @@ Charge:
     jumpCharge:
         mov r1, #90
         ldrh r2, [r4, r1]
-        add r2, r0
+        add r2, r2, r0
         strh r2, [r4, r1] @自分
     endCharge:
         pop {pc}
@@ -1262,45 +1379,11 @@ breaker_impl:
 Range_ADDR:
 .long 0x0203a4d2
 
-
-SHISHI_ADDR = (addr+4)
-SAVIOR_ADDR = (addr+44)
-BLADE_SESSION_ADDR = (addr+48)
-SHIELD_SESSION_ADDR = (addr+52)
-HAS_AVOIDUP_ADDR = (addr+56)
-HAS_CRITICALUP_ADDR = (addr+60)
-HAS_CHARGE:
-    ldr r2, addr+68
-    mov pc, r2
-@ARMOR_E_ADDR = (addr+72)
-@HORSE_E_ADDR = (addr+76)
-HasMeikyou:
-    ldr r3, (addr+80)
-    mov pc, r3
-HIEN_ADDR = (addr+84)
-ACE_ADDR = (addr+88)
-KONSHIN_ADDR = (addr+92)
-SOLO_ADDR = (addr+96)
-SHISEN_ADDR = (addr+100)
-FORT_ADDR = (addr+104)
-TRAMPLE_ADDR = (addr+108)
-HEARTSEEKER_ADDR = (addr+112)
-DAUNT_ADDR = (addr+116)
-HAS_BOND_ADDR = (addr+120)
-HasMeikyouR:
-    ldr r3, (addr+124)
-    mov pc, r3
-HAS_KISHIN_R = (addr+128)
-HAS_KONGOU_R = (addr+132)
-HAS_HIEN_R = (addr+136)
-COMBAT_TBL = (addr+140)
-COMBAT_TBL_SIZE = (addr+144)
-
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
     mul r0, r1
     ldr r1, COMBAT_TBL
-    add r0, r1
+    add r0, r0, r1
     bx lr
 
 HasTrample:
@@ -1394,6 +1477,9 @@ HasFort:
 HasBond:
 	ldr r3, HAS_BOND_ADDR
 	mov pc, r3
+HasDomination:
+	ldr r2, DOMINATION_ADDR
+	mov pc, r2
 
 GetAttackerAddr:
     ldr r0, =0x03004df0
@@ -1410,6 +1496,44 @@ GetDistance:
 GetExistFlagR1:
 	ldr r1, =0x1002C	@居ないフラグ+救出されている
 	bx lr
+
+HAS_CHARGE:
+    ldr r2, addr+68
+    mov pc, r2
+
+HasMeikyou:
+    ldr r3, (addr+80)
+    mov pc, r3
+
+HasMeikyouR:
+    ldr r3, (addr+124)
+    mov pc, r3
+
+SHISHI_ADDR = (addr+4)
+SAVIOR_ADDR = (addr+44)
+BLADE_SESSION_ADDR = (addr+48)
+SHIELD_SESSION_ADDR = (addr+52)
+HAS_AVOIDUP_ADDR = (addr+56)
+HAS_CRITICALUP_ADDR = (addr+60)
+@ARMOR_E_ADDR = (addr+72)
+@HORSE_E_ADDR = (addr+76)
+HIEN_ADDR = (addr+84)
+ACE_ADDR = (addr+88)
+KONSHIN_ADDR = (addr+92)
+SOLO_ADDR = (addr+96)
+SHISEN_ADDR = (addr+100)
+FORT_ADDR = (addr+104)
+TRAMPLE_ADDR = (addr+108)
+HEARTSEEKER_ADDR = (addr+112)
+DAUNT_ADDR = (addr+116)
+HAS_BOND_ADDR = (addr+120)
+HAS_KISHIN_R = (addr+128)
+HAS_KONGOU_R = (addr+132)
+HAS_HIEN_R = (addr+136)
+COMBAT_TBL = (addr+140)
+COMBAT_TBL_SIZE = (addr+144)
+DOMINATION_ADDR = (addr+148)
+
 .align
 .ltorg
 addr:
