@@ -409,5 +409,10 @@ Evan:
 //setMugExtra($71, 0, 4, 10, 4)
 Viola:
   #incext PortraitFormatter Viola.png
+  
+ setMugEntry($72, Geralt,2, 4, 3, 2, 1)　　///ジャラルディ
+//setMugExtra($72, 0, 0, 0, 0)
+Geralt:
+  #incext PortraitFormatter Geralt.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
