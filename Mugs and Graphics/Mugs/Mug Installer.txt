@@ -414,5 +414,10 @@ Viola:
 //setMugExtra($72, 0, 0, 0, 0)
 Geralt:
   #incext PortraitFormatter Geralt.png  
+  
+ setMugEntry($46, Lucius,4, 5, 4, 3, 1)　　///ルシウス
+//setMugExtra($46, 0, 0, 0, 0)
+Lucius:
+  #incext PortraitFormatter Lucius.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
