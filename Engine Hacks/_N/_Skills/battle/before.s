@@ -50,6 +50,8 @@ endNoEnemy:
     bl OtherSideSkill
     bl koroshi
     bl Trample
+    bl tubame
+    bl ouzya
 
 endNeedEnemy:
 
@@ -896,31 +898,6 @@ CheckXY:
         mov r0, #0
         bx lr
 
-GetWalked:
-        mov r1, r0
-        ldr r2, =0x0202be44
-        ldrb r0, [r1, #16]
-        ldrb r3, [r2, #0]
-        sub r0, r0, r3
-        bge jump1Walked
-        neg r0, r0  @絶対値取得
-    jump1Walked:
-
-        ldrb r1, [r1, #17]
-        ldrb r2, [r2, #2]
-        sub r2, r1, r2
-        bge jump2Walked
-        neg r2, r2  @絶対値取得
-    jump2Walked:
-        add r0, r0, r2
-        bx lr
-
-Get_Status:
-	ldr r1, =0x08019108
-	mov pc, r1
-
-
-
 Ace:
         push {lr}
     
@@ -1083,8 +1060,85 @@ koroshi:
         strh r0, [r4, r1] @自分
         bx lr
         
-        
+tubame:
+        push {lr}	
+	mov r0, r5
+        bl HasNullify	@相手練達
+	cmp r0, #0
+	bne falseTubame
+
+gotTubame:
+	mov r0, r4
+	bl HasTubame
+	cmp r0, #0
+	beq falseTubame
+	ldr r1, TUBAME_TOKKOU
+	bl effect_test
+	cmp r0, #0
+	beq falseTubame
     
+        mov r1, #96
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1] @命中
+
+        mov r1, #98
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1] @回避
+falseTubame:
+        pop {pc}
+
+ouzya:
+        push {lr}	
+	mov r0, r5
+        bl HasNullify	@相手練達
+	cmp r0, #0
+	bne falseOuzya
+
+gotOuzya:
+	mov r0, r4
+	bl HasOuzya
+	cmp r0, #0
+	beq falseOuzya
+	ldr r1, OUZYA_TOKKOU
+	bl effect_test
+	cmp r0, #0
+	beq falseOuzya
+    
+        mov r1, #96
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1] @命中
+
+        mov r1, #98
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1] @回避
+falseOuzya:
+        pop {pc}
+
+
+effect_test:
+    ldr r3, [r5, #4]
+    ldrb r3, [r3, #4]
+    b effective_loop
+effect_back:
+    ldrb r0, [r1, #0]
+    cmp r0, r3
+    beq effective_true
+    add r1, #1
+effective_loop:
+    ldrb r0, [r1, #0]
+    cmp r0, #0
+    bne effect_back
+    mov r0, #0
+    b effective_false
+effective_true:
+    mov r0, #1
+effective_false:
+    bx lr    
+
 Shishi:
         push {lr}
         mov r0, r4
@@ -1139,6 +1193,30 @@ Konshin:
     falseKonshin:
         mov r0, #0
         pop {pc}
+
+
+GetWalked:
+        mov r1, r0
+        ldr r2, =0x0202be44
+        ldrb r0, [r1, #16]
+        ldrb r3, [r2, #0]
+        sub r0, r0, r3
+        bge jump1Walked
+        neg r0, r0  @絶対値取得
+    jump1Walked:
+
+        ldrb r1, [r1, #17]
+        ldrb r2, [r2, #2]
+        sub r2, r1, r2
+        bge jump2Walked
+        neg r2, r2  @絶対値取得
+    jump2Walked:
+        add r0, r0, r2
+        bx lr
+
+Get_Status:
+	ldr r1, =0x08019108
+	mov pc, r1
 
 Charge:
         push {lr}
@@ -1480,7 +1558,15 @@ HasBond:
 HasDomination:
 	ldr r2, DOMINATION_ADDR
 	mov pc, r2
-
+HasTubame:
+	ldr r2, TUBAME_ADDR
+	mov pc, r2
+HasOuzya:
+	ldr r2, OUZYA_ADDR
+	mov pc, r2
+HasNullify:
+	ldr r2, NULLIFY_ADDR
+	mov pc, r2
 GetAttackerAddr:
     ldr r0, =0x03004df0
     bx lr
@@ -1533,7 +1619,11 @@ HAS_HIEN_R = (addr+136)
 COMBAT_TBL = (addr+140)
 COMBAT_TBL_SIZE = (addr+144)
 DOMINATION_ADDR = (addr+148)
-
+TUBAME_ADDR = (addr+152)
+OUZYA_ADDR = (addr+156)
+NULLIFY_ADDR = (addr+160)
+TUBAME_TOKKOU = (addr+164)
+OUZYA_TOKKOU = (addr+168)
 .align
 .ltorg
 addr:

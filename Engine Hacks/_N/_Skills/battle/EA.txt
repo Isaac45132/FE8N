@@ -54,6 +54,11 @@ battle_before:
     POIN combat_art_table
     WORD COMBAT_ART_LIST_SIZE
     POIN HasDomination
+    POIN HasTubame
+    POIN HasOuzya
+    POIN HasNullify
+    POIN effective_against3
+    POIN effective_against4
 
 battle_after:
     #incbin main.dmp
@@ -243,3 +248,14 @@ HasDomination:
     HAS_NIHIL
     WORD DominationID
 
+HasTubame:
+    HAS_NIHIL
+    WORD Effective3ID
+
+HasOuzya:
+    HAS_NIHIL
+    WORD Effective4ID
+
+HasNullify:
+    HAS_NIHIL
+    WORD NullifyID
