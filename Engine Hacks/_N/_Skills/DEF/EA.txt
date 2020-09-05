@@ -50,11 +50,15 @@ shikkokunori:
  POIN HAS_DEFLECT
  POIN HAS_IMPREGNABLE_WALL
  POIN PrayOld_hasSkill
+ POIN hasRakkisebun
 
 hasInvincible:
  HAS_NIHIL
  WORD InvincibleID
 
+hasRakkisebun:
+ HAS_NIHIL
+ WORD RakkisebunID
 
 BigShield_hasSkill:
  HAS_NIHIL

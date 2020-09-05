@@ -155,8 +155,21 @@ Invincible:
 		mov r1, #0
 		bl hasInvincible
 		cmp r0, #0
+		bne gotInvincible
+
+		mov r0, r8
+		mov r1, #0
+		bl hasRakkisebun
+		cmp r0, #0
 		beq falseInvincible
-@
+
+gotRakkisebun:
+		ldr r0, =0x0202bcfc
+		ldrh r0, [r0, #0]
+		cmp r0, #8	@無敵解除ターン
+		bge  falseInvincible
+
+gotInvincible:
 		mov r1, r7
 		add r1, #100
 		ldrh r0, [r1]
@@ -552,6 +565,7 @@ HAS_HOLY_SHIELD_FUNC = (adr+4)
 DEF_DIVIDE_FUNC = (adr+8)
 HAS_INORI_FUNC = (adr+12)
 HAS_INVINCIBLE_FUNC = (adr+28)
+HAS_RAKKISEBUN_FUNC = (adr+44)
 
 HasBigShield:
 	ldr	r3, HAS_BIG_SHIELD_FUNC
@@ -567,6 +581,10 @@ DefDivide:
 
 hasInvincible:
 	ldr	r2, HAS_INVINCIBLE_FUNC
+	mov	pc, r2
+
+hasRakkisebun:
+	ldr	r2, HAS_RAKKISEBUN_FUNC
 	mov	pc, r2
 
 HasPray:
