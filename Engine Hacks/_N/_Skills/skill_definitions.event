@@ -177,3 +177,4 @@
 
 #define DominationID 208 //0xD0支配
 #define KarisumaID 209 //0xD1カリスマ(弱)
+#define RakkisebunID 210 //0xD2ラッキー7
