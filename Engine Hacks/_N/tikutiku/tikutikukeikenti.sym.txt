@@ -1,5 +1,5 @@
-exp=$12
-tikutiku=$16
-end=$5A
-migi=$2C
-saiteiti=$4C
+exp=$24
+tikutiku=$28
+end=$70
+migi=$42
+saiteiti=$62
