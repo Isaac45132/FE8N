@@ -420,4 +420,9 @@ Geralt:
 Lucius:
   #incext PortraitFormatter Lucius.png  
 
+ setMugEntry($53, Calvin,2, 5, 3, 3, 1)　　///カルヴァン
+//setMugExtra($53, 0, 0, 0, 0)
+Calvin:
+  #incext PortraitFormatter Calvin.png  
+
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
