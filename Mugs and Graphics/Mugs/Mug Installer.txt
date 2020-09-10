@@ -96,7 +96,7 @@ setMugEntry($65, yugudora, 2, 6, 3, 4, 1)
 yugudora:
   #incext PortraitFormatter yugudora.png  
   
-setMugEntry($07, moruda, 2, 4, 3, 2, 1)
+setMugEntry($07, moruda, 3, 5, 3, 3, 1)
 //setMugExtra($07, 0, 2, 5, 2)
 moruda:
   #incext PortraitFormatter moruda.png 
