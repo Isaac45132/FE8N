@@ -51,6 +51,9 @@
 #include "Lizzy_sw3 Installer.event"   //0x104      オフィシエ　リディ槍
 #include "Rideli2 Installer.event"   //0x10      オフィシエ　リディ剣（次元斬）
 #include "Rideli3 Installer.event"   //0x10B      オフィシエ　リディ剣（エターナルソード）
+#include "Onnasoruja Installer.event"   //0x10C      女性ソルジャー武器あり
+#include "bukinasi Installer.event"   //0x10D      女性ソルジャー武器なり
+#include "IsaacOno Installer.event"   //0x10E      アイザック上級斧
 
 //////////////ここまでアニメデータ
 ALIGN 4
