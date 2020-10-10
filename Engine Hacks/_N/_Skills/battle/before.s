@@ -114,9 +114,8 @@ OtherSideSkill:
         cmp r0, r1
         bne DefSkill
         bl Kishin
-        bl Kongou
         bl Hien
-        bl Meikyou
+        bl Bracing
         bl Charge
         pop {pc}
     DefSkill:
@@ -125,9 +124,8 @@ OtherSideSkill:
         bl ShieldSession
         bl ImpregnableWall
         bl KishinR
-        bl KongouR
         bl HienR
-        bl MeikyouR
+        bl BracingR
         pop {pc}
 
 CriticalUp:
@@ -741,7 +739,7 @@ Fort:
         mov r1, r4
         add r1, #90
         ldrh r0, [r1]
-        sub r0, #1
+        sub r0, #2  @minus 2
         bge jumpFort
         mov r0, #0
     jumpFort:
@@ -750,7 +748,7 @@ Fort:
         mov r1, r4
         add r1, #92
         ldrh r0, [r1]
-        add r0, #3
+        add r0, #4  @plus 4
         strh r0, [r1] @自分
         
         mov r0, #1
@@ -1072,7 +1070,7 @@ gotTubame:
 	bl HasTubame
 	cmp r0, #0
 	beq falseTubame
-	ldr r1, TUBAME_TOKKOU
+	bl TUBAME_TOKKOU
 	bl effect_test
 	cmp r0, #0
 	beq falseTubame
@@ -1276,15 +1274,34 @@ KishinR:
         strh r0, [r4, r1] @自分
         b endKishin
 
-
-
-Kongou:
+Bracing:
         push {lr}
         mov r0, r5
         bl IsMagic
         cmp r0, #1
-        beq endKongou
+        beq jumpBracing
+        bl Kongou
+        b endBracing
+    jumpBracing:
+        bl Meikyou
+    endBracing:
+        pop {pc}
 
+BracingR:
+        push {lr}
+        mov r0, r5
+        bl IsMagic
+        cmp r0, #1
+        beq jumpBracingR
+        bl KongouR
+        b endBracingR
+    jumpBracingR:
+        bl MeikyouR
+    endBracingR:
+        pop {pc}
+
+Kongou:
+        push {lr}
         mov r0, r4
         mov r1, #0
         bl HasKongou
@@ -1299,11 +1316,6 @@ Kongou:
         pop {pc}
 KongouR:
         push {lr}
-        mov r0, r5
-        bl IsMagic
-        cmp r0, #1
-        beq endKongou
-
         mov r0, r4
         mov r1, #0
         bl HasKongouR
@@ -1318,11 +1330,6 @@ KongouR:
 
 Meikyou:
         push {lr}
-        mov r0, r5
-        bl IsMagic
-        cmp r0, #0
-        beq endMeikyou
-
         mov r0, r4
         mov r1, #0
         bl HasMeikyou
@@ -1337,11 +1344,6 @@ Meikyou:
         pop {pc}
 MeikyouR:
         push {lr}
-        mov r0, r5
-        bl IsMagic
-        cmp r0, #0
-        beq endMeikyou
-
         mov r0, r4
         mov r1, #0
         bl HasMeikyouR
@@ -1622,7 +1624,9 @@ DOMINATION_ADDR = (addr+148)
 TUBAME_ADDR = (addr+152)
 OUZYA_ADDR = (addr+156)
 NULLIFY_ADDR = (addr+160)
-TUBAME_TOKKOU = (addr+164)
+TUBAME_TOKKOU:
+ldr r1, (addr+164)
+bx lr
 OUZYA_TOKKOU = (addr+168)
 .align
 .ltorg
