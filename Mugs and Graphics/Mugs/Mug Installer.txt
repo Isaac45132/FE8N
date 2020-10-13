@@ -375,7 +375,7 @@ setMugEntry($C2, Adelard, 3, 5, 3, 3, 1)     //アデラート眼帯左顔画像
 Adelard:
   #incext PortraitFormatter Adelard.png 
   
-setMugEntry($C3, Joel, 3, 4, 3, 2, 1)     //ジョエル顔画像
+setMugEntry($C3, Joel, 2, 4, 2, 2, 1)     //ジョエル顔画像
 //setMugExtra($C3, 0, 2, 5, 2)
 Joel:
   #incext PortraitFormatter Joel.png 
