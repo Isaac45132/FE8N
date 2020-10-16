@@ -5,7 +5,6 @@ ATTACK_FLG_OFFSET   = (69)              @書き込み先(AI2カウンタ)
 FIRST_ATTACKED_FLAG = (0b00010000)
 
 
-
 	ldr	r2, [r6, #0]
 	ldr	r0, [r2, #0]
 	lsl	r0, r0, #13
@@ -140,7 +139,7 @@ Pierce:
     cmp r0, #0
     beq falsePierce
 @奥義目印
-    ldrb r0, [r7, #8]       @レベル
+    ldrb r0, [r7, #21]       @技
     mov r1, #0
     bl random
     cmp r0, #0
@@ -294,7 +293,7 @@ MagicBind:
 	add	r1, #111
 	mov	r0, #0x23		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
-	b	Effect
+	b	endWar
 
 
 Stan:
@@ -311,7 +310,7 @@ trueStan:
 	add	r1, #111
 	mov	r0, #0x24		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
-	b	Effect
+	b	endWar
 
 StanMastery:
 	push {lr}
@@ -359,7 +358,7 @@ trueStone:
 	add	r1, #111
 	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
-	b Effect
+	b endWar
 
 StoneMastery:
 	push {lr}
@@ -392,32 +391,6 @@ StoneMastery:
 		lsl	r1, r1, #16
 		bmi	endWar		@敵将に無効
 	b trueStone
-	
-Effect:	@状態異常特殊エフェクト
-@@	ldr	r3, =0x0203A604
-	ldr	r3, [r6]
-	ldr	r2, [r3]
-	lsl	r1, r2, #13
-	lsr	r1, r1, #13
-	mov	r0, #64
-	orr	r0, r1
-	str	r0, [r3, #0]
-noEffect:
-	mov	r3, r8
-	mov	r0, #48
-	ldrb	r0, [r3, r0]
-	mov	r1, #15
-	and	r1, r0
-	cmp	r1, #11
-	beq	ouiStone
-	cmp	r1, #13
-	bne	endWar
-ouiStone:
-	ldr	r0, [r3, #12]
-	mov	r1, #3
-	neg	r1, r1
-	and	r0, r1
-	str	r0, [r3, #12]
 endWar:
 	pop {pc}
 
