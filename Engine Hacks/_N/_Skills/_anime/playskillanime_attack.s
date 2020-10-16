@@ -100,9 +100,12 @@ skillname:
 skillicon:
 	push	{lr}
 	ldrb	r0, [r0, #0]
-	sub	r0, #1
 	lsl	r0, r0, #0x7
-	ldr	r1, =0x09065948
+	ldr	r1, =0x08003600
+	ldr	r1, [r1, #0]	@アイテムアイコン
+	mov	r2, #1
+	lsl	r2, r2, #15
+	add	r1, r1, r2	@スキルアイコン
 	add	r0, r0, r1
 	mov	r2, #0
 loopicon:
