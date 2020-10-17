@@ -279,7 +279,11 @@ FallenStar:
 		beq	endFallenStar
 
 		ldrb	r0, [r7, #22]	@速さ
-		asr	r0, r0, #1	@半分
+		mov	r1, #3
+		mul	r0, r1
+		mov	r1, #10
+		swi	#6      @3割
+
 		ldrh	r1, [r5, #6]
 		add	r1, r0
 		strh	r1, [r5, #6]
