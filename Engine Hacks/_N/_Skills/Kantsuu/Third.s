@@ -49,6 +49,14 @@ MasterySkill:
 		bl StoneMastery
 		cmp r0, #1
 		beq endMasterySkill
+@ここから
+		bl FallenStar
+		cmp r0, #1
+		beq endMasterySkill
+		bl MagicBind
+		cmp r0, #1
+		beq endMasterySkill
+@ここまで
 		nop
 	endMasterySkill:
 		pop {pc}
@@ -69,8 +77,6 @@ WarSkill:
         and r0, r1
         bne endWarSkill                 @初撃済フラグオンならジャンプ
 
-		bl FallenStar
-
 		mov	r0, r8
 		bl FodesFunc
 		beq	endWarSkill
@@ -87,9 +93,6 @@ WarSkill:
 		cmp r0, #1
 		beq endWarSkill
 		bl Stone
-		cmp r0, #1
-		beq endWarSkill
-		bl MagicBind
 		cmp r0, #1
 		beq endWarSkill
 		nop
@@ -262,21 +265,38 @@ endFlower:
 
 FallenStar:
 		push {lr}
-		mov r0, #48
-		ldrb r0, [r7, r0]
-		cmp r0, #0
-		bne endFallenStar       @何らかの状態異常なら終了
-
 		mov r0, r7
 		mov r1, #0
 		bl HasFallenStar
 		cmp r0, #0
 		beq endFallenStar
 		
+@ここらか
+		ldrb	r0, [r7, #21]	@技
+		mov	r1, #0
+		bl	random
+		cmp	r0, #0
+		beq	endFallenStar
+
+		ldrb	r0, [r7, #22]	@速さ
+		asr	r0, r0, #1	@半分
+		ldrh	r1, [r5, #6]
+		add	r1, r0
+		strh	r1, [r5, #6]
+@ここまで
+
 		mov	r1, r7
 		add	r1, #111
 		mov	r0, #0x18		@@状態異常(5攻撃,6守備,7必殺,8回避)
 		strb	r0, [r1, #0]
+
+@ここから
+	mov	r0, r7
+	ldr	r1, HAS_FALLENSTAR_FUNC
+	bl	SetAtkSkillAnimation
+	mov	r0, #1
+@ここまで
+
 	endFallenStar:
 		pop {pc}
 
@@ -289,10 +309,37 @@ MagicBind:
     cmp r0, #0
     beq endWar
 	
+@ここから
+    ldrb r0, [r7, #21]       @技
+    ldrb r1, [r7, #26]       @魔力
+    add r0, r0, r1	@合算
+    mov r1, #0
+    bl random
+    cmp r0, #0
+    beq endWar
+
+	bl GET_MAGICBIND_MASTERY
+	mov r1, r0
+    mov r0, r7
+    bl SET_SKILLANIME_ATK_FUNC
+		mov	r0, r8
+		bl FodesFunc
+		beq	endWar
+		mov r0, r8
+		ldr r1, [r0]
+		ldr	r1, [r1, #40]
+		ldr r2, [r0, #4]
+		ldr	r2, [r2, #40]
+		orr	r1, r2
+		lsl	r1, r1, #16
+		bmi	endWar		@敵将に無効
+@ここまで
+
 	mov	r1, r8
 	add	r1, #111
 	mov	r0, #0x23		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
+	mov	r0, #1
 	b	endWar
 
 
@@ -310,6 +357,7 @@ trueStan:
 	add	r1, #111
 	mov	r0, #0x24		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
+	mov	r0, #1
 	b	endWar
 
 StanMastery:
@@ -358,6 +406,7 @@ trueStone:
 	add	r1, #111
 	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
+	mov	r0, #1
 	b endWar
 
 StoneMastery:
@@ -487,6 +536,10 @@ ldr r0, (adr+52)
 ldr r0, [r0, #12]
 bx lr
 
+GET_MAGICBIND_MASTERY:
+ldr r0, HAS_MAGIC_BIND_FUNC
+ldr r0, [r0, #12]
+bx lr
 .align
 .ltorg
 adr:

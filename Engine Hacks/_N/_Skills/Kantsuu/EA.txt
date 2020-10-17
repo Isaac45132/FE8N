@@ -48,7 +48,7 @@ POIN HAS_STUN_MASTERY
 POIN HAS_SCREAM_MASTERY
     
 hasFallenStar:
-  HAS_COMBAT
+  HAS_OCCULT
   WORD FallenStarID
 hasDragonFung:
     HAS_OCCULT
@@ -69,7 +69,7 @@ hasIgnis:
     HAS_OCCULT
     WORD IgnisID
 hasMagicBind:
-    HAS_COMBAT
+    HAS_OCCULT
     WORD MagicBindID
 
 HAS_PIERCE:
