@@ -121,3 +121,11 @@ zihado:
 #incext png2dmp "gazouzihado.png" --lz77
 zyenosaido:
 #incext png2dmp "gazouzyenosaido.png" --lz77
+ebureido:
+#incext png2dmp "gazouebureido.png" --lz77
+rakusei:
+#incext png2dmp "gazourakusei.png" --lz77
+huuma:
+#incext png2dmp "gazouhuuma.png" --lz77
+totugeki:
+#incext png2dmp "gazoutotugeki.png" --lz77
