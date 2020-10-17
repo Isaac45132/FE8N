@@ -195,11 +195,11 @@ EffectiveBonus:
         cmp r0, #1
         beq getEffective
     @無惨
-        mov r0, r4
-        mov r1, #0
-        bl HasAtrocity
-        cmp r0, #1
-        beq getEffective
+    @    mov r0, r4
+    @    mov r1, #0
+    @    bl HasAtrocity
+    @    cmp r0, #1
+    @    beq getEffective
     
         b endEffective
     getEffective:
