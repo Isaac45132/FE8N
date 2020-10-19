@@ -311,7 +311,7 @@ MagicBind:
 	mov r1, #0
     bl HasMagicBind
     cmp r0, #0
-    beq endWar
+    beq Magicend
 	
 @ここから
     ldrb r0, [r7, #21]       @技
@@ -320,7 +320,7 @@ MagicBind:
     mov r1, #0
     bl random
     cmp r0, #0
-    beq endWar
+    beq Magicend
 
 	bl GET_MAGICBIND_MASTERY
 	mov r1, r0
@@ -328,7 +328,7 @@ MagicBind:
     bl SET_SKILLANIME_ATK_FUNC
 		mov	r0, r8
 		bl FodesFunc
-		beq	endWar
+		beq	Magicend
 		mov r0, r8
 		ldr r1, [r0]
 		ldr	r1, [r1, #40]
@@ -336,7 +336,7 @@ MagicBind:
 		ldr	r2, [r2, #40]
 		orr	r1, r2
 		lsl	r1, r1, #16
-		bmi	endWar		@敵将に無効
+		bmi	Magicend		@敵将に無効
 @ここまで
 
 	mov	r1, r8
@@ -344,8 +344,8 @@ MagicBind:
 	mov	r0, #0x23		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
 	mov	r0, #1
-	b	endWar
-
+Magicend:
+	pop	{pc}
 
 Stan:
 	push {lr}
@@ -361,6 +361,11 @@ trueStan:
 	add	r1, #111
 	mov	r0, #0x24		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
+	mov	r1, r7
+	add	r1, #111
+	mov	r0, #0x15		@@状態異常(5攻撃,6守備,7必殺,8回避)
+	strb	r0, [r1, #0]
+
 	mov	r0, #1
 	b	endWar
 
@@ -410,6 +415,11 @@ trueStone:
 	add	r1, #111
 	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
+	mov	r1, r7
+	add	r1, #111
+	mov	r0, #0x18		@@状態異常(5攻撃,6守備,7必殺,8回避)
+	strb	r0, [r1, #0]
+
 	mov	r0, #1
 	b endWar
 
