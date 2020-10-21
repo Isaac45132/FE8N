@@ -156,7 +156,7 @@ mist:
 rihita:
   #incext PortraitFormatter rihita.png
 
- setMugEntry($11, ariana,2, 6, 3, 4, 1)
+ setMugEntry($11, ariana,3, 5, 3, 3, 1)    ///ƒAƒŠƒAƒi
 //setMugExtra($11, 0, 4, 10, 4)
 ariana:
   #incext PortraitFormatter ariana.png
