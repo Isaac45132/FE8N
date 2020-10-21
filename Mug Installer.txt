@@ -96,7 +96,7 @@ setMugEntry($65, yugudora, 2, 6, 3, 4, 1)
 yugudora:
   #incext PortraitFormatter yugudora.png  
   
-setMugEntry($07, moruda, 2, 4, 3, 2, 1)
+setMugEntry($07, moruda, 2, 4, 3, 2, 1)////モールス
 //setMugExtra($07, 0, 2, 5, 2)
 moruda:
   #incext PortraitFormatter moruda.png 
@@ -121,7 +121,7 @@ setMugEntry($15, riera, 3, 5, 3, 3, 6)
 //setMugExtra($15, 0, 2, 5, 2)
   #incext PortraitFormatter riera.png 
 
-setMugEntry($0B, pame,3, 6, 3, 4, 1)  ///アルティ
+setMugEntry($0B, pame,2, 6, 3, 4, 1)  ///アルティ
 setMugExtra($0B, 0, 2, 0,0)
 pame:
   #incext PortraitFormatter pame.png  
@@ -131,7 +131,7 @@ setMugEntry($35, ha,3, 5, 3, 3, 1)
 ha:
   #incext PortraitFormatter ha.png    
   
-setMugEntry($0E, zoku,2, 5, 3, 3, 1)
+setMugEntry($0E, zoku,3, 5, 3, 3, 1)
 //setMugExtra($0E, 0, 4, 10, 4)
 zoku:
   #incext PortraitFormatter zoku.png       
@@ -156,7 +156,7 @@ mist:
 rihita:
   #incext PortraitFormatter rihita.png
 
- setMugEntry($11, ariana,2, 6, 3, 4, 1)
+ setMugEntry($11, ariana,3, 5, 3, 3, 1)    ///アリアナ
 //setMugExtra($11, 0, 4, 10, 4)
 ariana:
   #incext PortraitFormatter ariana.png
@@ -252,7 +252,7 @@ setMugEntry($06, oruson, 2, 5, 3, 3, 1)
 oruson:
   #incext PortraitFormatter oruson.png  
   
-setMugEntry($1B, taita, 2, 5, 3, 3, 1)
+setMugEntry($1B, taita, 1, 5, 2, 3, 1)
 //setMugExtra($1B, 0, 2, 5, 2)
 taita:
   #incext PortraitFormatter taita.png  
@@ -274,7 +274,7 @@ rozari:
 
   #incext PortraitFormatter sere.png      
 
-setMugEntry($2F, Meido, 2, 6, 3, 4, 1)
+setMugEntry($2F, Meido, 3, 6, 3, 4, 1)
 //setMugExtra($2F, 0, 2, 5, 2)
 Meido:
   #incext PortraitFormatter Meido.png   
@@ -329,7 +329,7 @@ setMugEntry($AD, uuuuu, 2, 5, 3, 3, 1)
 //setMugExtra($AD, 0, 2, 5, 2)
 
 
-setMugEntry($47, Harutoman, 3, 5, 2, 3, 1)     //ハルトマン顔画像
+setMugEntry($47, Harutoman, 2, 5, 3, 3, 1)     //ハルトマン顔画像
 //setMugExtra($47, 0, 2, 5, 2)
 Harutoman:
   #incext PortraitFormatter Harutoman.png  
@@ -365,7 +365,7 @@ setMugEntry($C0, Hestea, 3, 5, 3, 3, 1)     //ヘスティア顔画像
 Hestea:
   #incext PortraitFormatter Hestea.png  
   
-setMugEntry($C1, Victor, 3, 5, 3, 3, 1)     //ヴィクトル顔画像
+setMugEntry($C1, Victor, 2, 5, 3, 3, 1)     //ヴィクトル顔画像
 //setMugExtra($27, 0, 2, 5, 2)
 Victor:
   #incext PortraitFormatter Victor.png    
@@ -375,7 +375,7 @@ setMugEntry($C2, Adelard, 3, 5, 3, 3, 1)     //アデラート眼帯左顔画像
 Adelard:
   #incext PortraitFormatter Adelard.png 
   
-setMugEntry($C3, Joel, 3, 4, 3, 2, 1)     //ジョエル顔画像
+setMugEntry($C3, Joel, 2, 4, 2, 2, 1)     //ジョエル顔画像
 //setMugExtra($C3, 0, 2, 5, 2)
 Joel:
   #incext PortraitFormatter Joel.png 
@@ -385,5 +385,44 @@ Joel:
 haguro2:
   #incext PortraitFormatter haguro2.png
 
+ setMugEntry($43, Georugu,3, 5, 3, 3, 1)　　///ゲオルグ
+//setMugExtra($43, 0, 4, 10, 4)
+Georugu:
+  #incext PortraitFormatter Georugu.png
+
+ setMugEntry($C9, Soldier1,3, 5, 3, 3, 1)　　///上級兵士１（青色）
+setMugExtra($C9, 0, 0, 8, 0)
+Soldier1:
+  #incext PortraitFormatter Soldier1.png
+
+ setMugEntry($CA, Soldier2,3, 5, 3, 3, 1)　　///上級兵士２（赤色）
+setMugExtra($CA, 0, 0, 8, 0)
+Soldier2:
+  #incext PortraitFormatter Soldier2.png
+
+ setMugEntry($38, Evan,3, 5, 3, 3, 1)　　///Ch8Boss ｴｳﾞｧﾝ
+setMugExtra($38, 0, 4, 10, 4)
+Evan:
+  #incext PortraitFormatter Evan.png
+
+ setMugEntry($71, Viola,3, 5, 3, 3, 1)　　///ヴィオラ
+//setMugExtra($71, 0, 4, 10, 4)
+Viola:
+  #incext PortraitFormatter Viola.png
+  
+ setMugEntry($72, Geralt,2, 4, 3, 2, 1)　　///ジャラルディ
+//setMugExtra($72, 0, 0, 0, 0)
+Geralt:
+  #incext PortraitFormatter Geralt.png  
+  
+ setMugEntry($46, Lucius,4, 5, 4, 3, 1)　　///ルシウス
+//setMugExtra($46, 0, 0, 0, 0)
+Lucius:
+  #incext PortraitFormatter Lucius.png  
+
+ setMugEntry($53, Calvin,2, 5, 3, 3, 1)　　///カルヴァン
+//setMugExtra($53, 0, 0, 0, 0)
+Calvin:
+  #incext PortraitFormatter Calvin.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
