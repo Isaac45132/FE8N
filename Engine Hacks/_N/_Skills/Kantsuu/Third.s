@@ -108,6 +108,7 @@ Revenge:
     beq endRevenge
 @奥義目印
     ldrb r0, [r7, #21]	@技
+    lsl r0, r0, #1
     mov r1, #0
     bl random
     cmp r0, #0
@@ -231,6 +232,7 @@ Flower:
     beq endFlower
 @奥義目印
     ldrb r0, [r7, #21]	@技
+    lsl r0, r0, #1
     mov r1, #0
     bl random
     cmp r0, #0
