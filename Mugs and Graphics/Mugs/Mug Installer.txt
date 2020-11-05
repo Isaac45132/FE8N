@@ -310,10 +310,8 @@ gariusu:
   #incext PortraitFormatter gariusu.png  
   
   
-setMugEntry($57, Rideli, 2, 5, 3, 3, 1)     //リディＣＣ後顔画像
+setMugEntry($57, riera, 3, 5, 3, 3, 1)
 //setMugExtra($57, 0, 2, 5, 2)
-Rideli:
-  #incext PortraitFormatter Rideli.png  
   
 setMugEntry($1F, Edo, 3, 5, 3, 3, 1)     //エドモンド顔画像
 //setMugExtra($1F, 0, 2, 5, 2)
