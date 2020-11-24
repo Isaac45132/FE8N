@@ -71,4 +71,17 @@ hitteiki:
 ALIGN 4
 
 
+////////////////必的のアニメ
+PUSH
+ORG	0x2B1C6
+BYTE	$C0 $46 $00 $48 $87 $46
+POIN	hitteikianime
+
+POP
+
+hitteikianime:
+#incbin "Hitteki_anime.dmp"
+POIN set_skillanime_attack
+ALIGN 4
+
 
