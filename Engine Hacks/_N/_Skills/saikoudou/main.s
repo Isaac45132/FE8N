@@ -11,7 +11,7 @@ DEFEATED = (0b01000000) @迅雷済みフラグ
 DEFEAT_FLAG           = (3)
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 
 COMMAND_RESCUE  = (0x9)
 COMMAND_DROP    = (0xA)
@@ -92,7 +92,7 @@ COMMAND_DROP    = (0xA)
     beq getReMove
 
     mov r0, #DEFEAT_FLAG
-    mov r1, #0
+    ldr r1, =DEF		@元 mov r1, #0
     bl IS_TEMP_SKILL_FLAG
     cmp r0, #1
     beq pattern1
@@ -373,7 +373,7 @@ kaifuku:
         beq non_hp
 
         mov r0, #DEFEAT_FLAG
-        mov r1, #0
+        ldr r1, =DEF		@元 mov r1, #0
         bl IS_TEMP_SKILL_FLAG
         cmp r0, #0
         beq non_hp  @撃破フラグがオフ
