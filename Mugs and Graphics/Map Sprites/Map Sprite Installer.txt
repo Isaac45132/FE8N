@@ -216,6 +216,10 @@ SpriteStd($4, 2, 1, CavLance)            ///槍ナイト　待機
 CavLance:
 #incext Png2Dmp CavLance.png --lz77
 
+ SpriteStd($73, 2, 0, st_druid_f)       ////空き待機
+#incext Png2Dmp st_druid_f.png --lz77 
+
+
  SpriteStd($74, 2, 0, st_druid_f)       ////空き待機
 #incext Png2Dmp st_druid_f.png --lz77 
  SpriteStd($75, 2, 0, st_druid_f)       ////空き待機
