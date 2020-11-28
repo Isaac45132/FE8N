@@ -55,6 +55,7 @@
 #include "bukinasi Installer.event"   //0x10D      女性ソルジャー武器なり
 #include "IsaacOno Installer.event"   //0x10E      アイザック上級斧
 #include "harubayarizyosei Installer.event"   //0x10F      女性ハルバーディア槍
+#include "harubazyoseibukinasi Installer.event"   //0x110      女性ハルバーディア武器なし
 #include "harubayari Installer.event"   //0xE0      男性ハルバ槍
 
 //////////////ここまでアニメデータ
