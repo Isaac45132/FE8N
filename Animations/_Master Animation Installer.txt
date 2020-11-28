@@ -54,6 +54,8 @@
 #include "Onnasoruja Installer.event"   //0x10C      女性ソルジャー武器あり
 #include "bukinasi Installer.event"   //0x10D      女性ソルジャー武器なり
 #include "IsaacOno Installer.event"   //0x10E      アイザック上級斧
+#include "harubayarizyosei Installer.event"   //0x10F      女性ハルバーディア槍
+#include "harubayari Installer.event"   //0xE0      男性ハルバ槍
 
 //////////////ここまでアニメデータ
 ALIGN 4
