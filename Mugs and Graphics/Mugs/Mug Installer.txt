@@ -186,7 +186,7 @@ riria:
 arukarudo:
   #incext PortraitFormatter arukarudo.png
   
-setMugEntry($12, zuiho, 2, 7, 3, 5, 1)
+setMugEntry($12, zuiho, 2, 7, 3, 5, 1)     ///瑞鳳
 //setMugExtra($12, 0, 2, 5, 2)
 zuiho:
   #incext PortraitFormatter zuiho.png
@@ -221,10 +221,10 @@ setMugEntry($49, oro, 3, 5, 3, 3, 1)
 oro:
   #incext PortraitFormatter oro.png  
   
-setMugEntry($4A, kenpuhu, 2, 5, 3, 3, 1)
-//setMugExtra($4A, 11, 3, 11, 5)
-kenpuhu:
-  #incext PortraitFormatter kenpuhu.png
+ setMugEntry($4A, Blaze1,3, 5, 3, 3, 1)　　///グイード
+//setMugExtra($4A, 0, 0, 0, 0)
+Blaze1:
+  #incext PortraitFormatter Blaze1.png  
   
 setMugEntry($44, darisu, 3, 5, 3, 3, 1)
 //setMugExtra($44, 11, 3, 11, 5)
@@ -422,5 +422,13 @@ Lucius:
 //setMugExtra($53, 0, 0, 0, 0)
 Calvin:
   #incext PortraitFormatter Calvin.png  
+
+ setMugEntry($CF, Blaze1,3, 5, 3, 3, 1)　　///ブレイズ
+//setMugExtra($CF, 0, 0, 0, 0)
+
+ setMugEntry($CB, barigosu,2, 5, 3, 3, 1)　　///バリゴス
+//setMugExtra($CB, 0, 0, 0, 0)
+barigosu:
+  #incext PortraitFormatter barigosu.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
