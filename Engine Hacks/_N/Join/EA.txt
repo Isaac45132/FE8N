@@ -93,5 +93,8 @@ Join9:
 ALIGN	4
 
 Pair:
-	#incbin "Pair_up/Pair.gba"
+	#incbin "Pair_up/Pair.dmp"
 ALIGN	4
+
+#include "canSelectRescue\EA.txt"
+
