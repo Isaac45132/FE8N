@@ -1,4 +1,4 @@
-//#define WREN_SWITCH
+#define WREN_SWITCH
 //#define SPLIT_SWITCH
 
 #ifdef SPLIT_SWITCH
