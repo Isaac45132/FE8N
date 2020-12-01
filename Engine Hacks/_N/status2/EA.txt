@@ -1,4 +1,4 @@
-//#define EIGHT_PARAMETER_SWITCH
+#define EIGHT_PARAMETER_SWITCH
 
 #ifdef EIGHT_PARAMETER_SWITCH
     #include "type2/EA.txt"
