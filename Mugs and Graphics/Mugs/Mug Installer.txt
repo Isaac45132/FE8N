@@ -146,8 +146,8 @@ setMugEntry($08, kara,2, 6, 3, 4, 1)      //カーラ
 kara:
   #incext PortraitFormatter kara.png 
   
-setMugEntry($1A, mist,2, 6, 2, 4, 1)
-//setMugExtra($1A, 0, 4, 10, 4)
+setMugEntry($1A, mist,3, 6, 3, 4, 1)    ///ジーナ
+setMugExtra($1A, 8, 0, 0, 0)
 mist:
   #incext PortraitFormatter mist.png
      
