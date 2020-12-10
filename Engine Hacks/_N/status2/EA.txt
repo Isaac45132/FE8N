@@ -1,43 +1,22 @@
-#define EIGHT_PARAMETER_SWITCH
-
-#ifdef EIGHT_PARAMETER_SWITCH
-    #include "type2/EA.txt"
-#else
-    #include "default/EA.txt"
-#endif
-
 //////文字
-
-/*
-
-00089878～の処理をつぶしている
-
-
-
-00089878～　何かのサブモジュール。(不明)
-
-
-
-000898a2～　ステータス画面2の追加数字処理
-
-*/
-
 PUSH
 ORG	0x89758
 POIN	status2word
-ORG 0x8A8E4
-POIN Status2Frame
-
-ORG 0x0896f4
-   jumpToHack(STATUS_2_FRAME)
 
 POP
 
-STATUS_2_FRAME:
-#incbin status2frame.dmp
-POIN Status2TSA
+status2word:
+BYTE	$BC $3C $00 $02 $F4 $40 $00 $02 $03 $06 $00 $00 $54 $32 $A7 $08 
+BYTE	$C4 $3C $00 $02 $EE $3F $00 $02 $03 $06 $00 $00 $50 $32 $A7 $08 
+BYTE	$B4 $3C $00 $02 $6E $40 $00 $02 $03 $06 $00 $00 $80 $32 $92 $08 
+BYTE	$CC $3C $00 $02 $00 $41 $00 $02 $03 $06 $00 $00 $5C $32 $A7 $08 
+BYTE	$D4 $3C $00 $02 $F8 $3F $00 $02 $03 $06 $00 $00 $D4 $53 $1F $08 
+BYTE	$24 $3C $00 $02 $78 $40 $00 $02 $03 $06 $00 $00 $D8 $53 $1F $08 
+BYTE	$DC $3C $00 $02 $02 $40 $00 $02 $03 $06 $00 $00 $58 $32 $A7 $08 
+BYTE	$E4 $3C $00 $02 $82 $40 $00 $02 $03 $06 $00 $00 $4C $32 $A7 $08
+WORD	0 0 0 0
 
-Status2Frame:
-#incext Png2Dmp A73FDC.png --lz77
-ALIGN 4
-
+//5432命中5032攻撃
+//8032攻速5c32回避
+//D453守備D853魔防
+//5832必殺4c32必避
