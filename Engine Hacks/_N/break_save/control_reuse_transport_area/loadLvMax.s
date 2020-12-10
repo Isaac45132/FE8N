@@ -1,6 +1,7 @@
 .thumb
 
 DATA_MASK = (0b0111)
+BOOK_NUM = (5)          @0始まりなので5
 
 main:
     bx lr
@@ -10,39 +11,56 @@ loop:
     add r4, #1
     cmp r4, #51
     bgt end
+
+    bl Section3bit
+
+    b loop
+end:
+    pop {r4, r5, pc}
+
+Section3bit:
+    push {lr}
     mov r0, r4
     bl LoadData
     mov r1, r4
     bl GenerateData
-    b loop
-end:
-    pop {r4, r5, pc}
+    pop {pc}
 
 GenerateData:
 @[in]
 @r0 = データ
 @r1 = 部隊表ID
-        push {r4, lr}
+        push {r4, r5, lr}
         mov r4, r0
         mov r0, r1
         bl Get_Status
-        mov r3, r0
+        mov r5, r0
+@@@@@@@@
+        mov r0, #0b00000100
+        and r0, r4
+        lsl r0, #5
+        cmp r0, #0
+        beq classIsCorrect
 
-        mov r1, #0b0100
-        and r1, r4
-        lsl r1, r1, #3
-
-        ldrb r0, [r3, #8]
+        ldr r1, [r5, #4]
+        cmp r1, #0
+        beq zeroClass
+        ldrb r1, [r1, #4]
+        mov r2, #0b01111111
+        and r1, r2
+    zeroClass:
         orr r0, r1
-        strb r0, [r3, #8]
+        bl Get_ClassAddr
+        str r0, [r5, #4]
+    classIsCorrect:
+@@@@@@@@
 
         mov r0, #0b0011
         and r0, r4
-        add r3, #71
-        strb r0, [r3]
+        add r5, #71
+        strb r0, [r5]
 
-        pop {r4, pc}
-
+        pop {r4, r5, pc}
 
 LoadData:
 @[in]
@@ -118,10 +136,17 @@ mod_eight:
         bx lr
 
 Get_Status:
-        ldr r1, =0x08019108
-        mov pc, r1
+    ldr r1, =0x08019108
+    mov pc, r1
+
+Get_ClassAddr:
+    ldr r1, =0x0801911c
+    mov pc, r1
 
 EXTRACT_SAVE_BASE = addr+0
+GET_BOOK:
+    ldr r3, addr+4
+    mov pc, r3
 
 .align
 .ltorg

@@ -27,16 +27,17 @@ combat:
     cmp r0, #0xFF
     beq nothingWeaponType
     bl $00016bc8
+    mov     r2, #8
     b jumpWeapon
 nothingWeaponType:
-    ldr     r0, =0x04C4
+    ldr     r0, =0x04BF
     bl      $00009fa8
+    mov     r2, #7
 jumpWeapon:
-@@@@
     mov     r3, r0
     mov     r0, r4
     mov     r1, #0
-    mov     r2, #8
+
     bl      $000043b8
 @@@@
     bl GET_COST_WORD_ID
@@ -45,6 +46,13 @@ jumpWeapon:
     mov     r0, r4
     mov     r1, #47
     mov     r2, #8
+    bl      $000043b8
+    ldr     r0, =0x04C4
+    bl      $00009fa8
+    mov     r3, r0
+    mov     r0, r4
+    mov     r1, #72
+    mov     r2, #7
     bl      $000043b8
 @@@@
     ldr     r0, =AVO_WORD_ID
@@ -104,7 +112,7 @@ GetSelectingCombatID:
 
 METIS_ID = (0x89)
 SelcectingBook:
-        push {lr}
+        push {r5, lr}
         mov r0, #0xFF
         and r0, r4
         cmp r0, #METIS_ID
@@ -122,11 +130,17 @@ SelcectingBook:
         mov lr, r1
         .short 0xF800
         bl DECODE_SKILL_BOOK
-
+        mov r5, r0
+        bl GET_COMBAT_ARTS_TYPE
+        cmp r0, #0
+        beq falseOne
+        cmp r0, #3
+        beq falseOne
+        mov r0, r5
         .short 0xE000
     falseOne:
         mov r0, #0
-        pop {pc}
+        pop {r5, pc}
 
 SelcectingStatus:
         push {lr}
@@ -180,7 +194,9 @@ DECODE_SKILL_BOOK:
     ldr r1, ADDR+24
     add r1, #4
     mov pc, r1
-
+GET_COMBAT_ARTS_TYPE:
+    ldr r1, ADDR+28
+    mov pc, r1
 $00009fa8:
     ldr r1, =0x08009fa8
     mov pc, r1
