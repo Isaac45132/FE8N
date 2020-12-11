@@ -21,7 +21,7 @@ ALIGN 4
     ORG 0x01b410
     BYTE $05
     ORG 0x026284
-    jumpToHack(staff_mastery_unlock)
+	BYTE $05 $4A $20 $1C $29 $1C $FE $F7	//バグを元に戻す
     ORG 0x028a38
     jumpToHack(staff_mastery_usability)
     ORG 0x028f40
