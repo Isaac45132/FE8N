@@ -18,16 +18,18 @@
             beq false   @別の戦技発動中は無効
 
             mov r0, r3
-            push {r3}
-            bl OracleFunc    @武器レベル判定
-            pop {r3}
-            mov r2, #0
-            cmp r0, #0
-            beq false
-            ldr r0, =0x0203a4d2
-            ldrb r0, [r0]
-            cmp r0, #1
-            bne false   @射程外
+@瞬殺武器レベル射程条件解除
+@           push {r3}
+@           bl OracleFunc    @武器レベル判定
+@           pop {r3}
+@           mov r2, #0
+@           cmp r0, #0
+@           beq false
+@           ldr r0, =0x0203a4d2
+@           ldrb r0, [r0]
+@           cmp r0, #1
+@           bne false   @射程外
+@ここまで
 
         ldr r0, [r3, #0]
         ldr r1, [r3, #4]
