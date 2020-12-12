@@ -9,6 +9,10 @@ Map_Move2 = (adr+8)
 mov	r3, lr
 ldrb	r2, [r0, #0x1D]	@移動補正値読み込み
 add	r1, r1, r2	@クラス移動＋移動補正
+
+bl	hirou		@疲労3の時移動半減
+			@無効にしたいなら@マークを先頭につける
+
 bl	kyotenMap
 mov	lr, r3
 ldrb	r2, [r0, #0xB]	@部隊表ID
@@ -50,6 +54,17 @@ mov	r1, #15		@移動15が限界
 NoMove:
 pop	{r0, r1, r2, r3}
 pop	{pc}
+
+hirou:
+push	{lr}
+mov	r2, #0x47
+ldrb	r2, [r0, r2]
+cmp	r2, #0x3
+bne	nohirou
+lsr	r1, r1, #0x1
+nohirou:
+pop	{pc}
+
 .ltorg
 .align
 adr:

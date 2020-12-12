@@ -6,8 +6,13 @@ Map_Move2 = (adr+8)
 
 @org	0x08032D6C
 
-ldrb	r1, [r1, #0x1D]	@移動補正値読み込み
-add	r0, r0, r1	@クラス移動＋移動補正
+ldrb	r3, [r1, #0x1D]	@移動補正値読み込み
+add	r0, r0, r3	@クラス移動＋移動補正
+
+
+bl	hirou		@疲労3の時移動半減
+			@無効にしたいなら@マークを先頭につける
+
 bl	kyotenMap
 ldr	r1, =0x0203a954
 ldrb	r1, [r1, #0x10]
@@ -42,6 +47,18 @@ mov	r0, #15		@移動15が限界
 NoMove:
 pop	{r0, r1, r2}
 pop	{pc}
+
+hirou:
+push	{r2, lr}
+mov	r2, #0x47
+ldrb	r2, [r1, r2]
+cmp	r2, #0x3
+bne	nohirou
+lsr	r0, r0, #0x1
+nohirou:
+pop	{r2}
+pop	{pc}
+
 .ltorg
 .align
 adr:
