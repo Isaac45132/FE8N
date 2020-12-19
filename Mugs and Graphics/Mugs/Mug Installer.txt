@@ -267,7 +267,7 @@ setMugEntry($25, zyado, 2, 5, 3, 3, 1)
 zyado:
   #incext PortraitFormatter zyado.png
 
-setMugEntry($2B, rozari, 3, 6, 3, 4, 1)
+setMugEntry($2B, rozari, 3, 5, 3, 3, 1)
 //setMugExtra($2B, 0, 2, 5, 2)
 rozari:
   #incext PortraitFormatter rozari.png  
