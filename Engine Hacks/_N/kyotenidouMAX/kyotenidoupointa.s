@@ -3,6 +3,7 @@
 Flag_Move = (adr)
 Map_Move1 = (adr+4)
 Map_Move2 = (adr+8)
+Map_Move3 = (adr+12)
 
 @org	0x08032D6C
 
@@ -28,6 +29,10 @@ ldrb	r0, [r0, #0]
 cmp	r0, r2
 beq	kyotenFlag
 ldrb	r0, Map_Move2	@指定マップID2
+ldrb	r0, [r0, #0]
+cmp	r0, r2
+beq	kyotenFlag
+ldrb	r0, Map_Move3	@指定マップID3
 ldrb	r0, [r0, #0]
 cmp	r0, r2
 bne	NoMove

@@ -13,12 +13,14 @@ flag_kyotenidoupointa:
 POIN flagMove
 POIN flagMapA
 POIN flagMapB
+POIN flagMapC
 
 flag_kyotenidou:
 #incbin "kyotenidou.dmp"
 POIN flagMove
 POIN flagMapA
 POIN flagMapB
+POIN flagMapC
 
 flagMove:
 WORD $00000120 ////移動15を解除するフラグID
@@ -28,3 +30,6 @@ WORD $00000039 ////移動15にするマップID1
 
 flagMapB:
 WORD $0000003C ////移動15にするマップID2
+
+flagMapC:
+WORD $00000016 ////移動15にするマップID3
