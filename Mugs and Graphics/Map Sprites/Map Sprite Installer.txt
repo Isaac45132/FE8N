@@ -201,8 +201,9 @@ st_shaman_f:
 st_druid_f:
 #incext Png2Dmp st_druid_f.png --lz77 
 
- SpriteStd($6E, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($6E, 0, 0, ri5)       ////リディ倒れ
+ri5:
+#incext Png2Dmp ri5.png --lz77 
 
 SpriteStd($2, 0, 0, ri3)                ///オフィシエ　待機移動
 ri3:
