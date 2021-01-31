@@ -57,7 +57,11 @@
 #include "harubayarizyosei Installer.event"   //0x10F      女性ハルバーディア槍
 #include "harubazyoseibukinasi Installer.event"   //0x110      女性ハルバーディア武器なし
 #include "harubayari Installer.event"   //0xE0      男性ハルバ槍
-
+#include "ggi Installer.event"   //0x111     市民おじいちゃん
+#include "bb Installer.event"   //0x112     市民おばあちゃん
+#include "Citizengaki Installer.event"   //0x113     市民おとこのこ
+#include "Citizenonnnanoko Installer.event"   //0x114     市民おんなのこ
+#include "Citizenseinen Installer.event"   //0x115     市民男性
 //////////////ここまでアニメデータ
 ALIGN 4
 
