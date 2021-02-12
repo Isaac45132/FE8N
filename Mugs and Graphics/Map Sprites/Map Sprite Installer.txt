@@ -217,12 +217,25 @@ SpriteStd($4, 2, 1, CavLance)            ///槍ナイト　待機
 CavLance:
 #incext Png2Dmp CavLance.png --lz77
 
- SpriteStd($73, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($73, 2, 0, GG2)       ////市民おじいちゃん待機
+GG2:
+#incext Png2Dmp GG2.png --lz77 
+
+SpriteMov($71, GG3, $081F0CF0)      ////おじいちゃん移動
+GG3:
+ #incext Png2Dmp GG3.png --lz77  
 
 
- SpriteStd($74, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($74, 2, 0, BB2)       ////市民おばあちゃん待機
+BB2:
+#incext Png2Dmp BB2.png --lz77 
+
+SpriteMov($72, BB3, $081F153C)      ////おばあちゃん移動
+BB3:
+ #incext Png2Dmp BB3.png --lz77  
+
+
+
  SpriteStd($75, 2, 0, st_druid_f)       ////空き待機
 #incext Png2Dmp st_druid_f.png --lz77 
 
