@@ -56,6 +56,22 @@ Count:
         cmp r0, #1
         beq clearCount
 
+@ここからmatch作
+	ldr	r2, [r4, #0x0]	@ロムユニット
+	ldrb	r2, [r2, #0x4]	@ユニットID
+	cmp	r2, #0x1	@アイザック
+	bne	purasu
+	mov	r2, #0x43	@AI1カウンター
+	ldrb	r0, [r4, r2]
+	push	{r1}
+	mov	r1, #0
+	strb	r1, [r4, r2]	@AI1カウンターリセット
+	pop	{r1}
+	cmp	r0, #30		@疲労P30
+	blt	clearCount	@30より小さいなら分岐
+purasu:
+@ここまでmatch作
+
         add r4, #71
         ldrb r2, [r4]
         mov r0, #0b00000011
