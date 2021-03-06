@@ -62,6 +62,11 @@ pop	{pc}
 
 hirou:
 push	{lr}
+ldr	r2, [r0, #0]	@ロムユニット
+ldrb	r2, [r2, #0x4]	@ユニットID
+cmp	r2, #0x1	@アイザック
+beq	nohirou		@なら分岐
+
 mov	r2, #0x47
 ldrb	r2, [r0, r2]
 cmp	r2, #0x3
