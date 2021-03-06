@@ -15,9 +15,15 @@ tikutiku:
 push	{r1, lr}
 ldrb	r0, [r5, #0xB]
 lsl	r0, r0, #24
-bpl	end		@敵以外なら終了
+bmi	teki		@敵なら分岐
+lsl	r0, r0, #24
+bmi	end		@味方以外なら終了
+mov	r1, #0x43	@AI1カウンター
+.short	0xE000
+
+teki:
 mov	r1, #0x37 	@支援値6人目
-add	r1, r1, r4
+add	r1, r1, r4	@ここから敵味方共通の処理
 ldrb	r0, [r1, #0]
 cmp	r0, #99		@チクチク値限界:99
 beq	end
