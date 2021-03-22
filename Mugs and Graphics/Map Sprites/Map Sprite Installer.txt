@@ -235,9 +235,9 @@ BB3:
  #incext Png2Dmp BB3.png --lz77  
 
 
-
- SpriteStd($75, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($75, 2, 0, Roy1)       ////ロイ立ち
+Roy1:
+#incext Png2Dmp Roy1.png --lz77 
 
  SpriteStd($76, 2, 0, st_druid_f)       ////空き待機
 #incext Png2Dmp st_druid_f.png --lz77 
