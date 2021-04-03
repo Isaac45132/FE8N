@@ -146,7 +146,7 @@ setMugEntry($08, kara,2, 6, 3, 4, 1)      //カーラ
 kara:
   #incext PortraitFormatter kara.png 
   
-setMugEntry($1A, mist,3, 6, 3, 4, 1)    ///ジーナ
+setMugEntry($1A, mist,2, 6, 2, 4, 1)    ///ジーナ
 setMugExtra($1A, 8, 0, 0, 0)
 mist:
   #incext PortraitFormatter mist.png
@@ -252,7 +252,7 @@ setMugEntry($06, oruson, 2, 5, 3, 3, 1)
 oruson:
   #incext PortraitFormatter oruson.png  
   
-setMugEntry($1B, taita, 1, 5, 2, 3, 1)
+setMugEntry($1B, taita, 3, 5, 3, 3, 1)       ///タイター
 //setMugExtra($1B, 0, 2, 5, 2)
 taita:
   #incext PortraitFormatter taita.png  
