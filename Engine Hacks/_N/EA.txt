@@ -41,3 +41,5 @@
 
 	#include "kyotenidouMAX\EA.txt"
 	#include "tikutiku\EA.txt"
+	#include "syokihaiti_flag\EA.txt"
+    #include "seiatu_flag\EA.txt"
