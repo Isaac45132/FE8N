@@ -1,0 +1,34 @@
+PUSH
+
+ORG 0x033188
+WORD	$46874800
+POIN	leader
+
+ORG 0x037C24
+WORD	$46874800
+POIN	seize
+
+POP
+
+leader:
+#incbin "leader_flag.dmp"
+POIN flagleaderA
+POIN flagleaderB
+POIN unitleaderA
+POIN unitleaderB
+
+seize:
+#incbin "seize_flag.dmp"
+POIN flagleaderA
+POIN flagleaderB
+POIN unitleaderA
+POIN unitleaderB
+
+flagleaderA:
+WORD $000000ED ////制圧などを変更するフラグIDその1 主人公過去アイザック
+flagleaderB:
+WORD $000000EE ////制圧などを変更するフラグIDその2 主人公未来リディ
+unitleaderA:
+WORD $000000D3 ////制圧などを変更するユニットIDその1
+unitleaderB:
+WORD $00000003 ////制圧などを変更するユニットIDその2

@@ -1,0 +1,26 @@
+PUSH
+
+ORG 0x08568C
+jumpToHack(syokihaiti)
+BYTE	$02 $29 $23 $D0
+
+ORG 0x0C1E74
+#incbin "kyouseisyutugeki.dmp"
+POIN flagA
+POIN flagB
+POIN flagC
+
+POP
+
+syokihaiti:
+#incbin "syokihaiti_mamono.dmp"
+POIN flagA
+POIN flagB
+POIN flagC
+
+flagA:
+WORD $00000102 ////魔物用の初期配置＆強制出撃廃止するフラグIDその1
+flagB:
+WORD $00000101 ////魔物用の初期配置＆強制出撃廃止するフラグIDその2
+flagC:
+WORD $00000100 ////魔物用の初期配置に変更するフラグID
