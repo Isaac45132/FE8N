@@ -216,10 +216,10 @@ setMugExtra($13, 0, 3, 0, 0)
 zyoni:
   #incext PortraitFormatter zyoni.png
   
-setMugEntry($49, oro, 3, 5, 3, 3, 1)
+setMugEntry($49, mitei, 2, 5, 2, 3, 1)
 //setMugExtra($49, 11, 3, 11, 5)
-oro:
-  #incext PortraitFormatter oro.png  
+mitei:
+  #incext PortraitFormatter mitei.png     //未定
   
  setMugEntry($4A, Blaze1,3, 5, 3, 3, 1)　　///グイード
 //setMugExtra($4A, 0, 0, 0, 0)
