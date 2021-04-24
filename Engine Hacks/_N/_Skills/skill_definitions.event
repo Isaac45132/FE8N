@@ -4,7 +4,7 @@
 #define MiracleID 2 //0x2祈り
 #define NihilID 3 //0x3見切り
 #define NullifyID 4 //0x4練達
-#define CancelID 5 //0x5ガード
+#define CancelID 5 //0x5キャンセル
 #define WrathID 6 //0x6怒り
 #define ResolveID 7 //0x7勇将
 #define VantageID 8 //0x8待ち伏せ
@@ -181,11 +181,11 @@
 #define LioninePoiseID          183 //0xB7 獅子王の構え
 #define FierceBreathID          184 //0xB8 鬼神の呼吸
 #define DartingBreathID         185 //0xB9 飛燕の呼吸
-#define CancelATK_ID            186 //0xBA キャンセル
-
-
 
 
 #define DominationID 208 //0xD0支配
 #define KarisumaID 209 //0xD1カリスマ(弱)
 #define RakkisebunID 210 //0xD2ラッキー7
+#define HitUpID 211 //0xD3命中+15
+#define MoveUpID 212 //0xD4移動+2
+
