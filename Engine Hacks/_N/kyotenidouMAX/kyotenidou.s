@@ -4,12 +4,15 @@ Flag_Move = (adr)
 Map_Move1 = (adr+4)
 Map_Move2 = (adr+8)
 Map_Move3 = (adr+12)
+MOVEUP_ADDR = (adr+16)
 
 @org	0x08089878
 
 mov	r3, lr
 ldrb	r2, [r0, #0x1D]	@移動補正値読み込み
 add	r1, r1, r2	@クラス移動＋移動補正
+
+bl	moveup		@スキル移動アップ
 
 bl	hirou		@疲労3の時移動半減
 			@無効にしたいなら@マークを先頭につける
@@ -60,6 +63,22 @@ NoMove:
 pop	{r0, r1, r2, r3}
 pop	{pc}
 
+moveup:
+        push {lr}
+	push {r0, r1, r2, r3}
+        mov r1, #0
+        bl HasMoveUp
+        cmp r0, #0
+        beq falsemove
+	pop	{r0, r1, r2}
+	mov	r3, #0x2	@移動+2
+	add	r1, r1, r3
+	pop	{r3}
+        .short 0xE000
+    falsemove:
+	pop {r0, r1, r2, r3}
+        pop {pc}
+
 hirou:
 push	{lr}
 ldr	r2, [r0, #0]	@ロムユニット
@@ -75,6 +94,9 @@ lsr	r1, r1, #0x1
 nohirou:
 pop	{pc}
 
+HasMoveUp:
+	ldr r2, MOVEUP_ADDR
+	mov pc, r2
 .ltorg
 .align
 adr:
