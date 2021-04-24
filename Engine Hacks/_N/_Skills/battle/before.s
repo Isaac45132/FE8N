@@ -3,7 +3,8 @@
 @ステータス画面にも影響がある
 @相手が存在するとは限らない(ダミーかもしれない)
     bl AvoidUp
-    
+    bl HitUp
+
 @闘技場チェック
     bl GetArenaAddr
     ldrh r0, [r0]
@@ -156,6 +157,20 @@ AvoidUp:
         add r0, #15
         strh r0, [r4, r1] @自分
     falseAvoid:
+        pop {pc}
+
+HitUp:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasHitUp
+        cmp r0, #0
+        beq falseHit    
+        mov r1, #96	@命中
+        ldrh r0, [r4, r1]
+        add r0, #15
+        strh r0, [r4, r1] @自分
+    falseHit:
         pop {pc}
 
 ShieldSession:
@@ -1545,6 +1560,7 @@ TUBAME_TOKKOU:
 ldr r1, (EXTRA_OFFSET+16)
 bx lr
 OUZYA_TOKKOU = (EXTRA_OFFSET+20)
+HITUP_ADDR = (EXTRA_OFFSET+24)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1657,6 +1673,9 @@ HasOuzya:
 	mov pc, r2
 HasNullify:
 	ldr r2, NULLIFY_ADDR
+	mov pc, r2
+HasHitUp:
+	ldr r2, HITUP_ADDR
 	mov pc, r2
 
 GetAttackerAddr:

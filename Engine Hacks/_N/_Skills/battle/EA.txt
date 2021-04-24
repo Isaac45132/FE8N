@@ -63,6 +63,7 @@ battle_before:
     POIN HasNullify
     POIN effective_against3
     POIN effective_against4
+    POIN HasHitUp
 
 battle_after:
     #incbin main.dmp
@@ -73,11 +74,11 @@ battle_after:
     POIN hasLull
     POIN combat_art_table
     WORD COMBAT_ART_LIST_SIZE
-    POIN 0
-    POIN 0
-    POIN 0
-    POIN 0
-    POIN 0
+    POIN hasGrounder
+    POIN hasHelmSplitter
+    POIN hasKnightkneeler
+    POIN hasMonsterBlast
+    POIN hasAtrocity
     WORD CHARGING_LANCE_COEF
     WORD CHARGING_LANCE_ITEM_EFFECT_ID
     POIN HAS_REIN
@@ -268,3 +269,7 @@ HasOuzya:
 HasNullify:
     HAS_NIHIL
     WORD NullifyID
+
+HasHitUp:
+    HAS_NIHIL
+    WORD HitUpID
