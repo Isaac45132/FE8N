@@ -47,7 +47,7 @@ ldrh	r0, [r0, #0]
 .short	0xF800
 cmp	r0, #0
 bne	NoMove		@ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚é‚È‚çI—¹
-pop	{r0, r1, r2}
+pop	{r0, r1, r2, r3}
 mov	r0, #15		@ˆÚ“®15‚ªŒÀŠE
 .short	0xE000
 
