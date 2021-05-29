@@ -388,12 +388,12 @@ haguro2:
 Georugu:
   #incext PortraitFormatter Georugu.png
 
- setMugEntry($C9, Soldier1,3, 5, 3, 3, 1)　　///上級兵士１（青色）
+ setMugEntry($C9, Soldier1,1, 6, 2, 4, 1)　　///上級兵士１（青色）
 setMugExtra($C9, 0, 0, 8, 0)
 Soldier1:
   #incext PortraitFormatter Soldier1.png
 
- setMugEntry($CA, Soldier2,3, 5, 3, 3, 1)　　///上級兵士２（赤色）
+ setMugEntry($CA, Soldier2,1, 6, 2, 4, 1)　　///上級兵士２（赤色）
 setMugExtra($CA, 0, 0, 8, 0)
 Soldier2:
   #incext PortraitFormatter Soldier2.png
@@ -423,8 +423,10 @@ Lucius:
 Calvin:
   #incext PortraitFormatter Calvin.png  
 
- setMugEntry($CF, Blaze1,3, 5, 3, 3, 1)　　///ブレイズ
+ setMugEntry($CF, Denisu,3, 5, 3, 3, 1)　　///デニス
 //setMugExtra($CF, 0, 0, 0, 0)
+Denisu:
+  #incext PortraitFormatter Denisu.png  
 
  setMugEntry($CB, barigosu,2, 5, 3, 3, 1)　　///バリゴス
 //setMugExtra($CB, 0, 0, 0, 0)
