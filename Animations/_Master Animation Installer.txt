@@ -62,6 +62,7 @@
 #include "Citizengaki Installer.event"   //0x113     市民おとこのこ
 #include "Citizenonnnanoko Installer.event"   //0x114     市民おんなのこ
 #include "Citizenseinen Installer.event"   //0x115     市民男性
+#include "zyosei Installer.event"   //0x116     市民女性
 //////////////ここまでアニメデータ
 ALIGN 4
 
