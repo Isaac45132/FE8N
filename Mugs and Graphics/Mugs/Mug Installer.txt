@@ -211,8 +211,8 @@ setMugExtra($16, 10, 2, 10, 4)
 bare11:
   #incext PortraitFormatter bare11.png
   
-setMugEntry($13, zyoni, 2, 5, 3, 3, 1)
-setMugExtra($13, 0, 3, 0, 0)
+setMugEntry($13, zyoni, 3, 5, 3, 3, 1)  ///ƒWƒ‡ƒj[
+setMugExtra($13, 8, 0, 0, 0)
 zyoni:
   #incext PortraitFormatter zyoni.png
   
