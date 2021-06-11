@@ -1,4 +1,3 @@
-NULL = 0
 
 .thumb
 ICON_NUM_LIMIT = (8) @上限数*2
@@ -219,7 +218,7 @@ InWpLv1:
 	add r4, #0x00
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 InWpLv2:
 	cmp r0, #1
@@ -229,7 +228,7 @@ InWpLv2:
 	add r4, #0x08
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 InWpLv3:
 	cmp r0, #2
@@ -239,7 +238,7 @@ InWpLv3:
 	add r4, #0x10
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 InWpLv4:
 	cmp r0, #3
@@ -249,7 +248,7 @@ InWpLv4:
 	add r4, #0x18
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 InWpLv5:
 	cmp r0, #4
@@ -259,7 +258,7 @@ InWpLv5:
 	add r4, #0x20
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 	
 InWpLv6:
@@ -270,7 +269,7 @@ InWpLv6:
 	add r4, #0x28
 	add r4, r8
 	ldrb r4, [r4]
-	bl SKILL3
+@	bl SKILL3
 	pop {r0}
 endWpLv:
 	pop {pc}
@@ -398,7 +397,7 @@ SKILL4:
         cmp r2, r1
         beq end4                        @リスト末尾
     
-        cmp r2, #NULL
+        cmp r2, #0
         beq loopstart4
     
     list_loop:
@@ -490,8 +489,8 @@ SKILL0:
 
 Initialize:
 	push {lr}
-    cmp r0, #0
-    beq skipDraw
+@cmp r0, #0
+@beq skipDraw
 	mov	r4, #0
 	bl getEquipmentPositionData
 	ldr r0, [r0]
@@ -514,7 +513,7 @@ loopE:
 	add	r4, #1
 	cmp	r4, #7
 	ble	loopE
-skipDraw:
+@skipDraw:
 @アイコン
 	bl getIconPositionData
 	mov r6, r0
