@@ -181,6 +181,7 @@
 #define LioninePoiseID          183 //0xB7 獅子王の構え
 #define FierceBreathID          184 //0xB8 鬼神の呼吸
 #define DartingBreathID         185 //0xB9 飛燕の呼吸
+#define CancelATK_ID            186 //0xB9 キャンセル
 
 
 #define DominationID 208 //0xD0支配
