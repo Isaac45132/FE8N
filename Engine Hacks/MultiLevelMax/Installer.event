@@ -31,7 +31,7 @@ BYTE 0    //padding
 
 BYTE 0xFF //Unit:  ANY
 BYTE 0x4 //Class: コマンドナイト
-BYTE 30   //MaxLevel 10
+BYTE 10   //MaxLevel 10
 BYTE 0    //padding
 
 BYTE 0x00   //term data
