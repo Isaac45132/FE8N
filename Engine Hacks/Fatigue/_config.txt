@@ -1,5 +1,5 @@
 ChapterIgnoreSetting_Fatigue:	//現在章IDが以下と一致するとき、疲労は変化しない(※最も優先される)
-  BYTE $01 $02 $03 $04 $05 $06 $24 $29 $3B $3C $41 $0
+  BYTE $01 $02 $03 $04 $05 $06 $24 $29 $3B $3C $41 $2E $0
 
 UnitSetting_Fatigue:	//ユニットIDが以下と一致するとき、疲労を0にする
   BYTE $0F 0
