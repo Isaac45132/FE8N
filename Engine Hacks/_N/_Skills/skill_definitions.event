@@ -189,4 +189,4 @@
 #define RakkisebunID 210 //0xD2ラッキー7
 #define HitUpID 211 //0xD3命中+15
 #define MoveUpID 212 //0xD4移動+2
-
+#define AgitationID 213 //0xD5扇動
