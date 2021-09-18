@@ -64,6 +64,7 @@ battle_before:
     POIN effective_against3
     POIN effective_against4
     POIN HasHitUp
+    POIN HasAgitation
 
 battle_after:
     #incbin main.dmp
@@ -273,3 +274,7 @@ HasNullify:
 HasHitUp:
     HAS_NIHIL
     WORD HitUpID
+
+HasAgitation:
+    HAS_NIHIL
+    WORD AgitationID

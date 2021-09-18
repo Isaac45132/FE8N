@@ -66,6 +66,8 @@ endNeedEnemy:
     bl Heartseeker
 
 RETURN:
+    bl Agitation
+
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -385,6 +387,81 @@ ImpregnableWall:
         .short 0xE000
     falseImpregnableWall:
         mov r0, #0
+        pop {pc}
+
+Agitation:
+@青は青に対して効く
+@赤は赤に対して効く
+        push {r4, r5, r6, r7, lr}
+    
+        ldrb r0, [r4, #0xB]
+        lsl r0, r0, #24
+        bpl mikata
+        mov r6, #0x80
+        bl agitation_impl
+        b endagitation
+    mikata:
+        mov r6, #0x00
+        bl agitation_impl
+    endagitation:
+        pop {r4, r5, r6, r7, pc}
+
+agitation_impl:
+        push {lr}
+        mov r7, #0
+    loopagitation:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq resultagitation	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopagitation	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopagitation	@死亡判定2
+    
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1	@居ないフラグ+救出されている
+        and r0, r1
+        bne loopagitation
+    
+        mov r0, #3  @範囲指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopagitation @近くにいない
+    
+	ldr r0, [r5, #0]
+	ldr r1, [r4, #0]
+	cmp r0, r1
+	beq loopagitation    @自分自身には無効
+
+        mov r0, r5
+        mov r1, r4
+        bl Hasagitation
+        cmp r0, #0
+        beq loopagitation    @相手が扇動未所持
+    
+        mov r7, #1
+        b loopagitation
+    
+    resultagitation:
+	mov r2, #15		@命中回避15
+        mul r2, r7
+
+        mov r1, #96 @命中
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1]
+
+        mov r1, #98 @回避
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1]
         pop {pc}
 
 Domination:
@@ -1559,8 +1636,11 @@ NULLIFY_ADDR = (EXTRA_OFFSET+12)
 TUBAME_TOKKOU:
 ldr r1, (EXTRA_OFFSET+16)
 bx lr
-OUZYA_TOKKOU = (EXTRA_OFFSET+20)
+OUZYA_TOKKOU:
+ldr r1, (EXTRA_OFFSET+20)
+bx lr
 HITUP_ADDR = (EXTRA_OFFSET+24)
+AGITATION_ADDR = (EXTRA_OFFSET+28)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1661,7 +1741,9 @@ HasBond:
     ldr r3, HAS_BOND_ADDR
     mov pc, r3
 
-
+Hasagitation:
+	ldr r2, AGITATION_ADDR
+	mov pc, r2
 HasDomination:
 	ldr r2, DOMINATION_ADDR
 	mov pc, r2
