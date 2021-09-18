@@ -3,7 +3,6 @@
 
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
 
 
 	ldr	r2, [r6, #0]
@@ -17,7 +16,7 @@ FIRST_ATTACKED_FLAG   = (0)
 	b	retrun
 start:
 	bl MasterySkill
-	bl WarSkill
+@	bl WarSkill
 	b retrun
 
 MasterySkill:
@@ -66,7 +65,7 @@ WarSkill:
 		push {lr}
 
 
-        mov r0, #FIRST_ATTACKED_FLAG
+        mov r0, #0
         mov r1, #0
         bl IS_TEMP_SKILL_FLAG
         cmp r0, #1
