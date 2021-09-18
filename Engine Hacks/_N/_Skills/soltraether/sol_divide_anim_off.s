@@ -9,11 +9,11 @@ SOL_BIT = (addr+0)
         lsl r2, r1
         ldrh r1, [r4, #0]
         tst r1, r2
-        beq normal
+@        beq normal
 
-        mov r1, #93
-        ldsb r1, [r0, r1]
-        b merge
+@        mov r1, #93
+@        ldsb r1, [r0, r1]
+@        b merge
     normal:
         mov r1, #93
         ldsb r1, [r0, r1]

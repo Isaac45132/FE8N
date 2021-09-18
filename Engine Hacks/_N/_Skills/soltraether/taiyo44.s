@@ -110,6 +110,7 @@ taiyo:
 
     ldr r0, =0x0203a4d0
     ldrb r0, [r0, #4]
+    lsr r0, r0, #1          @ダメージ半分回復
     ldrb r1, [r5, #19]      @NowHP
     add r0, r0, r1
     strb r0, [r5, #19]
