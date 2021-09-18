@@ -1,6 +1,23 @@
 @thumb
     push {lr}
       push {r0}
+;ハード補正
+	ldr r1, =$0202BCEC
+	ldrb r1, [r1, #0x14]
+	mov r0, #0x40
+	and r0, r1
+	cmp r0, #0
+	beq end
+	push {r3}
+	mov r0, r6	;経験値
+	mov r1, #7
+	mul r0 ,r1
+	mov r1, #10
+	swi #6		;7割
+	mov r6, r0
+	pop {r3}
+end
+;
         @align 4
         ldr r1, [adr] ;
         mov lr, r1
