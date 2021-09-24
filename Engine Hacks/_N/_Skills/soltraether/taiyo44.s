@@ -67,6 +67,7 @@ judge:
     cmp r0, #1
     beq taiyo
 false:
+	bl	WeaponCrt
     pop {r3}
     mov r10, r3
     ldr r0, =0x0802b6a2
@@ -115,6 +116,8 @@ taiyo:
     add r0, r0, r1
     strb r0, [r5, #19]
 
+	bl	TaiyoStone
+
     pop {r3}
     mov r10, r3
     ldr r3, =0x0802b67e
@@ -131,6 +134,34 @@ ClearFlag:
         cmp r2, #MAX_BATTLE_NUM
         blt clear_loop
         bx lr
+
+TaiyoStone:
+	push	{r0, lr}
+CrtStone:
+	mov	r1, r5
+	add	r1, #0x48
+	ldrb	r1, [r1, #0]
+	cmp	r1, #0x92
+	beq	stone
+	cmp	r1, #0xBD
+	bne	stoneend
+stone:
+	mov	r1, r4
+	add	r1, #111
+	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
+	strb	r0, [r1, #0]
+stoneend:
+	pop	{r0}
+	pop	{pc}
+
+WeaponCrt:
+	push	{r0, lr}
+	ldr	r0, [r6, #0]
+	ldr	r0, [r0, #0]
+	lsl	r0, r0, #31
+	bmi	CrtStone		@@必殺で飛ぶ
+	pop	{r0}
+	pop	{pc}
 
 .align
 .ltorg
