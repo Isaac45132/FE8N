@@ -65,6 +65,7 @@ battle_before:
     POIN effective_against4
     POIN HasHitUp
     POIN HasAgitation
+    POIN fatigue_status
 
 battle_after:
     #incbin main.dmp

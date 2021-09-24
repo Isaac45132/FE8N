@@ -1224,7 +1224,7 @@ gotOuzya:
 	bl HasOuzya
 	cmp r0, #0
 	beq falseOuzya
-	bl OUZYA_TOKKOU
+	ldr r1, OUZYA_TOKKOU
 	bl effect_test
 	cmp r0, #0
 	beq falseOuzya
