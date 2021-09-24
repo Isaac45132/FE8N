@@ -4,6 +4,7 @@
 @相手が存在するとは限らない(ダミーかもしれない)
     bl AvoidUp
     bl HitUp
+    bl fatigue
 
 @闘技場チェック
     bl GetArenaAddr
@@ -1223,7 +1224,7 @@ gotOuzya:
 	bl HasOuzya
 	cmp r0, #0
 	beq falseOuzya
-	ldr r1, OUZYA_TOKKOU
+	bl OUZYA_TOKKOU
 	bl effect_test
 	cmp r0, #0
 	beq falseOuzya
@@ -1581,6 +1582,59 @@ breaker_impl:
     endBreaker:
         pop {pc}
 
+fatigue:
+        push {r2, r3, r5, lr}
+	mov r3, #0x0
+	ldr r5, FATIGUESTATUS
+fatiguehante:
+	mov r0, #0x47
+	ldrb r0, [r4, r0]
+	cmp r0, #0x1
+	beq fatigueloop
+	cmp r0, #0x2
+	beq fatigue2
+	cmp r0, #0x3
+	beq fatigue3
+	b fatigueend
+fatigue2:
+	ldr r0, [r5, r3]
+	cmp r0, #0x0
+	beq fatigueloop2
+	add r3, r3, #0x8
+	b fatigue2
+fatigue3:
+	ldr r0, [r5, r3]
+	cmp r0, #0x0
+	beq fatigue31
+	add r3, r3, #0x8
+	b fatigue3
+fatigue31:
+	add r3, r3, #0x8
+	ldr r0, [r5, r3]
+	cmp r0, #0x0
+	beq fatigueloop2
+	add r3, r3, #0x8
+	b fatigue31
+fatigueloop2:
+	add r3, r3, #0x8
+fatigueloop:
+	ldr r1, [r5, r3] @下げるステータス
+	cmp r1, #0x0
+	beq fatigueend
+	add r3, r3, #0x4
+	ldr r2, [r5, r3] @下げる値
+        ldrh r0, [r4, r1]
+        sub r0, r0, r2
+	bpl purasu
+	mov r0, #0x0
+purasu:
+        strh r0, [r4, r1] @自分
+	add r3, r3, #0x4
+	b fatigueloop
+fatigueend:
+	pop {r2, r3, r5}
+        pop {pc}
+
 .align
 Range_ADDR:
 .long 0x0203a4d2
@@ -1641,6 +1695,7 @@ ldr r1, (EXTRA_OFFSET+20)
 bx lr
 HITUP_ADDR = (EXTRA_OFFSET+24)
 AGITATION_ADDR = (EXTRA_OFFSET+28)
+FATIGUESTATUS = (EXTRA_OFFSET+32)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
