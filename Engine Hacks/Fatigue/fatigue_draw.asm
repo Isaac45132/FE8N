@@ -5,11 +5,27 @@
 	mov	r1, #0x2	@
 	bl	DrawDecNumber	@
 	
+	ldr	r3, =0x0202bcfa
+	ldrb	r1, [r3, #0x0]	
+	cmp	r1, #0x0	@序章
+	beq	end
+	ldr	r3, adr+4
+loop:
+	ldrb	r0, [r3, #0x0]
+	cmp	r0, #0x0
+	beq	endloop
+	cmp	r0, r1
+	beq	end
+	add	r3, #0x1
+	b	loop
+endloop:
 	ldr	r1, [r7, #0xC]
+	mov	r3, #0xB
+	ldrb	r3, [r1, r3]
+	cmp	r3, #0x40
+	bgt	end		@味方以外なら終了
 	ldr	r3, [r1, #0x0]	@ロムユニット
 	ldrb	r3, [r3, #0x4]	@ユニットID
-	cmp	r3, #0x1	@アイザック
-	bne	end		@アイザック以外なら終了
 
 	ldr	r0, adr		@位置
 	add	r0, r8		@位置
