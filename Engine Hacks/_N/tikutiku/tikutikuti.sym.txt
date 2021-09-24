@@ -1,2 +1,13 @@
 tikutiku=$12
-end=$28
+teki=$26
+end=$36
+syurui=$3A
+odori=$4A
+tue=$58
+adr=$AC
+owari=$8C
+miss=$6C
+table=$90
+migekiha=$7E
+gekiha=$8A
+nasi=$98

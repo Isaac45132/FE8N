@@ -6,6 +6,12 @@ jumpToHack(keiken_tikutikukeikenti)
 ORG 0x02c138
 jumpToHack(keiken_tikutikuti)
 
+ORG 0x032484
+jumpToHack(steal_tiku)
+
+ORG 0x0324b0
+jumpToHack(summon_tiku)
+
 POP
 
 keiken_tikutikukeikenti:
@@ -13,3 +19,22 @@ keiken_tikutikukeikenti:
 
 keiken_tikutikuti:
 #incbin "tikutikuti.dmp"
+WORD $00000005 ////踊りの疲労値
+WORD $00000003 ////通常杖の疲労値
+WORD $00000001 ////攻撃ミスまたは攻撃なしの疲労値
+WORD $00000002 ////攻撃が当たり未撃破の疲労値
+WORD $00000004 ////敵撃破の疲労値
+POIN staff ////
+
+staff:
+#incbin "staff.dmp"
+POIN staff_table
+
+steal_tiku:
+#incbin "steal_tiku.dmp"
+WORD $00000002 ////盗むの疲労値
+
+summon_tiku:
+#incbin "summon_tiku.dmp"
+WORD $00000003 ////召喚の疲労値
+
