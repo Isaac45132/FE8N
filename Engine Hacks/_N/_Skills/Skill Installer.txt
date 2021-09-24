@@ -8,6 +8,7 @@
   #include "_help\EA.txt"
   #include "_common\EA.txt"
   #include index.event
+  #include battle\fatigue_status.event
 PUSH
 
 #ifndef MAGIC_PATCH //魔力パッチなし
