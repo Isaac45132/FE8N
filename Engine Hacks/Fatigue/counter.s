@@ -28,6 +28,18 @@ Unit:
         b outLoopUnit
 
     endOutLoopUnit:
+@ここからmatch作
+mov	r0, #0
+ldr	r1, =0x0202BE8B
+ldr	r2, =0x0202DE0B
+
+CountReset:
+strb	r0, [r1, #0]	@AI1カウンターリセット
+strb	r0, [r1, #1]	@ついでにAI2リセット	strhが効かない？
+add	r1, #0x48
+cmp	r1, r2
+bne	CountReset
+@ここまでmatch作
         pop {r4, pc}
 
 

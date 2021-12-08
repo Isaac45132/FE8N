@@ -26,7 +26,16 @@ endloop:
 	bgt	end		@味方以外なら終了
 	ldr	r3, [r1, #0x0]	@ロムユニット
 	ldrb	r3, [r3, #0x4]	@ユニットID
-
+	ldr	r2, adr+8	@UnitSetting_Fatigue
+loop2:
+	ldrb	r0, [r2, #0x0]	@UnitSetting_Fatigue一人目
+	cmp	r0, #0x0
+	beq	endloop2	@設定終了0なら数値描画へ
+	cmp	r0, r3
+	beq	end		@描画しない
+	add	r2, #0x1
+	b	loop2		@二人目以降へ繰り返す
+endloop2:
 	ldr	r0, adr		@位置
 	add	r0, r8		@位置
 	mov	r3, #0x43	@AI1カウンター

@@ -61,3 +61,4 @@ drawing:
 #incbin "fatigue_draw.dmp"
 WORD $00000054 ////数値の位置
 POIN ChapterIgnoreSetting_Fatigue
+POIN UnitSetting_Fatigue
