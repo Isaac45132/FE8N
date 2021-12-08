@@ -14,9 +14,9 @@ mov	pc, r0
 tikutiku:
 push	{r1, lr}
 ldrb	r0, [r5, #0xB]
-lsl	r0, r0, #24
+lsl	r1, r0, #24
 bmi	teki		@敵なら分岐
-lsl	r0, r0, #24
+lsl	r1, r0, #25
 bmi	end		@味方以外なら終了
 bl	syurui
 mov	r1, #0x43	@AI1カウンター
