@@ -19,6 +19,8 @@
 end
 ;
         @align 4
+	pop {r0}
+	push {r0}
         ldr r1, [adr] ;
         mov lr, r1
         @dcw $F800
