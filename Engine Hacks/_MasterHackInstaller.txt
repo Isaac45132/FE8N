@@ -5,7 +5,7 @@
 //////////////////////////////////////////
 
 	#include "magic\MAGICforN.txt"
-//	#include "Fatigue\EA.txt"
+	#include "Fatigue\EA.txt"
 	#include "Capture\EA.event"
 	#include "RePreparation\EA.txt"
 	#include "hokaku\EA.txt"
