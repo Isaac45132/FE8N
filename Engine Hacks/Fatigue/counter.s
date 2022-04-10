@@ -34,8 +34,7 @@ ldr	r1, =0x0202BE8B
 ldr	r2, =0x0202DE0B
 
 CountReset:
-strb	r0, [r1, #0]	@AI1カウンターリセット
-strb	r0, [r1, #1]	@ついでにAI2リセット	strhが効かない？
+strh	r0, [r1, #0]
 add	r1, #0x48
 cmp	r1, r2
 bne	CountReset
@@ -50,6 +49,17 @@ IsIgnoreMap:
         ldrb r1, [r1]
         cmp r1, #0          @序章は無視
         beq trueIgnore
+
+@20220410match
+	ldr	r2, =0x080860D0	@フラグが立ってるか
+	mov	lr, r2
+	ldrh	r0, FlagA	@指定フラグID
+	.short	0xF800
+	cmp	r0, #0
+	beq	trueIgnore	@フラグが立ってないなら終了
+	mov	r0, #0
+@20220410match
+
         ldr r2, ChapterIgnoreSetting_Fatigue
         bl Listfunc
         .short 0xE000
@@ -149,6 +159,7 @@ UnitSetting_Fatigue = addr+0
 ChapterSetting_Fatigue = addr+4
 ChapterIgnoreSetting_Fatigue = addr+8
 FATIGUE_STATUS = addr+12
+FlagA = addr+16
 
 .align
 .ltorg

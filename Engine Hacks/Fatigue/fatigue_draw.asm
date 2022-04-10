@@ -9,6 +9,16 @@
 	ldrb	r1, [r3, #0x0]	
 	cmp	r1, #0x0	@序章
 	beq	end
+
+@20220410
+	ldr	r2, =0x080860D0	@フラグが立ってるか
+	mov	lr, r2
+	ldrh	r0, FlagA	@指定フラグID
+	.short	0xF800
+	cmp	r0, #0
+	beq	end		@フラグが立ってないなら終了
+@20220410
+
 	ldr	r3, adr+4
 loop:
 	ldrb	r0, [r3, #0x0]
@@ -26,16 +36,7 @@ endloop:
 	bgt	end		@味方以外なら終了
 	ldr	r3, [r1, #0x0]	@ロムユニット
 	ldrb	r3, [r3, #0x4]	@ユニットID
-	ldr	r2, adr+8	@UnitSetting_Fatigue
-loop2:
-	ldrb	r0, [r2, #0x0]	@UnitSetting_Fatigue一人目
-	cmp	r0, #0x0
-	beq	endloop2	@設定終了0なら数値描画へ
-	cmp	r0, r3
-	beq	end		@描画しない
-	add	r2, #0x1
-	b	loop2		@二人目以降へ繰り返す
-endloop2:
+
 	ldr	r0, adr		@位置
 	add	r0, r8		@位置
 	mov	r3, #0x43	@AI1カウンター
@@ -50,6 +51,8 @@ end:
 DrawDecNumber:
 	ldr	r3, =0x08004A9C
 	mov	pc, r3
+
+FlagA = adr+8
 
 .ltorg
 .align
