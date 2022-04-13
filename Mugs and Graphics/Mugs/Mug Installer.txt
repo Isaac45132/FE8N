@@ -252,7 +252,7 @@ setMugEntry($06, oruson, 2, 5, 3, 3, 1)
 oruson:
   #incext PortraitFormatter oruson.png  
   
-setMugEntry($1B, taita, 3, 5, 3, 3, 1)       ///タイター
+setMugEntry($1B, taita, 1, 5, 2, 3, 1)       ///タイター
 //setMugExtra($1B, 0, 2, 5, 2)
 taita:
   #incext PortraitFormatter taita.png  
