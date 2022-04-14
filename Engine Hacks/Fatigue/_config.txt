@@ -1,11 +1,11 @@
 ChapterIgnoreSetting_Fatigue:	//現在章IDが以下と一致するとき、疲労は変化しない(※最も優先される)
-  BYTE $01 $02 $03 $05 $24 $29 $3B $3C $41 $2E $0
+  BYTE $01 $02 $03 $05 $24 $29 $3B $3C $41 $2E $30 $0
 
 UnitSetting_Fatigue:	//ユニットIDが以下と一致するとき、疲労を0にする
   BYTE $0F 0
 
 ChapterSetting_Fatigue:	//現在章IDが以下と一致するとき、全員の疲労を0にする
-  BYTE 0
+  BYTE $16 0
 
 #define FATIGUE_WORD $04A7
 #define FATIGUE_HELP $0FCC
