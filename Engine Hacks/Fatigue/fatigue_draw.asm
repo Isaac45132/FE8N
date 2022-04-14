@@ -11,10 +11,12 @@
 	beq	end
 
 @20220410
+	push	{r1}
 	ldr	r2, =0x080860D0	@フラグが立ってるか
 	mov	lr, r2
 	ldrh	r0, FlagA	@指定フラグID
 	.short	0xF800
+	pop	{r1}
 	cmp	r0, #0
 	beq	end		@フラグが立ってないなら終了
 @20220410

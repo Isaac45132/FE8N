@@ -51,10 +51,12 @@ IsIgnoreMap:
         beq trueIgnore
 
 @20220410match
+	push	{r1}
 	ldr	r2, =0x080860D0	@フラグが立ってるか
 	mov	lr, r2
 	ldrh	r0, FlagA	@指定フラグID
 	.short	0xF800
+	pop	{r1}
 	cmp	r0, #0
 	beq	trueIgnore	@フラグが立ってないなら終了
 	mov	r0, #0
