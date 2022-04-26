@@ -112,14 +112,16 @@ rara:
   #incext PortraitFormatter rara.png      
    
   
-setMugEntry($14, riera, 3, 5, 3, 3, 1)
+setMugEntry($14, riera, 3, 5, 3, 3, 1)  ///リディ１
 //setMugExtra($14, 0, 2, 5, 2)
 riera:
   #incext PortraitFormatter riera.png              
 
 setMugEntry($15, riera, 3, 5, 3, 3, 6)
 //setMugExtra($15, 0, 2, 5, 2)
+
   #incext PortraitFormatter riera.png 
+
 
 setMugEntry($0B, pame,2, 6, 3, 4, 1)  ///アルティ
 setMugExtra($0B, 0, 2, 0,0)
@@ -310,8 +312,10 @@ gariusu:
   #incext PortraitFormatter gariusu.png  
   
   
-setMugEntry($57, riera, 3, 5, 3, 3, 1)
+setMugEntry($57, Rideli, 3, 5, 3, 3, 1)   //CCリディ２
 //setMugExtra($57, 0, 2, 5, 2)
+Rideli:
+  #incext PortraitFormatter Rideli.png  
   
 setMugEntry($1F, Edo, 3, 5, 3, 3, 1)     //エドモンド顔画像
 //setMugExtra($1F, 0, 2, 5, 2)
