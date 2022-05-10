@@ -1,0 +1,9 @@
+PUSH
+
+ORG 0x2FB70
+jumpToHack(dance_ring)
+
+POP
+
+dance_ring:
+#incbin "dance_ring.dmp"

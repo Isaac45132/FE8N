@@ -44,3 +44,4 @@
 	#include "syokihaiti_flag\EA.txt"
     #include "seiatu_flag\EA.txt"
     #include "tikutiku\staff_table.event"
+    #include "dance\EA.txt"
