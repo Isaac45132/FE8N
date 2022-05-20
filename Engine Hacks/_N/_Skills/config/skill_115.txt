@@ -19,5 +19,5 @@ skill_115_item:
 #define COMBAT_ART_115_DUMMY 00 
  
 COMPLEX_SKILL_115:
-   BYTE $00 $00 0 
+   BYTE $39 $00 0 
 
