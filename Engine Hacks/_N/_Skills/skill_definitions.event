@@ -56,7 +56,8 @@
 #define LullID 54 //0x36 凪
 #define BondID 55 //0x37 絆
 #define renzokuID 56 //0x38 連続
-//0x39-0x3F (free)
+//複合スキル　ID 57 //0x39 免許皆伝
+//0x3a-0x3F (free)
 
 
 #define AstraID 64 //0x40流星
@@ -65,7 +66,7 @@
 #define AetherID 67 //0x43天空
 #define FlareID 68 //0x44陽光
 #define RightfulKingID 69 //0x45王の器
-#define CharmID 70 //0x46カリスマ
+#define CharmID 70 //0x46前線指揮
 #define DivineShieldID 71 //0x47神盾
 #define ColossusID 72//0x48鳴動
 #define VengeanceID 73//0x49復讐
