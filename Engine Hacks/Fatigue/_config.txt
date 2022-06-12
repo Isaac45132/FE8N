@@ -8,6 +8,9 @@ ChapterSetting_Fatigue:	//現在章IDが以下と一致するとき、全員の�
   BYTE $16 0
 
 #define FATIGUE_WORD $04A7
-#define FATIGUE_HELP $0FCC
+#define FATIGUE_HELP1 $0FCC
+#define FATIGUE_HELP2 $132A
+#define FATIGUE_HELP3 $132B
+#define FATIGUE_FLAG $011A
 
 

@@ -27,11 +27,30 @@ ORG	0x891c0
 BYTE	$00 $4B $9F $46
 POIN	drawing
 
+ORG	0x24980
+BYTE	$00 $4C $A7 $46
+POIN	noattack
+
+ORG	0x23A34
+BYTE	$00 $4C $A7 $46
+POIN	nostaff
+
+ORG	0x23170
+BYTE	$00 $4B $9F $46
+POIN	nodance
+
+ORG	0x243A4
+BYTE	$00 $4B $9F $46
+POIN	nosummon
+
 POP
+
 
 FatigueHelp:
 	#incbin FatigueHelp.dmp
-	WORD FATIGUE_HELP
+	WORD FATIGUE_HELP1
+	WORD FATIGUE_HELP2
+	WORD FATIGUE_HELP3
 
 SaveWindow:
 	#incbin "..\_N\BreakedWeapon\repair_sys.dmp"
@@ -54,7 +73,7 @@ FatigueCounter:
 	POIN ChapterSetting_Fatigue
 	POIN ChapterIgnoreSetting_Fatigue
 	WORD WORK_MEM_FOR_TRANSPORT_FATIGUE
-	WORD $0000011A ////疲労モードになるフラグ
+	WORD FATIGUE_FLAG
 	
 ALIGN 4
 
@@ -62,4 +81,29 @@ drawing:
 #incbin "fatigue_draw.dmp"
 WORD $00000054 ////数値の位置
 POIN ChapterIgnoreSetting_Fatigue
-WORD $0000011A ////疲労モードになるフラグ
+WORD FATIGUE_FLAG
+
+noattack:
+#incbin "no_attack.dmp"
+WORD $00000063 ////攻撃不可になる疲労P//16進数
+POIN FatigueJudge
+
+nostaff:
+#incbin "no_staff.dmp"
+WORD $00000063 ////杖不可になる疲労P//16進数
+POIN FatigueJudge
+
+nodance:
+#incbin "no_dance.dmp"
+WORD $00000063 ////踊り不可になる疲労P//16進数
+POIN FatigueJudge
+
+nosummon:
+#incbin "no_summon.dmp"
+WORD $00000063 ////召喚不可になる疲労P//16進数
+POIN FatigueJudge
+
+FatigueJudge:
+#incbin fatigue_judge.dmp
+WORD FATIGUE_FLAG
+POIN ChapterIgnoreSetting_Fatigue

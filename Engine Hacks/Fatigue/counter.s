@@ -83,6 +83,8 @@ Count:
 @ここからmatch作
 	mov	r2, #0x43	@AI1カウンター
 	ldrb	r0, [r4, r2]
+	cmp	r0, #99		@疲労ポイント99なら
+	beq	fatigue2
 	push	{r1}
 	mov	r1, #0
 	strb	r1, [r4, r2]	@AI1カウンターリセット
@@ -104,6 +106,38 @@ Count:
         add r2, #1
         strb r2, [r4]
         b endCount
+
+@@@
+fatigue2:
+	push	{r1}
+	mov	r1, #0
+	strb	r1, [r4, r2]	@AI1カウンターリセット
+	mov	r2, #0x12	@最大HP
+	ldrb	r1, [r4, r2]
+	sub	r0, r1, r0	@最大HP-疲労P
+	pop	{r1}
+	cmp	r0, #0x0
+	bgt	clearCount	@0より大きなら分岐
+
+        add r4, #71
+        ldrb r2, [r4]
+        mov r0, #0b00000011
+        and r2, r0
+        cmp r2, #FATIGUE_MAX
+        bge endCount
+
+        add r2, #1
+        strb r2, [r4]
+
+        and r2, r0
+        cmp r2, #FATIGUE_MAX
+        bge endCount
+
+        add r2, #1
+        strb r2, [r4]
+        b endCount
+@@@
+
     clearCount:
         add r4, #71
         ldrb r2, [r4]
@@ -112,7 +146,6 @@ Count:
         strb r2, [r4]
     endCount:
         pop {r4, pc}
-
 
     JudgeCount:
             push {lr}
