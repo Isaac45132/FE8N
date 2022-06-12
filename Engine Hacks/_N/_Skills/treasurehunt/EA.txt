@@ -1,0 +1,17 @@
+
+PUSH
+ORG	0x32878
+BYTE	$00 $49 $8F $46
+POIN	treasurejump
+POP
+
+ALIGN 4
+treasurejump:
+#incbin "treasurehunt.dmp"
+POIN hasTreasureHunt
+WORD $00000176 ////赤の宝玉
+WORD $0000000A ////ドロップ確率16進数
+
+hasTreasureHunt:
+    HAS_SKILL
+    WORD TreasureHuntID
