@@ -1628,11 +1628,12 @@ fatigue3:
 	b fatigue3
 fatigue31:
 	add r3, r3, #0x8
+fatigue32:
 	ldr r0, [r5, r3]
 	cmp r0, #0x0
 	beq fatigueloop2
 	add r3, r3, #0x8
-	b fatigue31
+	b fatigue32
 fatigueloop2:
 	add r3, r3, #0x8
 fatigueloop:
