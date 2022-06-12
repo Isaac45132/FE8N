@@ -57,6 +57,9 @@ Capture_Usability:
 
 	#incbin "Capture_Usability_Func.gba"
 	POIN	StealMinusFunc|1
+	WORD $00000063 ////捕獲不可になる疲労P//16進数
+	POIN FatigueJudge
+
 StealMinusFunc:
 	#incbin "StealMinusFunc.gba"
 	

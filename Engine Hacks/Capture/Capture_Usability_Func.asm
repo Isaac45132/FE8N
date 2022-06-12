@@ -12,7 +12,30 @@ mov		r2,#0x80
 lsl		r2,r2,#0x4				;is in ballista
 tst		r1,r2
 bne		RetFalse
+
+;;;;;
+	push	{r0, r1, r2}
+	ldr	r0, [adr+12]
+	mov	lr, r0
+	@dcw	0xF800
+	cmp	r0, #0
+	beq	start
+
+	ldr	r1, =$03004DF0
+	ldr	r1, [r1, #0]
+	mov	r0, #0x43
+	ldrb	r0, [r1, r0]
+	ldr	r1, [adr+4]
+	cmp	r0, r1
+	pop	{r0, r1, r2}
+	bge	RetFalse
+	@dcw	0xE000
+;;;;;
+
 ;New
+start:
+	pop	{r0, r1, r2}
+
 	mov		r5,r0
 	mov		r6,#0x0
 ItemLoop:
