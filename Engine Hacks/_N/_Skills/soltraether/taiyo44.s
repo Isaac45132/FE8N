@@ -141,10 +141,17 @@ CrtStone:
 	mov	r1, r5
 	add	r1, #0x48
 	ldrb	r1, [r1, #0]
-	cmp	r1, #0x92
+	cmp	r1, #0x92	@武器ID
 	beq	stone
-	cmp	r1, #0xBD
+	cmp	r1, #0xBD	@武器ID
+	beq	stone
+	cmp	r1, #0xBC	@武器ID
 	bne	stoneend
+	mov	r1, r5
+	add	r1, #111
+	mov	r0, #0x15		@@状態異常(5攻撃,6守備,7必殺,8回避)
+	strb	r0, [r1, #0]
+	b	stoneend
 stone:
 	mov	r1, r4
 	add	r1, #111
