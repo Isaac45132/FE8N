@@ -66,6 +66,7 @@ battle_before:
     POIN HasHitUp
     POIN HasAgitation
     POIN fatigue_status
+    POIN HasMiracleB
 
 battle_after:
     #incbin main.dmp
@@ -279,3 +280,7 @@ HasHitUp:
 HasAgitation:
     HAS_NIHIL
     WORD AgitationID
+
+HasMiracleB:
+    HAS_NIHIL
+    WORD MiracleBID
