@@ -3,6 +3,7 @@
 @ステータス画面にも影響がある
 @相手が存在するとは限らない(ダミーかもしれない)
     bl AvoidUp
+    bl Miracle
     bl HitUp
     bl fatigue
 
@@ -162,6 +163,23 @@ AvoidUp:
     falseAvoid:
         pop {pc}
 
+Miracle:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasMiracle
+        cmp r0, #0
+        beq falseMiracle
+	ldrb r0, [r4, #0x13]	@現在HP
+	cmp r0, #9   		@9
+	bgt falseMiracle	@より大きいなら終了
+        mov r1, #98
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1] @自分
+    falseMiracle:
+        pop {pc}
+
 HitUp:
         push {lr}
         mov r0, r4
@@ -171,7 +189,7 @@ HitUp:
         beq falseHit    
         mov r1, #96	@命中
         ldrh r0, [r4, r1]
-        add r0, #15
+        add r0, #20
         strh r0, [r4, r1] @自分
     falseHit:
         pop {pc}
@@ -1696,6 +1714,7 @@ bx lr
 HITUP_ADDR = (EXTRA_OFFSET+24)
 AGITATION_ADDR = (EXTRA_OFFSET+28)
 FATIGUESTATUS = (EXTRA_OFFSET+32)
+MIRACLE_ADDR = (EXTRA_OFFSET+36)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1814,7 +1833,9 @@ HasNullify:
 HasHitUp:
 	ldr r2, HITUP_ADDR
 	mov pc, r2
-
+HasMiracle:
+	ldr r2, MIRACLE_ADDR
+	mov pc, r2
 GetAttackerAddr:
     ldr r0, =0x03004df0
     bx lr
