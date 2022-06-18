@@ -18,14 +18,13 @@ VALID_BIT =         0b0011
 
 quarter:
     ldrb r0, [r4, #18]
-    asr r1, r0, #2
+    asr r1, r0, #1 @半減
     sub r0, r1
     neg r0, r0
     b end
 half:
     ldrb r0, [r4, #18]
-    asr r1, r0, #1 @半減
-    sub r0, r1
+    asr r0, r0, #2 @25%減
     neg r0, r0
     b end
 false:
