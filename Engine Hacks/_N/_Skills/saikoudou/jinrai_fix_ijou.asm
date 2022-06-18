@@ -33,6 +33,22 @@ check
 	ldsb	r0, [r1, r0]	;ブーツ力
 	ldr	r1, [r1, #4]		;クラスのアドレス
 	ldrb	r1, [r1, #18]	;クラス基礎移動
+
+;
+push {r0, r1}
+ldr r1, [r4]
+mov r0, #71
+ldrb r1, [r1, r0]
+cmp r1, #3		;疲労3
+bne hirounasi
+pop {r0, r1}
+asr r1, r1, #1		;移動半減
+@dcw $E000
+
+hirounasi
+pop {r0, r1}
+;
+
 	lsl	r1, r1, #24
 	asr	r1, r1, #24
 	add	r0, r0, r1
