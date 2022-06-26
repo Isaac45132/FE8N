@@ -1,13 +1,13 @@
 skill_132_unit:
-   BYTE $00 $00 0 
+   BYTE $9F $74 $6F $42 $41 $40 $97 0  
 skill_132_class:
    BYTE $00 $00 0 
 skill_132_weapon:
    BYTE $00 $00 0 
 skill_132_item:
    BYTE $00 $00 0 
-#define SKL_HELP_132 $0000
-#define SKL_COLOR_132 $00
+#define SKL_HELP_132 $1333
+#define SKL_COLOR_132 $FF
  
 #define COMBAT_ART_132_ATK 00 
 #define COMBAT_ART_132_HIT 00 
