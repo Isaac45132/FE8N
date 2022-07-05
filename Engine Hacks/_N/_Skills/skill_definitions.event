@@ -57,6 +57,7 @@
 #define BondID 55 //0x37 絆
 #define renzokuID 56 //0x38 連続
 //複合スキル　ID 57 //0x39 免許皆伝
+//複合スキル　ID 58 //0x3A けん制+指揮１
 //0x3a-0x3F (free)
 
 
@@ -128,7 +129,7 @@
 #define WaryFighterID 129 //0x81 守備隊形
 #define MiracleOldID 130 //0x82 旧祈り
 #define RecoverID 131 //0x83 完治
-#define ImmuneStatusID 132 //0x84 守護
+#define ImmuneStatusID 132 //0x84 守護//状態異常受けなくなる
 #define InfiniteWeaponID 133 //0x85 無限の武器
 #define StaffSavantID 134 //0x86 無限の杖
 #define SaviorID 135 //0x87 運び屋
