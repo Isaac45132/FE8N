@@ -12,14 +12,14 @@
 	cmp		r1, r0
 	bgt		penalty
 	
-	mov		r0, #72
-	ldrh	r0, [r2, r0]
-	bl		range
-	lsr		r0, r0, #4
-	ldr		r1, =0x0203a4d0
-	ldrb	r1, [r1, #2]
-	cmp		r1, r0
-	blt		penalty
+@	mov		r0, #72
+@	ldrh	r0, [r2, r0]
+@	bl		range
+@	lsr		r0, r0, #4
+@	ldr		r1, =0x0203a4d0
+@	ldrb	r1, [r1, #2]
+@	cmp		r1, r0
+@	blt		penalty
 	
 	mov		r0, r2
 	mov		r1, #96
