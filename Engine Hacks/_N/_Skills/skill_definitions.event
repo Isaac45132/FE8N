@@ -129,7 +129,7 @@
 #define WaryFighterID 129 //0x81 守備隊形
 #define MiracleOldID 130 //0x82 旧祈り
 #define RecoverID 131 //0x83 完治
-#define ImmuneStatusID 132 //0x84 守護//状態異常受けなくなる
+#define ImmuneStatusID 132 //0x84 守護
 #define InfiniteWeaponID 133 //0x85 無限の武器
 #define StaffSavantID 134 //0x86 無限の杖
 #define SaviorID 135 //0x87 運び屋
@@ -194,3 +194,7 @@
 #define AgitationID 213 //0xD5扇動
 #define TreasureHuntID 214 //0xD6トレジャーハント
 #define MiracleBID 215 //0xD7奇跡
+#define IchibanSpearID 216 //0xD8一番槍
+#define HitandRunBID 217 //0xD9一撃離脱(スキル)
+#define CalmID 218 //0xDA冷静
+#define FrenzyID 219 //0xDB狂乱
