@@ -7,7 +7,7 @@
 		mov r3, r1
 		mov r5, #0
 	forItem:
-		cmp r5, #10
+		cmp r5, #8
 		bgt endItem
 			ldrb r0, [r4, r5]
 			cmp r0, #0
