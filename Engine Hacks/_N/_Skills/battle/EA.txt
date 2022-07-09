@@ -67,6 +67,9 @@ battle_before:
     POIN HasAgitation
     POIN fatigue_status
     POIN HasMiracleB
+    POIN HasIchibanSpear
+    POIN HasCalm
+    POIN HasFrenzy
 
 battle_after:
     #incbin main.dmp
@@ -284,3 +287,15 @@ HasAgitation:
 HasMiracleB:
     HAS_NIHIL
     WORD MiracleBID
+
+HasIchibanSpear:
+    HAS_NIHIL
+    WORD IchibanSpearID
+
+HasCalm:
+    HAS_NIHIL
+    WORD CalmID
+
+HasFrenzy:
+    HAS_NIHIL
+    WORD FrenzyID

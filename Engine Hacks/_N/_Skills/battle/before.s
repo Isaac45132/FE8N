@@ -35,6 +35,8 @@ gotSkill:
     bl Bond
     bl BladeSession
 	bl MagicSword
+	bl Calm
+	bl Frenzy
 
 endNoEnemy:
 
@@ -122,6 +124,7 @@ OtherSideSkill:
         bl Hien
         bl Bracing
         bl Charge
+        bl IchibanSpear
         pop {pc}
     DefSkill:
         bl DistantDef
@@ -844,6 +847,86 @@ Bond:
     falseBond:
         pop {r4, r5, r6, r7, pc}
 
+Frenzy:
+        push {r4, r5, r6, r7, lr}
+
+        mov r0, r4
+        mov r1, #0
+        bl HasAce
+        cmp	r0, #0
+        beq	notAce
+        ldrb	r0, [r4, #0x13]	@NOW
+        ldrb	r1, [r4, #0x12]	@MAX
+        lsl	r0, r0, #1
+        cmp	r0, r1
+        bls	falseFrenzy
+        
+    notAce:
+        ldrb r6, [r4, #0xB]
+        mov r0, #0xC0
+        and r6, r0	@r6に部隊表ID
+        
+        mov r0, r4
+        mov r1, #0
+        bl HasFrenzy
+        cmp r0, #0
+        beq falseFrenzy
+        mov r7, #0
+    loopFrenzy:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq falseFrenzy	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopFrenzy	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopFrenzy	@死亡判定2
+        ldrb r0, [r4, #0xB]
+        ldrb r1, [r5, #0xB]
+        cmp r0, r1
+        beq loopFrenzy	@自分
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1
+        and r0, r1
+        bne loopFrenzy
+
+	push {r1}
+        ldrb	r0, [r5, #0x13]	@NOW
+        ldrb	r1, [r5, #0x12]	@MAX
+        lsl	r0, r0, #1
+        cmp	r0, r1
+	pop {r1}  
+        bgt	loopFrenzy
+
+    jumpFrenzy:
+        mov r0, #2  @2マス指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopFrenzy
+
+        mov r1, #90	@攻撃
+        ldrh r0, [r4, r1]
+        add r0, #4
+        strh r0, [r4, r1] @自分
+
+        mov r1, #92	@防御
+        ldrh r0, [r4, r1]
+        add r0, #4
+        strh r0, [r4, r1] @自分
+
+        mov r1, #94	@攻速
+        ldrh r0, [r4, r1]
+        add r0, #4
+        strh r0, [r4, r1] @自分
+    falseFrenzy:
+        pop {r4, r5, r6, r7, pc}
+
 Fort:
         push {lr}
         mov r0, r4
@@ -930,6 +1013,33 @@ madou:
 
 endMagicSword:
         pop	{r2, pc}
+
+Calm:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasCalm
+        cmp r0, #0
+        beq falseCalm
+
+        ldrb r1, [r5, #18] @最大HP
+        ldrb r0, [r5, #19] @現在HP
+        cmp r0, r1
+        blt falseCalm @現在が最大よりも小さい場合
+
+        mov r1, r4
+        add r1, #96
+        ldrh r0, [r1]
+        add r0, #15	@命中
+        strh r0, [r1]	@自分
+
+        mov r1, r4
+        add r1, #102
+        ldrh r0, [r1]
+        add r0, #15	@必殺
+        strh r0, [r1]	@自分
+    falseCalm:
+        pop {pc}
 
 Solo:
         push {r4, r5, r6, lr}
@@ -1380,6 +1490,27 @@ Kishin:
         strh r0, [r4, r1] @自分
     endKishin:
         pop {pc}
+
+IchibanSpear:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasIchibanSpear
+        cmp r0, #0
+        beq endIchiban
+        
+        mov r1, #90
+        ldrh r0, [r4, r1]
+        add r0, #2 @威力
+        strh r0, [r4, r1] @自分
+    
+        mov r1, #96
+        ldrh r0, [r4, r1]
+        add r0, #15 @命中
+        strh r0, [r4, r1] @自分
+    endIchiban:
+        pop {pc}
+
 KishinR:
         push {lr}
         mov r0, r4
@@ -1716,6 +1847,9 @@ HITUP_ADDR = (EXTRA_OFFSET+24)
 AGITATION_ADDR = (EXTRA_OFFSET+28)
 FATIGUESTATUS = (EXTRA_OFFSET+32)
 MIRACLE_ADDR = (EXTRA_OFFSET+36)
+ICHIBAN_ADDR = (EXTRA_OFFSET+40)
+CALM_ADDR = (EXTRA_OFFSET+44)
+FRENZY_ADDR = (EXTRA_OFFSET+48)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1760,6 +1894,9 @@ HasKongou:
     mov pc, r2
 HasKishin:
     ldr r2, addr+8
+    mov pc, r2
+HasIchibanSpear:
+    ldr r2, ICHIBAN_ADDR
     mov pc, r2
 HasKonshin:
     ldr r2, KONSHIN_ADDR
@@ -1815,6 +1952,9 @@ HasFort:
 HasBond:
     ldr r3, HAS_BOND_ADDR
     mov pc, r3
+HasFrenzy:
+    ldr r3, FRENZY_ADDR
+    mov pc, r3
 
 Hasagitation:
 	ldr r2, AGITATION_ADDR
@@ -1837,6 +1977,10 @@ HasHitUp:
 HasMiracle:
 	ldr r2, MIRACLE_ADDR
 	mov pc, r2
+HasCalm:
+	ldr r2, CALM_ADDR
+	mov pc, r2
+
 GetAttackerAddr:
     ldr r0, =0x03004df0
     bx lr
