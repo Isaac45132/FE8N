@@ -58,6 +58,7 @@
 #define renzokuID 56 //0x38 連続
 //複合スキル　ID 57 //0x39 免許皆伝
 //複合スキル　ID 58 //0x3A けん制+指揮１
+//複合スキル　ID 59 //0x3B 魔道の達人
 //0x3a-0x3F (free)
 
 
@@ -195,6 +196,6 @@
 #define TreasureHuntID 214 //0xD6トレジャーハント
 #define MiracleBID 215 //0xD7奇跡
 #define IchibanSpearID 216 //0xD8一番槍
-#define HitandRunBID 217 //0xD9一撃離脱(スキル)
+#define HitandRunBID 217 //0xD9 (ボツ)
 #define CalmID 218 //0xDA冷静
 #define FrenzyID 219 //0xDB狂乱
