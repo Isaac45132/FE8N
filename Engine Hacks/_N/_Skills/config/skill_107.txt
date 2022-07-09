@@ -6,7 +6,7 @@ skill_107_weapon:
    BYTE $00 $00 0 
 skill_107_item:
    BYTE $00 $00 0 
-#define SKL_HELP_107 $0F5E
+#define SKL_HELP_107 $133A
 #define SKL_COLOR_107 $FF
  
 #define COMBAT_ART_107_ATK 00 
@@ -19,5 +19,5 @@ skill_107_item:
 #define COMBAT_ART_107_DUMMY 00 
  
 COMPLEX_SKILL_107:
-   BYTE $39 $00 0 
+   BYTE $39 $3B 0 
 
