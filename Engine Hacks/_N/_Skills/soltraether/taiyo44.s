@@ -153,6 +153,14 @@ CrtStone:
 	strb	r0, [r1, #0]
 	b	stoneend
 stone:
+	push	{r2}
+	mov	r0, r4
+	mov	r1, #0
+	bl	HasImmuneStatus
+	pop	{r2}
+	cmp	r0, #0
+	bne	stoneend
+
 	mov	r1, r4
 	add	r1, #111
 	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
@@ -169,6 +177,10 @@ WeaponCrt:
 	bmi	CrtStone		@@必殺で飛ぶ
 	pop	{r0}
 	pop	{pc}
+
+HasImmuneStatus:
+	ldr r2, adr+20
+	mov pc, r2
 
 .align
 .ltorg

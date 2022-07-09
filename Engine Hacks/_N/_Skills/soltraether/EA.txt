@@ -110,6 +110,7 @@ taiyo4:
     WORD SOL_BIT
     POIN set_skillanime_attack
     POIN hasNihil
+    POIN hasImmuneStatus
 
 sol_divide_anim_on:
 #incbin sol_divide_anim_on.dmp
@@ -148,5 +149,3 @@ HasRupturedSky:
 HasAtrocity:
     HAS_OCCULT
     WORD AtrocityID
-
-
