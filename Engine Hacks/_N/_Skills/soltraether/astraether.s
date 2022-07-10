@@ -192,9 +192,9 @@ ecripse_impl:
     ldrb r1, [r2, #0x13] @nowHP
     cmp r0, r1
     bge falseEcripse @一撃なら不発
-    ldrb r0, [r2, #0x12] @maxHP
-    cmp r0, r1
-    beq falseEcripse @体力最大なら不発
+@    ldrb r0, [r2, #0x12] @maxHP
+@    cmp r0, r1
+@    beq falseEcripse @体力最大なら不発
     
     ldr r0, [r2]
     ldr r1, [r2, #4]
