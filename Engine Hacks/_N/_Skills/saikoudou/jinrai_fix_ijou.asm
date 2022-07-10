@@ -10,6 +10,28 @@
 ;	bge	false
 ;通常の再移動
 true
+	push	{r1, r2}
+	ldr	r1, [r3, #0xC]
+	ldr	r2, =$00000002	;行動済フラグ
+	tst	r1, r2
+	beq	endHit
+
+	mov	r0, r3
+        ldr	r2, [hashitandrun]	;一撃離脱カーラ
+        mov	lr, r2
+        @dcw	$F800
+        cmp	r0, #0
+        beq	endHit
+
+	pop	{r1, r2}
+	push	{r1, r2}
+	ldr	r0, =$0203AD70	;8Nの空き領域？
+	ldrb	r1, [r2, #16]
+	strb	r1, [r0, #0]	;消費移動一時保存
+	mov	r0, #0
+	strb	r0, [r2, #16]	;消費移動を0に
+endHit:
+	pop	{r1, r2}
 	ldr	r0, =$0801CEDC
 	mov	pc, r0
 check
