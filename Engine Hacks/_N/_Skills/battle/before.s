@@ -6,6 +6,7 @@
     bl Miracle
     bl HitUp
     bl fatigue
+    bl asUp
 
 @闘技場チェック
     bl GetArenaAddr
@@ -35,7 +36,6 @@ gotSkill:
     bl Bond
     bl BladeSession
 	bl MagicSword
-	bl Calm
 	bl Frenzy
 
 endNoEnemy:
@@ -57,6 +57,7 @@ endNoEnemy:
     bl Trample
     bl tubame
     bl ouzya
+    bl Calm
 
 endNeedEnemy:
 
@@ -196,6 +197,21 @@ HitUp:
         strh r0, [r4, r1] @自分
     falseHit:
         pop {pc}
+
+asUp:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasAsUp
+        cmp r0, #0
+        beq falseasUp    
+        mov r1, #94	@攻速
+        ldrh r0, [r4, r1]
+        add r0, #3
+        strh r0, [r4, r1] @自分
+    falseasUp:
+        pop {pc}
+
 
 ShieldSession:
         push {r5, r6, r7, lr}
@@ -1030,13 +1046,13 @@ Calm:
         mov r1, r4
         add r1, #96
         ldrh r0, [r1]
-        add r0, #15	@命中
+        add r0, #10	@命中
         strh r0, [r1]	@自分
 
         mov r1, r4
         add r1, #102
         ldrh r0, [r1]
-        add r0, #15	@必殺
+        add r0, #10	@必殺
         strh r0, [r1]	@自分
     falseCalm:
         pop {pc}
@@ -1506,7 +1522,7 @@ IchibanSpear:
     
         mov r1, #96
         ldrh r0, [r4, r1]
-        add r0, #15 @命中
+        add r0, #10 @命中
         strh r0, [r4, r1] @自分
     endIchiban:
         pop {pc}
@@ -1850,6 +1866,7 @@ MIRACLE_ADDR = (EXTRA_OFFSET+36)
 ICHIBAN_ADDR = (EXTRA_OFFSET+40)
 CALM_ADDR = (EXTRA_OFFSET+44)
 FRENZY_ADDR = (EXTRA_OFFSET+48)
+ASUP_ADDR = (EXTRA_OFFSET+52)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1915,6 +1932,9 @@ HasCriticalUp:
     mov pc, r2
 HasAvoidUp:
     ldr r2, HAS_AVOIDUP_ADDR
+    mov pc, r2
+HasAsUp:
+    ldr r2, ASUP_ADDR
     mov pc, r2
 HasBladeSession:
     ldr r2, BLADE_SESSION_ADDR

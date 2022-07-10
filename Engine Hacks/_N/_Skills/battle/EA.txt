@@ -70,6 +70,7 @@ battle_before:
     POIN HasIchibanSpear
     POIN HasCalm
     POIN HasFrenzy
+    POIN HasAsUP
 
 battle_after:
     #incbin main.dmp
@@ -299,3 +300,7 @@ HasCalm:
 HasFrenzy:
     HAS_NIHIL
     WORD FrenzyID
+
+HasAsUP:
+    HAS_NIHIL
+    WORD AsUPID
