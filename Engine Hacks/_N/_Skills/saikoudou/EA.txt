@@ -96,6 +96,7 @@ ORG 0x1CED4
 ORG 0x01cefa
     SHORT $d107	//revert
     jumpToHack(remove_impl)
+
 POP
 
 
@@ -116,6 +117,7 @@ POIN hasRemove
 canto_impl:
 #incbin jinrai_fix_ijou.gba
     POIN hasCantoPlus
+    POIN hasHitandRunB
 
 pulse_impl:
 #incbin pulse.dmp
@@ -164,6 +166,11 @@ ALIGN 4
     hasCantoPlus:
         HAS_SKILL
         WORD CantoPlusID
+
+    hasHitandRunB:
+        HAS_SKILL
+        WORD HitandRunBID
+
     HAS_HURRY:
         HAS_SKILL
         WORD HurryID

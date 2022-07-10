@@ -58,7 +58,7 @@ main:
 @r5 = 移動
         push {lr}
         bl Hurry
-        bl Galeforce
+@        bl Galeforce
         cmp r5, #15
         ble notOverFlow
         mov r5, #15
