@@ -15,6 +15,7 @@ POIN flagMapA
 POIN flagMapB
 POIN flagMapC
 POIN HasMoveUp
+POIN HasHitandRunB
 
 flag_kyotenidou:
 #incbin "kyotenidou.dmp"
@@ -23,6 +24,7 @@ POIN flagMapA
 POIN flagMapB
 POIN flagMapC
 POIN HasMoveUp
+POIN HasHitandRunB
 
 flagMove:
 WORD $00000120 ////移動15を解除するフラグID
@@ -37,5 +39,9 @@ flagMapC:
 WORD $00000016 ////移動15にするマップID3
 
 HasMoveUp:
-HAS_NIHIL
+HAS_SKILL
 WORD MoveUpID
+
+HasHitandRunB:
+HAS_SKILL
+WORD HitandRunBID
