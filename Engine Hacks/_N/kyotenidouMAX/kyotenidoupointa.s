@@ -115,13 +115,6 @@ zinrai:
         beq	endzinrai
         lsr	r0, r0, #1
 
-@	push	{r0}
-@	ldr	r2, =0x0203a954
-@	ldrb	r0, [r2, #0x10]
-@	lsr	r0, r0, #1
-@	strb	r0, [r2, #0x10]
-@	pop	{r0}
-
 endzinrai:
 	pop	{r2}
 	pop	{pc}
@@ -140,6 +133,16 @@ hitandrunB:
         .short	0xF800
         cmp	r0, #0
         beq	endrun
+
+	pop	{r0, r1, r2, r3}
+	push	{r0, r1, r2, r3}
+	ldr	r3, =0x0203AD70
+	ldrb	r2, [r3, #0]
+	mov	r1, #0
+	strb	r1, [r3, #0]
+	sub	r2, r0, r2
+	cmp	r2, #8
+	bge	endrun
 
 	pop	{r0, r1, r2, r3}
 	mov	r0, #7
