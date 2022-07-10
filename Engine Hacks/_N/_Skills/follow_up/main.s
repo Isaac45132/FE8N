@@ -2,7 +2,7 @@
 
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 
 @.org 0802af18
     mov r5, r0
@@ -237,6 +237,12 @@ BrashAssault:   @差し違え
         push {r4, r5, lr}
         mov r4, r0
         mov r5, r1
+
+        ldrb	r0, [r4, #0x13]	@NOW
+        ldrb	r1, [r4, #0x12]	@MAX
+        asr	r1, r1, #1	@HP半分以上でないなら不可
+        cmp	r0, r1
+	blt	non_bold
 
         mov r0, #72
         ldrh r0, [r4, r0]   @反撃されないなら不可
