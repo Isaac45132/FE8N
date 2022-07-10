@@ -14,6 +14,16 @@ bne flase
         cmp r0, #0
         beq falseTreasureHunt
 
+        ldr r0, [r7, #0]
+        ldr r1, [r7, #4]
+        ldr r0, [r0, #40]
+        ldr r1, [r1, #40]
+        orr r0, r1
+        lsr r0, r0, #24
+        mov r1, #1
+        and r0, r1
+	cmp r0, #1
+	beq falseTreasureHunt
 
     	ldrb r0, adr+8 @@発動率
     	mov r1, #0
