@@ -1,0 +1,17 @@
+PUSH
+
+ORG 0x403F8
+BYTE	$00 $49 $8F $46
+POIN	SilenceStaffAI
+
+ORG 0x40580
+BYTE	$00 $49 $8F $46
+POIN	SleepBerserkStaffAI
+
+POP
+
+SilenceStaffAI:
+#incbin "SilenceStaffAI.dmp"
+
+SleepBerserkStaffAI:
+#incbin "SleepBerserkStaffAI.dmp"

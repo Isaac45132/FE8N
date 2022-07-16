@@ -45,3 +45,4 @@
     #include "seiatu_flag\EA.txt"
     #include "tikutiku\staff_table.event"
     #include "dance\EA.txt"
+    #include "BadEffectStaffAI\EA.txt"
