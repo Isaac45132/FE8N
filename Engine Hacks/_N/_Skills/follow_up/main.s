@@ -238,8 +238,13 @@ BrashAssault:   @差し違え
         mov r4, r0
         mov r5, r1
 
-        ldrb	r0, [r4, #0x13]	@NOW
-        ldrb	r1, [r4, #0x12]	@MAX
+        ldrb r0, [r4, #0xB]
+            ldr r1, =0x08019108
+            mov lr, r1
+            .short 0xF800
+
+        ldrb	r0, [r0, #19]	@NOW
+        ldrb	r1, [r4, #18]	@MAX
         asr	r1, r1, #1	@HP半分以上でないなら不可
         cmp	r0, r1
 	blt	non_bold
