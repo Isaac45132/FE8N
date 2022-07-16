@@ -64,6 +64,7 @@
 #include "Citizenseinen Installer.event"   //0x115     市民男性
 #include "zyosei Installer.event"   //0x116     市民女性
 #include "Dragoon Installer.event"   //0x118     女性ドラグーン
+#include "doragoon2 Installer.event"   //0x1     男性ドラグーン
 #include "Magic Installer.event"   //0x119     ミトス
 //////////////ここまでアニメデータ
 ALIGN 4
