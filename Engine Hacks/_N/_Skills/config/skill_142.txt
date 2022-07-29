@@ -5,7 +5,7 @@ skill_142_class:
 skill_142_weapon:
    BYTE $00 $00 0 
 skill_142_item:
-   BYTE $F6 $00 0 
+   BYTE $F6 $0A $BD 0   
 #define SKL_HELP_142 $0000
 #define SKL_COLOR_142 $00
  
