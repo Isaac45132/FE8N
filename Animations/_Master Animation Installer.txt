@@ -66,6 +66,9 @@
 #include "Dragoon Installer.event"   //0x118     女性ドラグーン
 #include "doragoon2 Installer.event"   //0x1     男性ドラグーン
 #include "Magic Installer.event"   //0x119     ミトス
+#include "kyandeliM Installer.event"   //0x11A     きゃんでぃ魔
+#include "kyandeliS Installer.event"   //0x11B     きゃんでぃ剣
+
 //////////////ここまでアニメデータ
 ALIGN 4
 
