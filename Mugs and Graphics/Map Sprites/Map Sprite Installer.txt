@@ -247,8 +247,13 @@ SpriteMov($38, Inpe2, $081F0CF0)      ////インペ移動
 Inpe2:
  #incext Png2Dmp Inpe2.png --lz77  
 
- SpriteStd($77, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($77, 2, 0, purinsesu1)       ////キャンディ待機
+purinsesu1:
+#incext Png2Dmp purinsesu1.png --lz77 
+
+SpriteMov($39, purinsesu2, $081F0CF0)      ////インペ移動
+purinsesu2:
+ #incext Png2Dmp purinsesu2.png --lz77  
 
  SpriteStd($78, 2, 0, st_druid_f)       ////空き待機
 #incext Png2Dmp st_druid_f.png --lz77 
