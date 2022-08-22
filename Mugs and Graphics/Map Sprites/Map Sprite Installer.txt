@@ -239,8 +239,13 @@ BB3:
 Roy1:
 #incext Png2Dmp Roy1.png --lz77 
 
- SpriteStd($76, 2, 0, st_druid_f)       ////空き待機
-#incext Png2Dmp st_druid_f.png --lz77 
+ SpriteStd($76, 2, 1, Inpe1)       ////インペ待機
+Inpe1:
+#incext Png2Dmp Inpe1.png --lz77 
+
+SpriteMov($38, Inpe2, $081F0CF0)      ////インペ移動
+Inpe2:
+ #incext Png2Dmp Inpe2.png --lz77  
 
  SpriteStd($77, 2, 0, st_druid_f)       ////空き待機
 #incext Png2Dmp st_druid_f.png --lz77 
