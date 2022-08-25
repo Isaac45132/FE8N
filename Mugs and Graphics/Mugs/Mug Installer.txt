@@ -437,4 +437,25 @@ Denisu:
 barigosu:
   #incext PortraitFormatter barigosu.png  
 
+ setMugEntry($D4, Batora1,2, 6, 3, 4, 1)　　///ジェントル
+//setMugExtra($D4, 0, 0, 0, 0)
+Batora1:
+  #incext PortraitFormatter Batora1.png  
+  
+ setMugEntry($D5, K1,3, 6, 4, 4, 1)　　///キャンディ
+//setMugExtra($D5, 0, 0, 0, 0)
+K1:
+  #incext PortraitFormatter K1.png  
+  
+ setMugEntry($D6, Braito,4, 5, 3, 3, 1)　　///ブライト
+//setMugExtra($D6, 0, 0, 0, 0)
+Braito:
+  #incext PortraitFormatter Braito.png  
+
+ setMugEntry($D7, boni,2, 5, 2, 3, 1)　　///ボニー
+//setMugExtra($D7, 0, 0, 0, 0)
+boni:
+  #incext PortraitFormatter boni.png  
+
+
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
