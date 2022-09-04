@@ -356,7 +356,7 @@ setMugEntry($1D, Don, 2, 5, 2, 3, 1)     //ドンキホーテ顔画像
 Don:
   #incext PortraitFormatter Don.png  
   
-setMugEntry($27, Grace, 4, 7, 4, 5, 1)     //グレース顔画像
+setMugEntry($27, Grace, 2, 6, 3, 4, 1)     //グレース顔画像
 //setMugExtra($27, 0, 2, 5, 2)
 Grace:
   #incext PortraitFormatter Grace.png  
@@ -437,7 +437,7 @@ Denisu:
 barigosu:
   #incext PortraitFormatter barigosu.png  
 
- setMugEntry($D4, Batora1,2, 6, 3, 4, 1)　　///ジェントル
+ setMugEntry($D4, Batora1,2, 6, 2, 4, 1)　　///ジェントル
 //setMugExtra($D4, 0, 0, 0, 0)
 Batora1:
   #incext PortraitFormatter Batora1.png  
