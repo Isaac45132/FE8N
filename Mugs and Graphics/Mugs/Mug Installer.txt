@@ -437,7 +437,7 @@ Denisu:
 barigosu:
   #incext PortraitFormatter barigosu.png  
 
- setMugEntry($D4, Batora1,2, 6, 2, 4, 1)　　///ジェントル
+ setMugEntry($D4, Batora1,3, 5, 3, 3, 1)　　///ジェントル
 //setMugExtra($D4, 0, 0, 0, 0)
 Batora1:
   #incext PortraitFormatter Batora1.png  
@@ -457,5 +457,9 @@ Braito:
 boni:
   #incext PortraitFormatter boni.png  
 
+ setMugEntry($03, Rideli2,3, 5, 3, 3, 1)　　///リディ（未来の姿）
+//setMugExtra($03, 0, 0, 0, 0)
+Rideli2:
+  #incext PortraitFormatter Rideli2.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
