@@ -31,6 +31,8 @@ penalty:
 	cmp	r0, #0x29	@射程増加による命中マイナスを除外するクラス
 	beq	musi
 	cmp	r0, #0x2A	@射程増加による命中マイナスを除外するクラス
+	beq	musi
+	cmp	r0, #0x39	@射程増加による命中マイナスを除外するクラス
 	bne	mainasu
 musi:
 	mov		r0, r2

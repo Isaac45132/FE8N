@@ -46,6 +46,8 @@ kit:
 	cmp		r0, #0x29	@マージナイト
 	beq		madou
 	cmp		r0, #0x2A	@マージナイト
+	beq		madou
+	cmp		r0, #0x39	@プリンセス
 	bne		end
 madou:
 	cmp		r1, #0x11
