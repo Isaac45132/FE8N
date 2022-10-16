@@ -55,11 +55,11 @@ endNoEnemy:
     bl OtherSideSkill
     bl koroshi
     bl Trample
-    bl tubame
-    bl ouzya
     bl Calm
 
 endNeedEnemy:
+    bl tubame	@見切りでも発動
+    bl ouzya	@見切りでも発動
 
 @マイナス処理
     bl Domination
@@ -72,6 +72,7 @@ endNeedEnemy:
 
 RETURN:
     bl Agitation
+    bl DefenseForce
 
     pop {r4, r5}
     pop {r0}
@@ -497,6 +498,76 @@ agitation_impl:
         strh r0, [r4, r1]
 
         mov r1, #98 @回避
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1]
+        pop {pc}
+
+DefenseForce:
+@青は青に対して効く
+@赤は赤に対して効く
+        push {r4, r5, r6, r7, lr}
+    
+        ldrb r0, [r4, #0xB]
+        lsl r0, r0, #24
+        bpl mikata2
+        mov r6, #0x80
+        bl DefenseForce_impl
+        b endDefenseForce
+    mikata2:
+        mov r6, #0x00
+        bl DefenseForce_impl
+    endDefenseForce:
+        pop {r4, r5, r6, r7, pc}
+
+DefenseForce_impl:
+        push {lr}
+        mov r7, #0
+    loopDefenseForce:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq resultDefenseForce	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopDefenseForce	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopDefenseForce	@死亡判定2
+    
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1	@居ないフラグ+救出されている
+        and r0, r1
+        bne loopDefenseForce
+    
+        mov r0, #1  @範囲指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopDefenseForce @近くにいない
+    
+	ldr r0, [r5, #0]
+	ldr r1, [r4, #0]
+	cmp r0, r1
+	beq loopDefenseForce    @自分自身には無効
+
+        mov r0, r5
+        mov r1, r4
+        bl HasDefenseForce
+        cmp r0, #0
+        beq loopDefenseForce    @相手が守護陣未所持
+    
+        mov r7, #1
+        b loopDefenseForce
+    
+    resultDefenseForce:
+	mov r2, #5		@防御5
+        mul r2, r7
+
+        mov r1, #92 @防御
         ldrh r0, [r4, r1]
         add r0, r0, r2
         strh r0, [r4, r1]
@@ -1867,6 +1938,7 @@ ICHIBAN_ADDR = (EXTRA_OFFSET+40)
 CALM_ADDR = (EXTRA_OFFSET+44)
 FRENZY_ADDR = (EXTRA_OFFSET+48)
 ASUP_ADDR = (EXTRA_OFFSET+52)
+DEFENSEFORSE_ADDR = (EXTRA_OFFSET+56)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -1999,6 +2071,9 @@ HasMiracle:
 	mov pc, r2
 HasCalm:
 	ldr r2, CALM_ADDR
+	mov pc, r2
+HasDefenseForce:
+	ldr r2, DEFENSEFORSE_ADDR
 	mov pc, r2
 
 GetAttackerAddr:

@@ -71,6 +71,7 @@ battle_before:
     POIN HasCalm
     POIN HasFrenzy
     POIN HasAsUP
+    POIN HasDefenseForce
 
 battle_after:
     #incbin main.dmp
@@ -266,11 +267,11 @@ HasDomination:
     WORD DominationID
 
 HasTubame:
-    HAS_NIHIL
+    HAS_SKILL
     WORD Effective3ID
 
 HasOuzya:
-    HAS_NIHIL
+    HAS_SKILL
     WORD Effective4ID
 
 HasNullify:
@@ -304,3 +305,7 @@ HasFrenzy:
 HasAsUP:
     HAS_NIHIL
     WORD AsUPID
+
+HasDefenseForce:
+    HAS_NIHIL
+    WORD DefenseForceID
