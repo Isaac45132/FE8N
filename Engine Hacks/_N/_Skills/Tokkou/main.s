@@ -1,5 +1,6 @@
+
 TRUE = (1)
-FALSE = (0)
+@FALSE = (0)
 
 EFFECTIVE_BONUS1 = Adr+40
 EFFECTIVE_BONUS2 = Adr+44
@@ -53,11 +54,11 @@ main:
 		bl Effector
 		cmp r0, #TRUE
 		beq result
-		mov r0, #FALSE
+		mov r0, #0
 
 	result:
 		pop {r4, r5}
-		cmp r0, #FALSE
+		cmp r0, #0
 		beq jump
 		mov r5, r1	@TRUEなら結果をr5に設定
 	jump:
@@ -73,7 +74,7 @@ Effector:
 		push {r4, lr}
 		mov r4, r2
 		bl checkEffective
-		cmp r0, #FALSE
+		cmp r0, #0
 		beq endEffector
 		mov r0, r4
 		mov r1, #90
@@ -93,11 +94,11 @@ checkEffective:
 		mov r4, r1
 		mov lr, r0
 		.short 0xF800
-		cmp r0, #FALSE
+		cmp r0, #0
 		beq endEffective	@スキル未所持
 		mov r1, r4
 		bl effect_test
-		cmp r0, #FALSE
+		cmp r0, #0
 		beq endEffective	@非特効対象
 		mov r0, #TRUE	@成功
 	endEffective:
@@ -116,7 +117,7 @@ effect_test:
 		ldrb r0, [r1, #0]
 		cmp r0, #0
 		bne back
-		mov r0, #FALSE
+		mov r0, #0
 		b false
 	true:
 		mov r0, #TRUE
@@ -143,12 +144,12 @@ Calculator:
 
 Nihil:
 		push {lr}
-		mov r0, r5
-			ldr r1, Adr+32 @相手見切り
-			mov lr, r1
-			.short 0xF800
-		cmp r0, #1
-		beq trueNihil
+@		mov r0, r5
+@			ldr r1, Adr+32 @相手見切り
+@			mov lr, r1
+@			.short 0xF800
+@		cmp r0, #1
+@		beq trueNihil
 		
 		mov r0, r4
 			ldr r1, Adr+32 @自分見切り
@@ -164,7 +165,7 @@ Nihil:
 		cmp r0, #1
 		beq trueNihil
 	falseNihil:
-		mov r0, #FALSE
+		mov r0, #0
 		b endNihil
 	trueNihil:
 		mov r0, #TRUE

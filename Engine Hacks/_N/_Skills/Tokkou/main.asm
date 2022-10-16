@@ -5,13 +5,13 @@
     mov r4, r0
     mov r5, r1
     
-    mov r0, r5
-        @align 4
-        ldr r1, [Adr+32] ;相手見切り
-        mov lr, r1
-        @dcw $F800
-    cmp r0, #0
-    bne non
+;    mov r0, r5
+;        @align 4
+;        ldr r1, [Adr+32] ;相手見切り
+;        mov lr, r1
+;        @dcw $F800
+;    cmp r0, #0
+;    bne non
     
     mov r0, r4
         @align 4
