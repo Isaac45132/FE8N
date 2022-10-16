@@ -19,5 +19,5 @@ skill_093_item:
 #define COMBAT_ART_093_DUMMY 00 
  
 COMPLEX_SKILL_093:
-   BYTE $3A $00 0 
+   BYTE $3A $3C 0 
 

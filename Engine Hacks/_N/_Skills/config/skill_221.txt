@@ -1,13 +1,13 @@
 skill_221_unit:
    BYTE $00 $00 0 
 skill_221_class:
-   BYTE $00 $00 0 
+   BYTE $38 $00 0 
 skill_221_weapon:
    BYTE $00 $00 0 
 skill_221_item:
    BYTE $00 $00 0 
-#define SKL_HELP_221 $0000
-#define SKL_COLOR_221 $00
+#define SKL_HELP_221 $1353
+#define SKL_COLOR_221 $FF
  
 #define COMBAT_ART_221_ATK 00 
 #define COMBAT_ART_221_HIT 00 
