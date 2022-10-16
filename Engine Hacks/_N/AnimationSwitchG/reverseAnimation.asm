@@ -15,7 +15,7 @@ flip:
 	lsl r1, r1, #22
 	bpl end
 	sub r0, r0, #1
-	beq end
+	beq $0802c9cc
 	mov r0, #1
 end:
 	bx lr
