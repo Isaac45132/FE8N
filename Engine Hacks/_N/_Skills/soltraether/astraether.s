@@ -415,8 +415,8 @@ TENKU:
     bne falseTenku @@手斧チェック
 jump:
 
-    ldrb r0, [r7, #21]	@技
-@    ldrb r0, [r7, #8]	@レベル
+@    ldrb r0, [r7, #21]	@技
+    ldrb r0, [r7, #8]	@レベル
     mov r1, #0
     bl random
     cmp r0, #0
