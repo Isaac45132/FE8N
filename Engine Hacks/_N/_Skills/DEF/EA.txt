@@ -51,6 +51,7 @@ shikkokunori:
  POIN HAS_IMPREGNABLE_WALL
  POIN PrayOld_hasSkill
  POIN hasRakkisebun
+ POIN hasMultiScale
 
 hasInvincible:
  HAS_NIHIL
@@ -59,6 +60,10 @@ hasInvincible:
 hasRakkisebun:
  HAS_NIHIL
  WORD RakkisebunID
+
+hasMultiScale:
+ HAS_NIHIL
+ WORD MultiScaleID
 
 BigShield_hasSkill:
  HAS_NIHIL

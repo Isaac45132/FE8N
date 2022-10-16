@@ -35,6 +35,7 @@ SET_SKILLANIME_DEF_FUNC = (adr+20)
 	bl Divide
 	bl ImpregnableWall
 	bl Deflect
+	bl MultiScale
 
 	bl Xeno
 	cmp r0, #1
@@ -272,6 +273,25 @@ Deflect:
 		mov r0, #0
 		pop {pc}
 		
+MultiScale:
+	push {lr}
+	mov r0, r8
+	mov r1, r7
+	bl HasMultiScale
+	cmp r0, #0
+	beq endMultiScale
+
+	mov	r3, r8
+	ldrb	r0, [r3, #18]	@最大ＨＰ
+	ldrb	r1, [r3, #19]	@現在ＨＰ
+	cmp	r0, r1
+	bne	endMultiScale
+	ldrh	r0, [r4, #4]
+	bl divide5
+	strh	r0, [r4, #4]
+endMultiScale:
+	pop	{pc}
+	
 
 BigShield:
 	push {lr}
@@ -579,6 +599,7 @@ HAS_INORI_FUNC = (adr+12)
 HAS_INVINCIBLE_FUNC = (adr+28)
 HAS_OLD_INORI_FUNC = (adr+40)
 HAS_RAKKISEBUN_FUNC = (adr+44)
+HAS_MULTISCALE_FUNC = (adr+48)
 
 HasBigShield:
 	ldr	r3, HAS_BIG_SHIELD_FUNC
@@ -598,6 +619,10 @@ hasInvincible:
 
 hasRakkisebun:
 	ldr	r2, HAS_RAKKISEBUN_FUNC
+	mov	pc, r2
+
+HasMultiScale:
+	ldr	r2, HAS_MULTISCALE_FUNC
 	mov	pc, r2
 
 HasPray:
