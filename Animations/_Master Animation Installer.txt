@@ -68,6 +68,7 @@
 #include "Magic Installer.event"   //0x119     ミトス
 #include "kyandeliM Installer.event"   //0x11A     きゃんでぃ魔
 #include "kyandeliS Installer.event"   //0x11B     きゃんでぃ剣
+#include "Inperiaru Installer.event"   //0x11C     インペリアル槍
 
 //////////////ここまでアニメデータ
 ALIGN 4
