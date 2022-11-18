@@ -1,0 +1,11 @@
+PUSH
+
+ORG 0x0B4CAC
+jumpToHack(SoundRoom)
+
+POP
+
+SoundRoom:
+#incbin "SoundRoom_name.dmp"
+WORD $08A9E2A0
+POIN SoundRoom_table
