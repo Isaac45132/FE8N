@@ -69,6 +69,7 @@
 #include "kyandeliM Installer.event"   //0x11A     きゃんでぃ魔
 #include "kyandeliS Installer.event"   //0x11B     きゃんでぃ剣
 #include "Inperiaru Installer.event"   //0x11C     インペリアル槍
+#include "Inpekaihi Installer.event"   //0x11D     インペリアル投げ斧
 
 //////////////ここまでアニメデータ
 ALIGN 4
