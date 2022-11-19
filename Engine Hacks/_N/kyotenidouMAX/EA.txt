@@ -1,5 +1,11 @@
 PUSH
 
+ORG 0x02c558
+jumpToHack(ringExp)
+
+ORG 0x02c600
+jumpToHack(danceExp)
+
 ORG 0x032d6c
 jumpToHack(flag_kyotenidoupointa)
 
@@ -7,6 +13,20 @@ ORG 0x089878
 jumpToHack(flag_kyotenidou)
 
 POP
+
+ringExp:
+#incbin "ringExp.dmp"
+POIN flagMove
+POIN flagMapA
+POIN flagMapB
+POIN flagMapC
+
+danceExp:
+#incbin "danceExp.dmp"
+POIN flagMove
+POIN flagMapA
+POIN flagMapB
+POIN flagMapC
 
 flag_kyotenidoupointa:
 #incbin "kyotenidoupointa.dmp"
