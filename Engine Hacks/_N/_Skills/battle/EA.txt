@@ -283,7 +283,7 @@ HasHitUp:
     WORD HitUpID
 
 HasAgitation:
-    HAS_NIHIL
+    HAS_SKILL
     WORD AgitationID
 
 HasMiracleB:
@@ -307,5 +307,5 @@ HasAsUP:
     WORD AsUPID
 
 HasDefenseForce:
-    HAS_NIHIL
+    HAS_SKILL
     WORD DefenseForceID

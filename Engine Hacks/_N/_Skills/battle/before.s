@@ -3,10 +3,8 @@
 @ステータス画面にも影響がある
 @相手が存在するとは限らない(ダミーかもしれない)
     bl AvoidUp
-    bl Miracle
     bl HitUp
     bl fatigue
-    bl asUp
 
 @闘技場チェック
     bl GetArenaAddr
@@ -37,6 +35,10 @@ gotSkill:
     bl BladeSession
 	bl MagicSword
 	bl Frenzy
+    bl asUp
+    bl Miracle
+    bl Agitation
+    bl DefenseForce
 
 endNoEnemy:
 
@@ -71,9 +73,6 @@ endNeedEnemy:
     bl Heartseeker
 
 RETURN:
-    bl Agitation
-    bl DefenseForce
-
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -474,8 +473,8 @@ agitation_impl:
         cmp r0, #0
         beq loopagitation @近くにいない
     
-	ldr r0, [r5, #0]
-	ldr r1, [r4, #0]
+	ldrb r0, [r5, #0xB]
+	ldrb r1, [r4, #0xB]
 	cmp r0, r1
 	beq loopagitation    @自分自身には無効
 
@@ -549,8 +548,8 @@ DefenseForce_impl:
         cmp r0, #0
         beq loopDefenseForce @近くにいない
     
-	ldr r0, [r5, #0]
-	ldr r1, [r4, #0]
+	ldrb r0, [r5, #0xB]
+	ldrb r1, [r4, #0xB]
 	cmp r0, r1
 	beq loopDefenseForce    @自分自身には無効
 
