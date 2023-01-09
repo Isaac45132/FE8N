@@ -491,6 +491,60 @@ Initialize:
 	push {lr}
 @cmp r0, #0
 @beq skipDraw
+
+@20221229
+
+ldr	r0, =0x02003BFB
+ldrb	r0, [r0, #0]
+mov	r1, #1
+tst	r0, r1
+beq	nonskipDraw
+ldr	r0, [r4, #0xC]
+ldrb	r0, [r0, #0xB]
+lsl	r0, r0, #24
+bmi	nonskipDraw
+lsl	r0, r0, #1
+bmi	nonskipDraw
+
+push	{r6}
+ldr	r0, =0x02003D6E
+ldr	r1, =0x000001F6
+strh	r1, [r0, #0]
+ldr	r1, =0x000001F8
+strh	r1, [r0, #2]
+mov	r1, #0
+strh	r1, [r0, #4]
+str	r1, [r0, #8]
+str	r1, [r0, #12]
+
+ldr	r0, =0x02003DAE
+ldr	r1, =0x000001F7
+strh	r1, [r0, #0]
+ldr	r1, =0x000001F9
+strh	r1, [r0, #2]
+mov	r1, #0
+strh	r1, [r0, #4]
+str	r1, [r0, #8]
+str	r1, [r0, #12]
+
+ldr	r6, =0x02003D76
+ldr	r1, [r4, #0xC]
+ldr	r0, [r1, #0]
+mov	r2, #0x1C		@HP成長
+ldsb	r2, [r0, r2]
+mov	r1, #2
+mov	r0, r6
+push	{r3}
+ldr	r3, =0x08004A9C		@DrawDecNumber
+mov	lr, r3
+pop	{r3}
+.short	0xF800
+
+pop	{r6}
+b	skipDraw
+
+nonskipDraw:
+@20221229
 	mov	r4, #0
 	bl getEquipmentPositionData
 	ldr r0, [r0]
@@ -513,7 +567,7 @@ loopE:
 	add	r4, #1
 	cmp	r4, #7
 	ble	loopE
-@skipDraw:
+skipDraw:
 @アイコン
 	bl getIconPositionData
 	mov r6, r0
