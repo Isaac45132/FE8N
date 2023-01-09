@@ -1,0 +1,23 @@
+PUSH
+
+ORG 0x2a0e8
+jumpToHack(mamoritegamen)
+
+ORG 0x2a1a8
+jumpToHack(mamorite)
+
+POP
+
+mamoritegamen:
+#incbin "mamoritegamen.dmp"
+POIN HasMamorite
+POIN hasNihil
+
+mamorite:
+#incbin "mamorite.dmp"
+POIN HasMamorite
+POIN hasNihil
+
+HasMamorite:
+    HAS_SKILL
+    WORD MamoriteID

@@ -34,5 +34,6 @@
 #include "Equipment\EA.txt"
 #include "thiefskill\EA.txt"
 #include "treasurehunt\EA.txt"
+#include "mamorite\EA.txt"
 
 //#include "my_skill\EA.txt"

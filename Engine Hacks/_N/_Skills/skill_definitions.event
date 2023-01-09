@@ -202,3 +202,5 @@
 #define AsUPID 220 //0xDC攻速+3
 #define DefenseForceID 221 //0xDD守護陣
 #define MultiScaleID 222 //0xDEマルチスケイル
+#define MamoriteID 223 //0xDF護り手
+#define MamoriteDefID 224 //0xE0護り手攻-3防+3
