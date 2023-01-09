@@ -38,7 +38,6 @@
 	#include "growth\EA.txt"
 	#include "prediction\EA.txt"
 	//#include "FillAIRangeMap Fix\FillAIDangerMap.event"
-
 	#include "kyotenidouMAX\EA.txt"
 	#include "tikutiku\EA.txt"
 	#include "syokihaiti_flag\EA.txt"
@@ -46,3 +45,6 @@
     #include "tikutiku\staff_table.event"
     #include "dance\EA.txt"
     #include "BadEffectStaffAI\EA.txt"
+    #include "SoundRoom_name\EA.txt"
+    #include "SoundRoom_name\SoundRoom_table.event"
+    	#include "growth_screen\EA.txt"
