@@ -13,6 +13,10 @@ ORG 0x08AB22
 SHORT 0x46C0
 jumpToHack(seityouA)
 
+ORG 0x08ABDC
+jumpToHack(seityoutaisaku)
+SHORT 0x2300
+
 POP
 
 seityou:
@@ -23,3 +27,6 @@ seityoukaki:
 
 seityouA:
 #incbin "seityouflagA.dmp"
+
+seityoutaisaku:
+#incbin "seityoutaisaku.dmp"
