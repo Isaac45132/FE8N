@@ -148,7 +148,7 @@ setMugEntry($08, kara,2, 6, 3, 4, 1)      //カーラ
 kara:
   #incext PortraitFormatter kara.png 
   
-setMugEntry($1A, mist,2, 6, 2, 4, 1)    ///ジーナ
+setMugEntry($1A, mist,3, 6, 3, 4, 1)    ///ジーナ
 setMugExtra($1A, 8, 0, 0, 0)
 mist:
   #incext PortraitFormatter mist.png
@@ -442,7 +442,7 @@ barigosu:
 Batora1:
   #incext PortraitFormatter Batora1.png  
   
- setMugEntry($D5, K1,3, 6, 4, 4, 1)　　///キャンディ
+ setMugEntry($D5, K1,4, 6, 4, 4, 1)　　///キャンディ
 //setMugExtra($D5, 0, 0, 0, 0)
 K1:
   #incext PortraitFormatter K1.png  
@@ -452,7 +452,7 @@ K1:
 Braito:
   #incext PortraitFormatter Braito.png  
 
- setMugEntry($D7, boni,2, 5, 2, 3, 1)　　///ボニー
+ setMugEntry($D7, boni,4, 6, 3, 4, 1)　　///ボニー
 //setMugExtra($D7, 0, 0, 0, 0)
 boni:
   #incext PortraitFormatter boni.png  
@@ -461,5 +461,15 @@ boni:
 //setMugExtra($03, 0, 0, 0, 0)
 Rideli2:
   #incext PortraitFormatter Rideli2.png  
+  
+ setMugEntry($D8, Rideli_ED,3, 5, 3, 3, 1)　　///リディ（未来の姿ED用）
+//setMugExtra($D8, 0, 0, 0, 0)
+Rideli_ED:
+  #incext PortraitFormatter Rideli_ED.png  
+  
+ setMugEntry($D9, Kurgan,2, 5, 3, 3, 1)　　///クルガン
+//setMugExtra($D9, 0, 0, 0, 0)
+Kurgan:
+  #incext PortraitFormatter Kurgan.png  
 
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
