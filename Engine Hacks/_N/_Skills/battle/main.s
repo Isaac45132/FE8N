@@ -34,7 +34,7 @@ next:
     bl WarSkill
     bl godBless
     bl ChagingLance
-    bl MamoriteDef
+    bl MamoDef
 
 Return:
     ldr r5, [r4, #76]
@@ -232,8 +232,8 @@ Shisen_B:	@相手強化
     endShisen:
         pop {pc}
 
-MamoriteDef:
-        push {lr}
+MamoDef:
+        push {r7, lr}
 	ldr r0, =0x0203A4E8
 	cmp r0, r5
 	beq endMamoriteDef	@攻め側は発動不可
@@ -241,8 +241,16 @@ MamoriteDef:
         mov r1, #0
         bl HasMamoriteDef
         cmp r0, #0
+        bne skillmamo		@スキルチェック
+
+        mov r0, r5
+        mov r1, #0
+	bl HasMamorite
+        cmp r0, #0
         beq endMamoriteDef	@スキルチェック
-        
+        mov r7, #1
+
+skillmamo:
 	mov r0, r4
         ldr r1, NIHIL_ADR
         mov lr, r1
@@ -265,6 +273,18 @@ MamoriteDef:
 	beq endMamoriteDef	@護り手未発動なら不可
 
 hatudoumamo:
+	mov r1, r5
+	add r1, #98
+	ldrh r0, [r1]
+	sub r0, #20
+	bpl mamokougeki
+	mov r0, #0
+mamokougeki:
+        strh r0, [r1] @回避-20
+
+	cmp r7, #1
+	beq endMamoriteDef	@護り手なら攻防マイナス無し
+
         mov r1, r4
         add r1, #90
         ldrh r0, [r1]
@@ -280,7 +300,7 @@ hatudoumamo:
         strh r0, [r1] @相手防御+3
 
     endMamoriteDef:
-        pop {pc}
+        pop {r7, pc}
 
 
 godBless:
@@ -431,6 +451,10 @@ GET_COMBAT_ART:
 
 HasMamoriteDef:
  ldr r2, (addr+64)
+ mov pc, r2
+
+HasMamorite:
+ ldr r2, (addr+68)
  mov pc, r2
 
 .ltorg

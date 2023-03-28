@@ -39,6 +39,7 @@ gotSkill:
     bl Miracle
     bl Agitation
     bl DefenseForce
+    bl passion
 
 endNoEnemy:
 
@@ -541,7 +542,7 @@ DefenseForce_impl:
         and r0, r1
         bne loopDefenseForce
     
-        mov r0, #1  @範囲指定
+        mov r0, #3  @範囲指定
         mov r1, r4
         mov r2, r5
         bl CheckXY
@@ -563,7 +564,7 @@ DefenseForce_impl:
         b loopDefenseForce
     
     resultDefenseForce:
-	mov r2, #5		@防御5
+	mov r2, #2		@防御2
         mul r2, r7
 
         mov r1, #92 @防御
@@ -1043,6 +1044,32 @@ Fort:
         mov r0, #0
     endFort:
         pop {pc}
+
+passion:
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasPassion
+        cmp r0, #0
+        beq endPassion
+        
+        ldrb r1, [r4, #18] @最大HP
+        ldrb r0, [r4, #19] @現在HP
+        cmp r0, r1
+        beq endPassion	 @現在が最大と同じなら終了
+
+        add r4, #90
+        ldrh r0, [r4]
+	mov r2, r0
+        mov r1, #2
+	mul r0, r1
+	mov r1, #10
+	swi #6      @2割
+	add r0, r2
+        strh r0, [r4] @自分
+    endPassion:
+        pop {pc}
+
 
 shisen_A:	@自分死線
         push {lr}
@@ -1938,6 +1965,7 @@ CALM_ADDR = (EXTRA_OFFSET+44)
 FRENZY_ADDR = (EXTRA_OFFSET+48)
 ASUP_ADDR = (EXTRA_OFFSET+52)
 DEFENSEFORSE_ADDR = (EXTRA_OFFSET+56)
+PASSION_ADDR = (EXTRA_OFFSET+60)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -2073,6 +2101,9 @@ HasCalm:
 	mov pc, r2
 HasDefenseForce:
 	ldr r2, DEFENSEFORSE_ADDR
+	mov pc, r2
+HasPassion:
+	ldr r2, PASSION_ADDR
 	mov pc, r2
 
 GetAttackerAddr:

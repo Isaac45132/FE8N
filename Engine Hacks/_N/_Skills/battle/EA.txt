@@ -72,6 +72,7 @@ battle_before:
     POIN HasFrenzy
     POIN HasAsUP
     POIN HasDefenseForce
+    POIN HasPassion
 
 battle_after:
     #incbin main.dmp
@@ -92,6 +93,7 @@ battle_after:
     POIN HAS_REIN
     POIN GET_COMBAT_ART
     POIN HasMamoriteDef
+    POIN HasMamorite
     
 battle_down:
   #incbin down.dmp
@@ -313,3 +315,11 @@ HasDefenseForce:
 HasMamoriteDef:
     HAS_SKILL
     WORD MamoriteDefID
+
+HasMamorite:
+    HAS_SKILL
+    WORD MamoriteID
+
+HasPassion:
+    HAS_NIHIL
+    WORD PassionID
