@@ -14,6 +14,11 @@ HAS_SKILL_FUNC = (ADR+4)
     cmp r0, #1
     beq false
 
+	mov r1, #0x43		@
+	ldrb r0, [r4, r1]	@
+	cmp r0, #99		@
+	beq false		@疲労P99なら敵は見切り持ちにする
+
     mov r0, r4
     mov r1, r5
     bl judgeSkill
