@@ -13,6 +13,31 @@ CHECK_ITEM_FUNC = ADR+20
 @I	r0 = ベースアドレス
 @	r1 = スキルID
 @O	-
+
+	cmp r1, #3	@見切り
+	bne nonmikiri	@見切り
+	push {r1}
+	ldr r1, =0x0203a4e8
+	cmp r0, r1
+	beq gyaku
+	ldr r1, =0x0203a568
+	cmp r0, r1
+	bne nonhirouMAX
+	ldr r1, =0x0203a4e8
+	.short 0xE000
+gyaku:
+	ldr r1, =0x0203a568
+	add r1, #0x43
+	ldrb r1, [r1]
+	cmp r1, #99
+	bne nonhirouMAX
+	mov r0, #1
+	pop {r1}
+	bx lr
+
+nonhirouMAX:
+	pop {r1}
+nonmikiri:
     cmp r0, #0
     bne main
     bx lr
