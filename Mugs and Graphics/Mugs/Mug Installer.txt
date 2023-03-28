@@ -286,7 +286,7 @@ setMugEntry($26, Remi, 2, 6, 2, 4, 1)
 Remi:
   #incext PortraitFormatter Remi.png  
   
-setMugEntry($28, aruvin, 2, 5, 3, 3, 1)
+setMugEntry($28, aruvin, 3, 5, 3, 3, 1)
 //setMugExtra($28, 0, 2, 5, 2)
 aruvin:
   #incext PortraitFormatter aruvin.png  
