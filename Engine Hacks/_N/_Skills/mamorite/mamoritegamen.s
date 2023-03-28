@@ -105,8 +105,24 @@ skillF_impl:
         mov r1, r4
         bl HasMamorite
         cmp r0, #0
-        beq loopskillF    	@相手がスキルA未所持
-    
+        bne hatudou    		@相手がスキルA所持
+
+        mov r0, r5
+        mov r1, r4
+        bl HasMamoDef
+        cmp r0, #0
+        beq loopskillF    	@相手がスキルB未所持
+
+	ldrb r0, [r4, #0x12]
+	mov r1, #8
+	mul r0, r1
+	mov r1, #10
+	swi #6			@最大HP8割
+	ldrb r1, [r4, #0x13]
+	cmp r1, r0
+	blt loopskillF
+	
+hatudou:    
         mov r0, r6
         bl Get_Status
 	mov r3, r0
@@ -162,6 +178,10 @@ HasMikiri:
 	ldr r1, adr+4    @見切り
 	mov pc, r1
 		
+HasMamoDef:
+	ldr r1, adr+8
+	mov pc, r1
+
 .ltorg
 .align
 adr:

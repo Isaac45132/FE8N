@@ -10,14 +10,20 @@ POP
 
 mamoritegamen:
 #incbin "mamoritegamen.dmp"
-POIN HasMamorite
+POIN HasMamo
 POIN hasNihil
+POIN HasMamoDef
 
 mamorite:
 #incbin "mamorite.dmp"
-POIN HasMamorite
+POIN HasMamo
 POIN hasNihil
+POIN HasMamoDef
 
-HasMamorite:
+HasMamo:
     HAS_SKILL
     WORD MamoriteID
+
+HasMamoDef:
+    HAS_SKILL
+    WORD MamoriteDefID
