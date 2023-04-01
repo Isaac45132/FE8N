@@ -41,7 +41,7 @@ setMugEntry($0F, mirano, 2, 6, 3, 3, 1)
 mirano:
   #incext PortraitFormatter mirano.png 
   
-setMugEntry($24, uuuuu, 2, 5, 3, 3, 1)
+setMugEntry($24, uuuuu, 3, 5, 3, 3, 1)  ///ヘルメス
 //setMugExtra($24, 0, 2, 5, 2)
 uuuuu:
   #incext PortraitFormatter uuuuu.png 
@@ -269,7 +269,7 @@ setMugEntry($25, zyado, 2, 5, 3, 3, 1)
 zyado:
   #incext PortraitFormatter zyado.png
 
-setMugEntry($2B, rozari, 3, 6, 3, 4, 1)       ///ロザリー
+setMugEntry($2B, rozari, 3, 5, 3, 3, 1)       ///ロザリー
 //setMugExtra($2B, 0, 2, 5, 2)
 rozari:
   #incext PortraitFormatter rozari.png  
