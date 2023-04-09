@@ -73,6 +73,7 @@ battle_before:
     POIN HasAsUP
     POIN HasDefenseForce
     POIN HasPassion
+    POIN HasDefenseForceM
 
 battle_after:
     #incbin main.dmp
@@ -323,3 +324,7 @@ HasMamorite:
 HasPassion:
     HAS_NIHIL
     WORD PassionID
+
+HasDefenseForceM:
+    HAS_SKILL
+    WORD MagicBarrierID

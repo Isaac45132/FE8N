@@ -40,6 +40,7 @@ gotSkill:
     bl Agitation
     bl DefenseForce
     bl passion
+    bl DefenseForceM
 
 endNoEnemy:
 
@@ -542,7 +543,7 @@ DefenseForce_impl:
         and r0, r1
         bne loopDefenseForce
     
-        mov r0, #3  @範囲指定
+        mov r0, #1  @範囲指定
         mov r1, r4
         mov r2, r5
         bl CheckXY
@@ -564,6 +565,76 @@ DefenseForce_impl:
         b loopDefenseForce
     
     resultDefenseForce:
+	mov r2, #5		@防御5
+        mul r2, r7
+
+        mov r1, #92 @防御
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1]
+        pop {pc}
+
+DefenseForceM:
+@青は青に対して効く
+@赤は赤に対して効く
+        push {r4, r5, r6, r7, lr}
+    
+        ldrb r0, [r4, #0xB]
+        lsl r0, r0, #24
+        bpl mikata3
+        mov r6, #0x80
+        bl DefenseForceM_impl
+        b endDefenseForceM
+    mikata3:
+        mov r6, #0x00
+        bl DefenseForceM_impl
+    endDefenseForceM:
+        pop {r4, r5, r6, r7, pc}
+
+DefenseForceM_impl:
+        push {lr}
+        mov r7, #0
+    loopDefenseForceM:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq resultDefenseForceM	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopDefenseForceM	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopDefenseForceM	@死亡判定2
+    
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1	@居ないフラグ+救出されている
+        and r0, r1
+        bne loopDefenseForceM
+    
+        mov r0, #3  @範囲指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopDefenseForceM @近くにいない
+    
+	ldrb r0, [r5, #0xB]
+	ldrb r1, [r4, #0xB]
+	cmp r0, r1
+	beq loopDefenseForceM    @自分自身には無効
+
+        mov r0, r5
+        mov r1, r4
+        bl HasDefenseForceM
+        cmp r0, #0
+        beq loopDefenseForceM    @相手が守護陣未所持
+    
+        mov r7, #1
+        b loopDefenseForceM
+    
+    resultDefenseForceM:
 	mov r2, #2		@防御2
         mul r2, r7
 
@@ -1966,6 +2037,7 @@ FRENZY_ADDR = (EXTRA_OFFSET+48)
 ASUP_ADDR = (EXTRA_OFFSET+52)
 DEFENSEFORSE_ADDR = (EXTRA_OFFSET+56)
 PASSION_ADDR = (EXTRA_OFFSET+60)
+DEFENSEFORSEM_ADDR = (EXTRA_OFFSET+64)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -2104,6 +2176,9 @@ HasDefenseForce:
 	mov pc, r2
 HasPassion:
 	ldr r2, PASSION_ADDR
+	mov pc, r2
+HasDefenseForceM:
+	ldr r2, DEFENSEFORSEM_ADDR
 	mov pc, r2
 
 GetAttackerAddr:
