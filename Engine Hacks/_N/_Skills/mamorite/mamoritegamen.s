@@ -113,12 +113,12 @@ skillF_impl:
         cmp r0, #0
         beq loopskillF    	@相手がスキルB未所持
 
-	ldrb r0, [r4, #0x12]
+	ldrb r0, [r5, #0x12]
 	mov r1, #8
 	mul r0, r1
 	mov r1, #10
 	swi #6			@最大HP8割
-	ldrb r1, [r4, #0x13]
+	ldrb r1, [r5, #0x13]
 	cmp r1, r0
 	blt loopskillF
 	
