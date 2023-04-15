@@ -1,13 +1,13 @@
 skill_223_unit:
    BYTE $00 $00 0 
 skill_223_class:
-   BYTE $00 $00 0 
+   BYTE $38 $00 0 
 skill_223_weapon:
    BYTE $00 $00 0 
 skill_223_item:
    BYTE $00 $00 0 
-#define SKL_HELP_223 $0000
-#define SKL_COLOR_223 $00
+#define SKL_HELP_223 $1373
+#define SKL_COLOR_223 $FF
  
 #define COMBAT_ART_223_ATK 00 
 #define COMBAT_ART_223_HIT 00 
@@ -19,5 +19,5 @@ skill_223_item:
 #define COMBAT_ART_223_DUMMY 00 
  
 COMPLEX_SKILL_223:
-   BYTE $E0 $00 0 
+   BYTE $00 $00 0 
 
