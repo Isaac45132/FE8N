@@ -59,6 +59,9 @@ ldrb	r1, [r3, #0]	@敵のチクチク値
 sub	r1, #4		@経験値減算を開始するチクチク値
 bmi	saiteiti	@チクチク値が4未満なら分岐
 add	r1, #1
+mov	r2, r1		@チクチク減算3倍
+lsl	r1, #1		@チクチク減算3倍
+add	r1, r2		@チクチク減算3倍
 sub	r0, r0, r1	@獲得経験値
 
 saiteiti:
