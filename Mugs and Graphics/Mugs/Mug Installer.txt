@@ -208,7 +208,7 @@ setMugEntry($4B, rado11, 2, 5, 2, 3, 1)
 rado11:
   #incext PortraitFormatter rado11.png
  
-setMugEntry($16, bare11, 2, 6, 3, 4, 1)
+setMugEntry($16, bare11, 2, 5, 3, 3, 1)
 setMugExtra($16, 10, 2, 10, 4)
 bare11:
   #incext PortraitFormatter bare11.png
