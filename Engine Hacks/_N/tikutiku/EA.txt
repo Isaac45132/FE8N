@@ -25,6 +25,7 @@ WORD $00000001 ////攻撃ミスまたは攻撃なしの疲労値
 WORD $00000002 ////攻撃が当たり未撃破の疲労値
 WORD $00000004 ////敵撃破の疲労値
 POIN staff ////
+POIN ChapterIgnoreSetting_Fatigue
 
 staff:
 #incbin "staff.dmp"
@@ -37,4 +38,3 @@ WORD $00000003 ////盗むの疲労値
 summon_tiku:
 #incbin "summon_tiku.dmp"
 WORD $00000004 ////召喚の疲労値
-

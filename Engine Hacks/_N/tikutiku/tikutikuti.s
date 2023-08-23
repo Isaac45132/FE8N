@@ -27,12 +27,23 @@ mov	r1, #0x37 	@支援値6人目
 mov	r2, #1		@敵はどんな時でも+1
 add	r1, r1, r4	@ここから敵味方共通の処理
 ldrb	r0, [r1, #0]
-add	r0, r2
-cmp	r0, #99		@チクチク値限界:99
+add	r2, r0
+
+bl	ModeCheck
+cmp	r0, #1
+beq	HirouMode
+cmp	r2, #98		@98
 bls	dainyuu
-mov	r0, #99
+mov	r2, #98		@スキル封印対策
+strb	r2, [r1, #0]	@チクチク値代入
+b	end
+
+HirouMode:
+cmp	r2, #99		@チクチク値限界:99
+bls	dainyuu
+mov	r2, #99
 dainyuu:
-strb	r0, [r1, #0]	@チクチク値代入
+strb	r2, [r1, #0]	@チクチク値代入
 
 end:
 pop	{r1}
@@ -111,6 +122,37 @@ mov	pc, r1
 nasi:
 mov	r2, #0x0
 mov	pc, lr
+
+ModeCheck:
+	push {r1, r2, r3, lr}
+	ldr	r3, =0x0202bcfa
+	ldrb	r1, [r3, #0x0]	
+	cmp	r1, #0x0	@序章
+	beq	non
+	push	{r1}
+	ldr	r2, =0x080860D0	@フラグが立ってるか
+	mov	lr, r2
+	ldrh	r0, =0x0000011A	@フラグID@11A
+	.short	0xF800
+	pop	{r1}
+	cmp	r0, #0
+	beq	non		@フラグが立ってないなら終了
+	ldr	r3, adr+24
+syouloop:
+	ldrb	r0, [r3, #0x0]
+	cmp	r0, #0x0
+	beq	yes
+	cmp	r0, r1
+	beq	non
+	add	r3, #0x1
+	b	syouloop
+yes:
+	mov	r0, #1
+	.short	0xE000
+	non:
+	mov	r0, #0
+	pop	{r1, r2, r3}
+	pop	{pc}
 
 .ltorg
 .align
