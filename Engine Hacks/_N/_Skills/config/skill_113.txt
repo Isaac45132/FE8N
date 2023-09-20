@@ -1,5 +1,5 @@
 skill_113_unit:
-   BYTE $00 $00 0 
+   BYTE $76 $00 0 
 skill_113_class:
    BYTE $7B $74 $39 0
 skill_113_weapon:
