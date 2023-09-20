@@ -19,11 +19,11 @@ keiken_tikutikukeikenti:
 
 keiken_tikutikuti:
 #incbin "tikutikuti.dmp"
-WORD $00000003 ////踊りの疲労値
-WORD $00000003 ////通常杖の疲労値
+WORD $00000004 ////踊りの疲労値
+WORD $00000004 ////通常杖の疲労値
 WORD $00000001 ////攻撃ミスまたは攻撃なしの疲労値
-WORD $00000002 ////攻撃が当たり未撃破の疲労値
-WORD $00000004 ////敵撃破の疲労値
+WORD $00000003 ////攻撃が当たり未撃破の疲労値
+WORD $00000005 ////敵撃破の疲労値
 POIN staff ////
 POIN ChapterIgnoreSetting_Fatigue
 
