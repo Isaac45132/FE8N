@@ -43,6 +43,10 @@ ORG	0x243A4
 BYTE	$00 $4B $9F $46
 POIN	nosummon
 
+ORG	0x16DBA
+BYTE	$C0 $46 $00 $49 $8F $46
+POIN	staffDown
+
 POP
 
 
@@ -107,3 +111,10 @@ FatigueJudge:
 #incbin fatigue_judge.dmp
 WORD FATIGUE_FLAG
 POIN ChapterIgnoreSetting_Fatigue
+
+staffDown:
+#incbin "staffDown.dmp"
+WORD $00000005 ////疲労1で下がる回復量
+WORD $0000000A ////疲労2で下がる回復量
+WORD $0000000F ////疲労3で下がる回復量
+
