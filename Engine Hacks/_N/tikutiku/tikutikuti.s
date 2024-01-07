@@ -111,8 +111,28 @@ gekiha:
 @Œ‚”jŽž
 ldr	r2, adr+16
 owari:
-pop	{r4, r5}
-pop	{pc}
+	push {r2}
+	ldrb r0, [r4, #0xB]
+        bl Get_Status
+	ldrb r1, [r0, #0x10]
+	ldrb r2, [r4, #0x10]
+	sub r1, r1, r2
+	cmp r1, #0
+	bne hatudoumamo		@Œì‚èŽè‚ª”­“®‚µ‚Ä‚é‚©
+	ldrb r1, [r0, #0x11]
+	ldrb r2, [r4, #0x11]
+	sub r1, r1, r2
+	cmp r1, #0
+	beq endMamorite		@Œì‚èŽè–¢”­“®‚È‚ç•s‰Â
+hatudoumamo:
+	pop	{r2}
+	add	r2, #2		@Œì‚èŽèŽž‚Ì”æ˜J‰ÁŽZ’l
+	.short 0xE000
+endMamorite:
+	pop	{r2}
+	pop	{r4, r5}
+	pop	{pc}
+
 
 table:
 ldr	r1, adr+20
@@ -153,6 +173,10 @@ yes:
 	mov	r0, #0
 	pop	{r1, r2, r3}
 	pop	{pc}
+
+Get_Status:
+    ldr r1, =0x08019108
+    mov pc, r1
 
 .ltorg
 .align
