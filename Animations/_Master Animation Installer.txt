@@ -69,7 +69,15 @@
 #include "kyandeliM Installer.event"   //0x11A     きゃんでぃ魔
 #include "kyandeliS Installer.event"   //0x11B     きゃんでぃ剣
 #include "Inperiaru Installer.event"   //0x11C     インペリアル槍
-#include "Inpekaihi Installer.event"   //0x11D     インペリアル投げ斧
+#include "Inpekaihi Installer.event"   //0x11D     インペリアル武器なし
+#include "Inpeteono Installer.event"   //0x11E     インペリアル投げ斧
+#include "PonyLance Installer.event"   //0x11F     ファルコンナイトポニーテール槍
+#include "PonySword Installer.event"   //0x120     ファルコンナイトポニーテール剣
+#include "PonyStaff Installer.event"   //0x121     ファルコンナイトポニーテール杖
+#include "Pony Installer.event"   //0x122     武器無し
+#include "GsSword Installer.event"   //0x123     センチュリオン剣
+#include "gskaihi Installer.event"   //0x124     センチュリオン武器なし
+
 
 //////////////ここまでアニメデータ
 ALIGN 4
