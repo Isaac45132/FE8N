@@ -254,7 +254,7 @@ setMugEntry($06, oruson, 2, 5, 3, 3, 1)
 oruson:
   #incext PortraitFormatter oruson.png  
   
-setMugEntry($1B, taita, 1, 5, 2, 3, 1)       ///タイター
+setMugEntry($1B, taita, 3, 5, 3, 3, 1)       ///タイター
 //setMugExtra($1B, 0, 2, 5, 2)
 taita:
   #incext PortraitFormatter taita.png  
@@ -471,5 +471,24 @@ Rideli_ED:
 //setMugExtra($D9, 0, 0, 0, 0)
 Kurgan:
   #incext PortraitFormatter Kurgan.png  
+  
+ setMugEntry($DA, hurea,2, 5, 3, 3, 1)　　///ﾌﾚｱｰ殿
+//setMugExtra($DA, 0, 0, 0, 0)
+hurea:
+  #incext PortraitFormatter hurea.png  
+  
+ setMugEntry($DB, ain,2, 5, 3, 3, 1)　　///アイン
+//setMugExtra($DB, 0, 0, 0, 0)
+ain:
+  #incext PortraitFormatter ain.png  
 
+ setMugEntry($DC, heraku,2, 4, 2, 2, 1)　　///ヘラクレス
+//setMugExtra($DC, 0, 0, 0, 0)
+heraku:
+  #incext PortraitFormatter heraku.png  
+  
+ setMugEntry($DD, oro,3, 5, 3, 3, 1)　　///オロ
+//setMugExtra($DD, 0, 0, 0, 0)
+oro:
+  #incext PortraitFormatter oro.png  
 //////////////////////////縺薙％縺ｾ縺ｧ鬘皮判蜒
