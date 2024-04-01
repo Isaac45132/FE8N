@@ -1,13 +1,13 @@
 skill_228_unit:
    BYTE $00 $00 0 
 skill_228_class:
-   BYTE $00 $00 0 
+   BYTE $3E $00 0 
 skill_228_weapon:
    BYTE $00 $00 0 
 skill_228_item:
    BYTE $00 $00 0 
-#define SKL_HELP_228 $0000
-#define SKL_COLOR_228 $00
+#define SKL_HELP_228 $142D
+#define SKL_COLOR_228 $FF
  
 #define COMBAT_ART_228_ATK 00 
 #define COMBAT_ART_228_HIT 00 
