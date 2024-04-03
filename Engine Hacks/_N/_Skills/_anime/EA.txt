@@ -129,3 +129,5 @@ huuma:
 #incext png2dmp "gazouhuuma.png" --lz77
 totugeki:
 #incext png2dmp "gazoutotugeki.png" --lz77
+gekishin:
+#incext png2dmp "gazouGekishin.png" --lz77
