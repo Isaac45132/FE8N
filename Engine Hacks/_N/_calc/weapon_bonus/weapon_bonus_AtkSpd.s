@@ -1,4 +1,4 @@
-SWORD = (0)
+@SWORD = (0)
 LANCE = (1)
 AXE = (2)
 BOW = (3)
@@ -17,17 +17,28 @@ LEVEL_S = (6)
 @0802acc8
 .thumb
 	push {lr}
-	mov r0, #0x50
-	ldrb r0, [r4, r0]
+@	mov r0, #0x50
+@	ldrb r0, [r4, r0]
 
-	add	r0, r4
-	add	r0, #40
-	ldrb	r0, [r0]
-	bl Get_WpLv
+@	add	r0, r4
+@	add	r0, #40
+@	ldrb	r0, [r0]
+@	bl Get_WpLv
 
-	cmp r0, #LEVEL_S
-	blt end
-	
+@	cmp r0, #LEVEL_S
+@	blt end
+
+	ldr r0, [r4]
+	ldrb r0, [r0, #4]
+        cmp r0, #0xD	@アルティ
+        bne end	
+	ldr r0, [r4, #4]
+	ldr r0, [r0, #0x28]
+	mov r1, #0xFF
+	add r1, #1
+	and r0, r1
+	beq end		@上級でないなら終了
+
 	ldrb r0, [r4, #20]
 	push {r0}
 	mov r0, #0xFF
@@ -46,6 +57,7 @@ Get_WpLv:
 AtkSpdFunc:
 	ldr r1, =0x0802aae4
 	mov pc, r1
+
 .align
 .ltorg
 addr:
