@@ -34,7 +34,7 @@ POIN hasDoubleLion
 POIN hasBlitzkrieg
 POIN HasAdept
 POIN IS_TEMP_SKILL_FLAG
-
+POIN HasThreeStrikes
 
 HasSwiftStrikes:
     HAS_COMBAT
@@ -56,6 +56,10 @@ Chargecheck:
     HAS_NIHIL
     WORD ChargeID
 
+HasThreeStrikes:
+    HAS_NIHIL
+    WORD ThreeStrikesID
+    
 ////////////////必的の後処理
 PUSH
 ORG	0x2b1be

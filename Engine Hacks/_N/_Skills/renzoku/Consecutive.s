@@ -3,7 +3,7 @@
 ATK                     = (0x0203a4e8)
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 
 main:
         push {r4, r5, r6, lr}
@@ -20,6 +20,9 @@ main:
         cmp r0, #1
         beq return
         bl SwiftStrikes
+        cmp r0, #1
+        beq return
+        bl ThreeStrikes
         cmp r0, #1
         beq return
         bl Adept
@@ -84,7 +87,7 @@ SwitchLion:
 
 SwiftStrikes:
         push {lr}
-        mov r0, #FIRST_ATTACKED_FLAG
+        mov r0, #0	@FIRST_ATTACKED_FLAG
         mov r1, #0
         bl IS_TEMP_SKILL_FLAG
         cmp r0, #1
@@ -108,6 +111,27 @@ Blitzkrieg:
         mov r1, r4
         bl HAS_BLITZKRIEG
     endBlitz:
+        pop {pc}
+
+ThreeStrikes:
+        push {lr}
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bgt falseThree       @近距離じゃなければ終了
+
+        mov r0, #1	@追撃フラグ？
+        mov r1, #0
+        bl IS_TEMP_SKILL_FLAG
+        cmp r0, #1
+        bne falseThree      @追撃フラグオフならジャンプ
+
+        mov r0, r4
+        mov r1, r5
+        bl HAS_THREE_STRIKES
+        .short 0xE000
+    falseThree:
+        mov r0, #0
         pop {pc}
 
 Adept:
@@ -147,6 +171,9 @@ HAS_ADEPT:
     mov pc, r2
 IS_TEMP_SKILL_FLAG:
     ldr r2, addr+16
+    mov pc, r2
+HAS_THREE_STRIKES:
+    ldr r2, addr+20
     mov pc, r2
 
 .align
