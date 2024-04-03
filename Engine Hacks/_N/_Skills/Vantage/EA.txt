@@ -19,6 +19,7 @@ ski_vantage:
  POIN hasVantage
  POIN hasNihil
  POIN HAS_LIONINE_POISE
+ POIN HASShutdown
 
 hasVantage:
  HAS_SKILL
@@ -27,4 +28,8 @@ hasVantage:
 HAS_LIONINE_POISE:
  HAS_COMBAT
  WORD LioninePoiseID
+
+HASShutdown:
+ HAS_SKILL
+ WORD ShutdownID
 

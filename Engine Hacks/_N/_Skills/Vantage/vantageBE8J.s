@@ -56,6 +56,12 @@ func1:
         bl      HAS_VANTAGE
         cmp     r0, #0
         beq     false   @待ち伏せ未所持なら不発
+
+        mov     r0, r4
+        bl      HAS_SHUTDOWN
+        cmp     r0, #0
+        bne     false   @シャットダウン所持なら不発
+
         mov     r0, r4
         bl      HAS_NIHIL
         cmp     r0, #0
@@ -120,6 +126,10 @@ mov pc, r1
 
 HAS_LIONINE_POISE:
 ldr r1, addr+8
+mov pc, r1
+
+HAS_SHUTDOWN:
+ldr r1, addr+12
 mov pc, r1
 
 .align
