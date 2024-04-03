@@ -1,78 +1,91 @@
 
+
+//////////月光発生条件
 PUSH
-ORG	0x19f28
+ORG	0x2B21C
 BYTE	$00 $4B $9F $46
-POIN	ski_kaifuku
-
-ORG 0x018e64
-    jumpToHack(GetNowHpCustomized)
-
-ORG 0x019f38
-    jumpToHack(tiyu_main)
-
-ORG 0x025904
-    jumpToHack(BreathofLife)
-
-ORG 0x02594c
-    jumpToHack(Boon)
-
+POIN	geckojump
 POP
 
 ALIGN 4
-GetNowHpCustomized:
-#incbin "GetNowHpCustomized.dmp"
+geckojump:
+#incbin "Gecko.dmp"
+POIN hasGecko
+POIN set_skillanime_attack
+POIN hasNihil
+
+hasGecko:
+    HAS_OCCULT
+    WORD LunaID
+
+//////////貫通系奥義分岐
+
+
+
+
+PUSH
+ORG	0x2B3D8
+WORD	$46874800 //r0
+POIN	origin_third
+POP
 
 ALIGN 4
-ski_kaifuku:
-#incbin "KAIFUKU.dmp"
-POIN hasRenewal
-POIN hasDivineDragonHorn
-POIN hasBreathofLife
-POIN hasRecover
-
-BreathofLife:
-#incbin BreathofLife.dmp
-POIN hasBreathofLife
-
-Boon:
-#incbin Boon.dmp
-POIN hasBoon
-
-ImmuneStatus:
- #incbin ImmuneStatus.dmp
- POIN hasImmuneStatus
-
-hasImmuneStatus:
- HAS_NIHIL
- WORD ImmuneStatusID
-
-hasBoon:
-   HAS_NIHIL
-   WORD BoonID
-
-tiyu_main:
-  #incbin tiyu.dmp
-  POIN hasImbue
-  POIN hasBoon
-
-
-hasBreathofLife:
-   HAS_NIHIL
-   WORD BreathofLifeID
-
-hasDivineDragonHorn:
-    HAS_NIHIL
-    WORD DivineDragonHornID
+origin_third:
+#incbin "Third.dmp"
+POIN	hasDragonFung
+POIN	hasColossus
+POIN	hasVengeance
+POIN	hasStun
+POIN	hasScream
+POIN	hasIgnis
+POIN hasNihil
+POIN set_skillanime_attack
+POIN hasMagicBind
+POIN hasFallenStar
+POIN fodes_func
+POIN HAS_PIERCE
+POIN HAS_STUN_MASTERY
+POIN HAS_SCREAM_MASTERY
+POIN IS_TEMP_SKILL_FLAG
+POIN	hasGekishin
     
-hasRenewal:
-    HAS_NIHIL
-    WORD RenewalID
-hasRecover:
-    HAS_NIHIL
-    WORD RecoverID
-    
-hasImbue:
-    HAS_SKILL
-    WORD ImbueID
-    
-    
+hasFallenStar:
+  HAS_OCCULT
+  WORD FallenStarID
+hasDragonFung:
+    HAS_OCCULT
+    WORD DragonFungID
+hasColossus:
+    HAS_OCCULT
+    WORD ColossusID
+hasVengeance:
+    HAS_OCCULT
+    WORD VengeanceID
+hasStun:
+    HAS_OCCULT
+    WORD StunID
+hasScream:
+    HAS_OCCULT
+    WORD ScreamID
+hasIgnis:
+    HAS_OCCULT
+    WORD IgnisID
+hasMagicBind:
+    HAS_OCCULT
+    WORD MagicBindID
+
+HAS_PIERCE:
+    HAS_OCCULT
+    WORD PierceID
+
+HAS_STUN_MASTERY:
+    HAS_OCCULT
+    WORD StunMasteryID
+HAS_SCREAM_MASTERY:
+    HAS_OCCULT
+    WORD ScreamMasteryID
+
+hasGekishin:
+    HAS_OCCULT
+    WORD GekishinID
+
