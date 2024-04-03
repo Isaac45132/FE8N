@@ -3,7 +3,7 @@ A_EFFECT = (0x0203a604)
 
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 
 @0802B3A4
     bl main
@@ -37,6 +37,7 @@ main:
         bl CriticalUp
     skipWrath:
         bl CancelRadiance
+	bl Shutdown
     end:
         pop {pc}
 
@@ -101,6 +102,32 @@ CancelRadiance:
         strh r0, [r1]           @相手装備消去
         strb r0, [r1, #10]      @相手武器消滅防止
     falseCancelR:
+        pop {pc}
+
+Shutdown:
+        push {lr}
+        mov r0, r7
+        mov r1, #0
+        bl HAS_Shutdown
+        cmp r0, #0
+        beq falseShutdown
+
+	mov r0, #100		@100%
+        lsl r0, r0, #16
+        lsr r0, r0, #16
+        mov r1, #0
+        bl RANDOM                   @r0=確率, r1=#0で乱数
+        lsl r0, r0, #24
+        asr r0, r0, #24
+        cmp r0, #0
+        beq falseShutdown
+
+        mov r0, #0
+        mov r1, r8
+        add r1, #72
+        strh r0, [r1]           @相手装備消去
+        strb r0, [r1, #10]      @相手武器消滅防止
+    falseShutdown:
         pop {pc}
 
 CriticalUp:
@@ -216,6 +243,10 @@ HAS_FIERCE_BREATH:
     mov pc, r2
 HAS_DARTING_BREATH:
     ldr r2, ADDRESS+24
+    mov pc, r2
+
+HAS_Shutdown:
+    ldr r2, ADDRESS+28 @シャットダウン
     mov pc, r2
 
 .align
