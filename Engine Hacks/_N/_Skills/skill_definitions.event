@@ -206,3 +206,8 @@
 #define MamoriteDefID 224 //0xE0守護者
 #define PassionID 225 //0xE1激情
 #define MagicBarrierID 226 //0xE2魔法結界
+#define GekishinID 227 //0xE3激震
+#define ShutdownID 228 //0xE4シャットダウン
+#define ThreeStrikesID 229 //0xE5三連撃
+#define GeniusID 230 //0xE6大天才
+
