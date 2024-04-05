@@ -210,4 +210,5 @@
 #define ShutdownID 228 //0xE4シャットダウン
 #define ThreeStrikesID 229 //0xE5三連撃
 #define GeniusID 230 //0xE6大天才
+#define WeaponBID 231 //0xE7ウェポンブレイカー
 

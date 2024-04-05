@@ -1,6 +1,7 @@
 
 PUSH
-ORG	0x32878
+ORG	0x32874
+BYTE	$C0 $46 $C0 $46
 BYTE	$00 $49 $8F $46
 POIN	treasurejump
 POP

@@ -131,3 +131,5 @@ totugeki:
 #incext png2dmp "gazoutotugeki.png" --lz77
 gekishin:
 #incext png2dmp "gazouGekishin.png" --lz77
+weaponb:
+#incext png2dmp "gazouWeaponB.png" --lz77

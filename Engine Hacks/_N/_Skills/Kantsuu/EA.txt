@@ -47,6 +47,8 @@ POIN HAS_PIERCE
 POIN HAS_STUN_MASTERY
 POIN HAS_SCREAM_MASTERY
 POIN IS_TEMP_SKILL_FLAG
+POIN	hasGekishin
+POIN	hasWeaponB
     
 hasFallenStar:
   HAS_OCCULT
@@ -84,3 +86,10 @@ HAS_SCREAM_MASTERY:
     HAS_OCCULT
     WORD ScreamMasteryID
 
+hasGekishin:
+    HAS_OCCULT
+    WORD GekishinID
+
+hasWeaponB:
+    HAS_OCCULT
+    WORD WeaponBID

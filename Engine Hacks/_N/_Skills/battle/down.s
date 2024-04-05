@@ -1,6 +1,6 @@
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 
 .thumb
 
@@ -56,7 +56,11 @@ negative:
     mov	r0, r6
     mov	r1, r7
     bl Fury
-    
+
+    mov	r0, r6
+    mov	r1, r7    
+    bl Mamorite
+
     mov	r0, r6
     mov	r1, r7
     bl DoubleLion	@HP満タンの時だけなので最後
@@ -81,9 +85,6 @@ CombatArts:
         cmp r0, #0
         beq endCombatArts      @当たってないので終了
 
-        bl KnockBack
-        bl HitAndRun
-        bl Lunge
         bl RagingStorm
 
 endCombatArts:
@@ -108,178 +109,6 @@ RagingStorm:
 
     endRagingStorm:
         pop {pc}
-
-KnockBack:
-        push {lr}
-        mov r0, r5
-        bl HAS_KNOCK_BACK
-        cmp r0, #0
-        beq endKnockBack
-
-        ldr r1, [r6]
-        ldr r2, [r6, #4]
-        ldr r1, [r1, #40]
-        ldr r2, [r2, #40]
-        orr r1, r2
-        ldr r2, =0x8200
-        tst r1, r2
-        bne endKnockBack      @敵将or輸送隊なら終了
-
-        mov r0, r6
-        bl FodesFunc
-        cmp r0, #1
-        beq endKnockBack      @無効敵なら終了
-
-        ldrb r0, [r7, #16]
-        ldrb r2, [r6, #16]   @相手
-        sub r0, r2
-        neg r0, r0
-        add r0, r2
-
-        ldrb r1, [r7, #17]
-        ldrb r3, [r6, #17]   @相手
-        sub r1, r3
-        neg r1, r1
-        add r1, r3
-        
-        mov r2, r6
-        bl CanLocate
-        cmp r0, #0
-        beq endKnockBack    @立てない
-
-        ldrb r0, [r7, #16]
-        ldrb r2, [r6, #16]   @相手
-        sub r0, r2
-        neg r0, r0
-        add r0, r2
-
-        ldrb r1, [r7, #17]
-        ldrb r3, [r6, #17]   @相手
-        sub r1, r3
-        neg r1, r1
-        add r1, r3
-
-        strb r0, [r6, #16]   @相手
-        strb r1, [r6, #17]   @相手
-
-    endKnockBack:
-        pop {pc}
-
-
-HitAndRun:
-        push {lr}
-        mov r0, r5
-        bl HAS_HIT_AND_RUN
-        cmp r0, #0
-        beq endHitAndRun
-
-        ldrb r0, [r6, #16]   @相手
-        ldrb r2, [r7, #16]
-        sub r0, r2
-        neg r0, r0
-        add r0, r2
-
-        ldrb r1, [r6, #17]   @相手
-        ldrb r3, [r7, #17]
-        sub r1, r3
-        neg r1, r1
-        add r1, r3
-
-        mov r2, r7
-        bl CanLocate
-        cmp r0, #0
-        beq endHitAndRun    @立てない
-
-        ldrb r0, [r6, #16]   @相手
-        ldrb r2, [r7, #16]
-        sub r0, r2
-        neg r0, r0
-        add r0, r2
-
-        ldrb r1, [r6, #17]   @相手
-        ldrb r3, [r7, #17]
-        sub r1, r3
-        neg r1, r1
-        add r1, r3
-
-        ldrb r2, [r7, #0xB]
-        mov r3, #0xC0
-        and r2, r3
-        cmp r2, #0
-        beq allyHitAndRun               @使用者が自軍ならジャンプ
-
-        ldr r2, =0x0203AA90
-        strb r0, [r2, #2]
-        strb r1, [r2, #3]
-        b endHitAndRun
-
-    allyHitAndRun:
-        ldr r2, =0x0203A954
-        strb r0, [r2, #14]
-        strb r1, [r2, #15]
-    endHitAndRun:
-        pop {pc}
-
-
-Lunge:
-        push {lr}
-        mov r0, r5
-        bl HAS_LUNGE
-        cmp r0, #0
-        beq endLunge
-
-        ldr r1, [r6]
-        ldr r2, [r6, #4]
-        ldr r1, [r1, #40]
-        ldr r2, [r2, #40]
-        orr r1, r2
-        ldr r2, =0x8200
-        tst r1, r2
-        bne endLunge      @敵将or輸送隊なら終了
-
-        mov r0, r6
-        bl FodesFunc
-        cmp r0, #1
-        beq endLunge      @無効敵なら終了
-
-        ldrb r0, [r6, #16]   @相手
-        ldrb r1, [r6, #17]   @相手
-        mov r2, r7
-        bl CanLocateMinus
-        cmp r0, #0
-        beq endLunge    @立てない
-
-        ldrb r0, [r7, #16]
-        ldrb r1, [r7, #17]
-        mov r2, r6
-        bl CanLocateMinus
-        cmp r0, #0
-        beq endLunge    @立てない
-
-        ldrb r0, [r6, #16]   @相手
-        ldrb r1, [r6, #17]   @相手
-        ldrb r2, [r7, #16]
-        ldrb r3, [r7, #17]
-        strb r2, [r6, #16]   @相手
-        strb r3, [r6, #17]   @相手
-
-        ldrb r2, [r7, #0xB]
-        mov r3, #0xC0
-        and r2, r3
-        cmp r2, #0
-        beq allyLunge               @使用者が自軍ならジャンプ
-        ldr r2, =0x0203AA90
-        strb r0, [r2, #2]
-        strb r1, [r2, #3]
-        b endLunge
-    allyLunge:
-        ldr r2, =0x0203A954
-        strb r0, [r2, #14]
-        strb r1, [r2, #15]
-    endLunge:
-        pop {pc}
-
-
 
 DoubleLion:
     push	{r4, lr}
@@ -573,6 +402,40 @@ falseFury:
 retFury:
     pop	{r4, pc}
 
+
+Mamorite:
+        push {r5, lr}
+	mov r5, r0
+        mov r1, #0
+	bl HasMamorite
+        cmp r0, #0
+        beq endMamoriteDef	@スキルチェック
+
+	ldrb r1, [r4, #0x10]
+	ldrb r2, [r5, #0x10]
+	sub r1, r1, r2
+	cmp r1, #0
+	bne hatudoumamo		@護り手が発動してるか
+
+	ldrb r1, [r4, #0x11]
+	ldrb r2, [r5, #0x11]
+	sub r1, r1, r2
+	cmp r1, #0
+	beq endMamoriteDef	@護り手未発動なら不可
+
+   hatudoumamo:
+	ldrb r0, [r5, #19] @現在HP
+	sub r0, #4
+	bgt jumpmamo
+	mov r0, #1
+   jumpmamo:
+	strb r0, [r5, #19]
+	mov r0, #1
+	.short 0xE000
+   endMamoriteDef:
+	mov r0, #0
+        pop {r5, pc}
+
 CanLocate:
 @
 @r0 = Width
@@ -652,6 +515,10 @@ IS_TEMP_SKILL_FLAG:
 TURN_ON_TEMP_SKILL_FLAG:
     ldr r2, (ADR+52)
     mov pc, r2
+HasMamorite:
+    ldr r2, (ADR+56)
+    mov pc, r2
+
 .align
 .ltorg
 ADR:

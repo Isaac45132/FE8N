@@ -34,6 +34,9 @@ MasterySkill:
 		bl Dragon
 		cmp r0, #1
 		beq endMasterySkill
+		bl Gekishin
+		cmp r0, #1
+		beq endMasterySkill
 		bl Meido
 		cmp r0, #1
 		beq endMasterySkill
@@ -41,6 +44,9 @@ MasterySkill:
 		cmp r0, #1
 		beq endMasterySkill
 		bl Flower
+		cmp r0, #1
+		beq endMasterySkill
+		bl WeaponB
 		cmp r0, #1
 		beq endMasterySkill
 		bl StanMastery
@@ -454,6 +460,101 @@ endWar:
 	pop {pc}
 
 
+Gekishin:
+	push {lr}
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bgt endGekishin       @近距離じゃなければ終了
+
+    mov r0, r7
+	mov r1, #0
+    bl HasGekishin
+    cmp r0, #0
+    beq endGekishin
+@奥義目印
+    ldrb r0, [r7, #20]	@力
+    lsl r0, r0, #1
+    mov r1, #0
+    bl random
+    cmp r0, #0
+    beq endGekishin
+
+	mov	r0, #72
+	ldrh	r0, [r7, r0]		@装備
+        ldr	r3, =0x080173B4		@武器の重さ
+        mov	lr, r3
+        .short 0xF800
+
+    ldrh r1, [r5, #6]
+    add r1, r0
+    strh r1, [r5, #6]
+
+    mov r0, r7
+    ldr r1, HAS_GEKISHIN_FUNC
+    bl SetAtkSkillAnimation
+	mov r0, #1
+endGekishin:
+	pop {pc}
+
+WeaponB:
+	push {lr}
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bgt endWeaponB       @近距離じゃなければ終了
+
+    mov r0, r7
+	mov r1, #0
+    bl HasWeaponB
+    cmp r0, #0
+    beq endWeaponB
+@奥義目印
+    ldrb r0, [r7, #8]	@レベル
+    lsl r0, r0, #1
+    mov r1, #0
+    bl random
+    cmp r0, #0
+    beq endWeaponB
+
+    ldrh r1, [r5, #6]
+    mov r0, #5		@+5ダメージ
+    add r1, r0
+    strh r1, [r5, #6]
+
+		mov r0, r8
+		ldr r1, [r0]
+		ldr	r1, [r1, #40]
+		ldr r2, [r0, #4]
+		ldr	r2, [r2, #40]
+		orr	r1, r2
+		lsl	r1, r1, #16
+		bmi	nonhyouzi		@敵将に無効
+
+    mov	r1, r8
+    add r1, #0x38
+    mov r0, #1
+    mov r2, #0
+    strb r0, [r1]		@ウエポンブレイクフラグ
+    strh r2, [r1, #0x10]	@武器破壊
+    strh r0, [r1, #0x1A]	@相手が反撃不可でも武器破壊
+
+    ldrh r1, [r1, #0x12]	@武器
+    cmp r1, #0
+    beq nonhyouzi
+    
+    mov	r1, r8
+    add r1, #0x7D
+    strb r0, [r1]		@武器破壊表示
+nonhyouzi:
+    mov r0, r7
+    ldr r1, HAS_WEAPONB_FUNC
+    bl SetAtkSkillAnimation
+	mov r0, #1
+endWeaponB:
+	pop {pc}
+
+
 random:
 	ldr	r3, =0x0802a490
 	mov	pc, r3
@@ -553,6 +654,20 @@ GET_MAGICBIND_MASTERY:
 ldr r0, HAS_MAGIC_BIND_FUNC
 ldr r0, [r0, #12]
 bx lr
+
+HAS_GEKISHIN_FUNC = (adr+60)
+
+HasGekishin:
+	ldr r2, HAS_GEKISHIN_FUNC
+	mov pc, r2
+
+HAS_WEAPONB_FUNC = (adr+64)
+
+HasWeaponB:
+	ldr r2, HAS_WEAPONB_FUNC
+	mov pc, r2
+
+
 .align
 .ltorg
 adr:

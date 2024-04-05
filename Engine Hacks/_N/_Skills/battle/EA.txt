@@ -112,6 +112,7 @@ battle_down:
   POIN hasRagingStorm
   POIN IS_TEMP_SKILL_FLAG
   POIN TURN_ON_TEMP_SKILL_FLAG
+  POIN HasMamoriteDef
   
 
 HasLunge:
