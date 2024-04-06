@@ -76,6 +76,7 @@ battle_before:
     POIN HasDefenseForceM
     POIN HasSeigai
     POIN HasKazeyoke
+    POIN HasYandere
 
 battle_after:
     #incbin main.dmp
@@ -339,3 +340,7 @@ HasSeigai:
 HasKazeyoke:
     HAS_SKILL
     WORD KazeyokeID
+
+HasYandere:
+    HAS_SKILL
+    WORD YandereID

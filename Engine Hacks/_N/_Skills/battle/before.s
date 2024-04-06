@@ -65,6 +65,7 @@ endNoEnemy:
 endNeedEnemy:
     bl tubame	@見切りでも発動
     bl ouzya	@見切りでも発動
+    bl Yandere	@見切りでも発動
 
 @マイナス処理
     bl Domination
@@ -880,6 +881,57 @@ Heartseeker_impl:
     limitHeartseeker:
         strh r0, [r4, r1] @自分
         pop {pc}
+
+Yandere:
+        push {r4, r5, r6, lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasYandere
+        cmp r0, #0
+        beq endYandere    @スキル未所持
+
+        mov r6, #0
+    loopYandere:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq endYandere		@リスト末尾
+	ldr r0, [r5]
+	ldrb r0, [r0, #4]
+        cmp r0, #1
+        bne loopYandere		@アイザック判定
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopYandere		@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopYandere		@死亡判定2
+    
+        ldr r0, [r5, #0xC]
+	ldr r1, =0x1000C	@居ないフラグ@救出されてても発動
+        and r0, r1
+        bne loopYandere
+    
+        mov r0, #1  @範囲指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopYandere		@近くにいない
+    
+        mov r1, #102 @必殺
+        ldrh r0, [r4, r1]
+        add r0, #10
+        strh r0, [r4, r1]
+
+        mov r1, #98 @回避
+        ldrh r0, [r4, r1]
+        add r0, #30
+        strh r0, [r4, r1]
+    endYandere:
+        pop {r4, r5, r6, pc}
 
 
 WarSkill:
@@ -2082,6 +2134,7 @@ PASSION_ADDR = (EXTRA_OFFSET+60)
 DEFENSEFORSEM_ADDR = (EXTRA_OFFSET+64)
 SEIGAI_ADDR = (EXTRA_OFFSET+68)
 KAZEYOKE_ADDR = (EXTRA_OFFSET+72)
+YANDERE_ADDR = (EXTRA_OFFSET+76)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -2229,6 +2282,9 @@ HasSeigai:
 	mov pc, r2
 HasKazeyoke:
 	ldr r2, KAZEYOKE_ADDR
+	mov pc, r2
+HasYandere:
+	ldr r2, YANDERE_ADDR
 	mov pc, r2
 
 GetAttackerAddr:
