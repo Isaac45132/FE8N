@@ -111,6 +111,7 @@ taiyo4:
     POIN set_skillanime_attack
     POIN hasNihil
     POIN hasImmuneStatus
+    POIN hasSeiono
 
 sol_divide_anim_on:
 #incbin sol_divide_anim_on.dmp
@@ -149,3 +150,6 @@ HasRupturedSky:
 HasAtrocity:
     HAS_OCCULT
     WORD AtrocityID
+hasSeiono:
+    HAS_SKILL
+    WORD SeionoID

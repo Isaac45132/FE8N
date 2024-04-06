@@ -74,6 +74,8 @@ battle_before:
     POIN HasDefenseForce
     POIN HasPassion
     POIN HasDefenseForceM
+    POIN HasSeigai
+    POIN HasKazeyoke
 
 battle_after:
     #incbin main.dmp
@@ -329,3 +331,11 @@ HasPassion:
 HasDefenseForceM:
     HAS_SKILL
     WORD MagicBarrierID
+
+HasSeigai:
+    HAS_SKILL
+    WORD SeigaiID
+
+HasKazeyoke:
+    HAS_SKILL
+    WORD KazeyokeID

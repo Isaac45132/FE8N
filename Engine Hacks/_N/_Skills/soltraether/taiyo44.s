@@ -5,6 +5,7 @@ HAS_SOL_FUNC = (adr+4)
 SOL_BIT = (adr+8)
 SET_SKILLANIME_ATK_FUNC = (adr+12)
 HAS_NIHIL_FUNC = (adr+16)
+HAS_SEIONO_FUNC = (adr+24)
 
 @(2B666 > )
     mov r3, r10
@@ -52,7 +53,7 @@ judge:
     mov r1, #128
     lsl r1, r1, #9
     and r0, r1
-    bne false       @奥義発動済み
+    bne Seiono       @奥義発動済み
 
     mov r0, r4
         ldr r1, HAS_NIHIL_FUNC
@@ -66,8 +67,23 @@ judge:
         .short 0xF800
     cmp r0, #1
     beq taiyo
+
+Seiono:
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bne false		@近距離以外なら終了
+
+    mov r0, r5
+        ldr r2, HAS_SEIONO_FUNC @聖斧
+        mov lr, r2
+        .short 0xF800
+    cmp r0, #1
+    bne false
+    b kaihuku		@太陽効果へ
+
 false:
-	bl	WeaponCrt
+    bl WeaponCrt
     pop {r3}
     mov r10, r3
     ldr r0, =0x0802b6a2
@@ -97,7 +113,7 @@ taiyo:
         ldr r2, SET_SKILLANIME_ATK_FUNC
         mov lr, r2
         .short 0xF800
-
+  kaihuku:
     ldr r2, =0x0802b820
     ldr r2, [r2]
     ldr r2, [r2]

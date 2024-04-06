@@ -60,6 +60,7 @@ endNoEnemy:
     bl koroshi
     bl Trample
     bl Calm
+    bl Seigai
 
 endNeedEnemy:
     bl tubame	@見切りでも発動
@@ -139,6 +140,7 @@ OtherSideSkill:
         bl BracingR
         bl KishinBreath
         bl HienBreath
+        bl Kazeyoke
         pop {pc}
 
 CriticalUp:
@@ -1225,6 +1227,26 @@ Calm:
     falseCalm:
         pop {pc}
 
+Seigai:
+
+        push {lr}
+        mov r0, r4
+        mov r1, #0
+        bl HasSeigai
+        cmp r0, #0
+        beq falseSeigai
+
+        mov r1, #90	@攻撃
+        ldrh r0, [r4, r1]
+        add r0, #3
+        strh r0, [r4, r1]
+        mov r1, #92	@防御
+        ldrh r0, [r4, r1]
+        add r0, #3
+        strh r0, [r4, r1]
+    falseSeigai:
+        pop {pc}
+
 Solo:
         push {r4, r5, r6, lr}
         ldrb r6, [r4, #0xB]
@@ -1866,6 +1888,26 @@ HienBreath:
         strh r0, [r4, r1]
         b endHien
 
+Kazeyoke:
+        push {lr}
+        bl GetDistance
+        ldrb r0, [r0]
+        cmp r0, #1
+        ble endKazeyoke       @遠距離のみ
+
+        mov r0, r4
+        mov r1, #0
+        bl HasKazeyoke
+        cmp r0, #0
+        beq endKazeyoke
+        
+        mov r1, #98
+        ldrh r0, [r4, r1]
+        add r0, #50
+        strh r0, [r4, r1]
+    endKazeyoke:
+        pop {pc}
+
 breaker_impl:
         push {lr}
         mov r0, r5
@@ -2038,6 +2080,8 @@ ASUP_ADDR = (EXTRA_OFFSET+52)
 DEFENSEFORSE_ADDR = (EXTRA_OFFSET+56)
 PASSION_ADDR = (EXTRA_OFFSET+60)
 DEFENSEFORSEM_ADDR = (EXTRA_OFFSET+64)
+SEIGAI_ADDR = (EXTRA_OFFSET+68)
+KAZEYOKE_ADDR = (EXTRA_OFFSET+72)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -2179,6 +2223,12 @@ HasPassion:
 	mov pc, r2
 HasDefenseForceM:
 	ldr r2, DEFENSEFORSEM_ADDR
+	mov pc, r2
+HasSeigai:
+	ldr r2, SEIGAI_ADDR
+	mov pc, r2
+HasKazeyoke:
+	ldr r2, KAZEYOKE_ADDR
 	mov pc, r2
 
 GetAttackerAddr:
