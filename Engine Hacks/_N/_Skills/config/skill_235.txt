@@ -6,8 +6,8 @@ skill_235_weapon:
    BYTE $00 $00 0 
 skill_235_item:
    BYTE $00 $00 0 
-#define SKL_HELP_235 $0000
-#define SKL_COLOR_235 $00
+#define SKL_HELP_235 $1434
+#define SKL_COLOR_235 $FF
  
 #define COMBAT_ART_235_ATK 00 
 #define COMBAT_ART_235_HIT 00 

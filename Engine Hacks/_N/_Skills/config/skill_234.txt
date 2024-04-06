@@ -1,5 +1,5 @@
 skill_234_unit:
-   BYTE $00 $00 0 
+   BYTE $74 $5B $40 $DF $00 0 
 skill_234_class:
    BYTE $00 $00 0 
 skill_234_weapon:
