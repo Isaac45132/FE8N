@@ -6,6 +6,20 @@
 
 
 	ldr	r2, =$0203a4e8
+;20240416修正
+	ldrb	r0, [r2, #0x13]		;現在HP
+	cmp	r0, #0			;0
+	bne	nonsibou		;捕獲側が死んでないなら捕獲処理へ
+	ldr	r0, [r2, #0xC]
+	mov	r4, r0
+	mov	r1, #0x10
+	and	r0, r1
+	beq	GoBack			;救出フラグ削除済なら死亡台詞へ
+	sub	r0, r4, r1
+	str	r0, [r2, #0xC]		;救出フラグ削除
+	b	GoBack			;死亡台詞へ
+nonsibou:
+;20240416修正
 	ldr	r0, [r2, #0xC]
 	mov		r1,#0x80
 	lsl		r1,r1,#0x17
