@@ -121,7 +121,7 @@ ThreeStrikes:
     bgt falseThree       @近距離じゃなければ終了
 
         mov r0, #1	@追撃フラグ？
-        mov r1, #0
+        mov r1, r4
         bl IS_TEMP_SKILL_FLAG
         cmp r0, #1
         bne falseThree      @追撃フラグオフならジャンプ
