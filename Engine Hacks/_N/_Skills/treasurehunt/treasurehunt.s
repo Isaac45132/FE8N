@@ -93,11 +93,32 @@ WeaponB:
    tekisyouFlag:
         ldrb r0, [r4, #0xB]
 	cmp r0, #0x80
-	ble falseWeaponB
-
+	ble falseWeaponB	@破壊されたのが赤軍以外なら終了
+				@味方同盟キャラは敵へドロップしない
+	ldrb r0, [r6, #0xB]
+	cmp r0, #0x40
+	ble nextWeaponB		@味方キャラならジャンプ
+	mov r0, #0x26
+	ldrb r0, [r6, r0]
+	cmp r0, #0
+	bne falseWeaponB	@アイテム5個所持なら終了
+				@同盟と赤軍がドロップ時に輸送体へ送れてしまう対策
+				@同盟VS赤または赤VSバサーク赤を想定
+    nextWeaponB:
         ldr r0, [r4, #0]
         ldr r0, [r0, #40]
         lsr r0, r0, #15		@敵将には無効
+        mov r1, #1
+        and r0, r1
+	cmp r0, #1
+	beq falseWeaponB
+
+        ldr r0, [r4, #0]
+        ldr r1, [r4, #4]
+        ldr r0, [r0, #40]
+        ldr r1, [r1, #40]
+        orr r0, r1
+        lsr r0, r0, #24		@虚無には無効
         mov r1, #1
         and r0, r1
 	cmp r0, #1
@@ -111,10 +132,7 @@ WeaponB:
 	bne falseWeaponB
 	
 	add r4, #0x4A
-@	mov r1, #0
 	ldrh r0, [r4]
-@	sub r4, #2
-@	strh r1, [r4]
 	.short 0xE000
    falseWeaponB:
 	mov r0, #0
