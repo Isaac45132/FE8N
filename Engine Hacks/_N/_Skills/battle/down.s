@@ -182,6 +182,14 @@ startCounter:
     cmp r0, #0
     beq falseCounter	@相手応撃未所持なら終了
     
+        ldr r0, [r4, #0]
+        ldr r0, [r0, #40]
+        lsr r0, r0, #15		@自分が敵将なら終了
+        mov r1, #1
+        and r0, r1
+	cmp r0, #1
+	beq falseCounter
+
     ldr r1, =0x0203a4d0
     ldrb	r1, [r1, #4]
     cmp r1, #0
