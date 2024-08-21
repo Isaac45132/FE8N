@@ -1,6 +1,6 @@
 RAGING_STORM_FLAG     = (2)
 COMBAT_HIT            = (1)
-FIRST_ATTACKED_FLAG   = (0)
+@FIRST_ATTACKED_FLAG   = (0)
 RETURN_ADR = 0x0802a4a6
 
 @ 0802A490
@@ -114,6 +114,11 @@ endHokan:
 	add r1, r0
 	str r1, [sp]
 	
+	bl hero_func	@■英雄願望チェック
+	ldr r1, [sp]
+	add r1, r0
+	str r1, [sp]
+	
 	b end
 
 TRUE:
@@ -195,7 +200,7 @@ JudgeCombat:
 		cmp r0, r2
 		bne falseWar            @攻めてないので通常確率計算
 
-		mov r0, #FIRST_ATTACKED_FLAG
+		mov r0, #0
 		mov r1, #0
 		bl IS_TEMP_SKILL_FLAG
 		cmp r0, #1
@@ -240,6 +245,27 @@ JudgeAssassinate:
 		.short 0xE000
 	falseAssassinate:
 		mov r0, #0
+		pop {pc}
+
+hero_func:
+		push {lr}
+		mov r0, r4
+			ldr r3, ADDRESS+36 @英雄願望
+			mov lr, r3
+			.short 0xF800
+		cmp	r0, #0
+		beq	falsehero
+
+		ldrb	r0, [r4, #0x13]	@自分
+		ldrb	r1, [r5, #0x13]	@敵
+		sub	r1, r0		@敵-自分
+		cmp	r1, #0
+		ble	falsehero	@敵未満でないなら終了
+		mov	r0, #20
+		b endhero
+	falsehero:
+		mov r0, #0
+	endhero:
 		pop {pc}
 
 ace_func:

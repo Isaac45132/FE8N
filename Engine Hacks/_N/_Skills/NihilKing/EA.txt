@@ -22,6 +22,7 @@ mirikiri:
  WORD AegisID
  POIN GET_COMBAT_ART
  POIN IS_TEMP_SKILL_FLAG
+ POIN hasHero
 
 hasRightfulKing:
  HAS_SKILL
@@ -35,7 +36,12 @@ hasRightfulGod:
 hasQuickenedPulse:
  HAS_SKILL
  WORD 0xFF
+hasHero:
+ HAS_SKILL
+ WORD HeroID
  
+
+
 ////////////////////KingFix
 PUSH
  ORG	0x2b2fc
