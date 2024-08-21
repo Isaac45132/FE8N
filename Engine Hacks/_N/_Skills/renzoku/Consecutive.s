@@ -64,6 +64,11 @@ DoubleLion: @戦闘予測だと、減少分しか
         cmp r0, r1
         blt falseDouble
 
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bgt falseDouble       @近距離じゃなければ終了
+
         mov r0, r4
         mov r1, r5
         bl HAS_DOUBLE_LION
