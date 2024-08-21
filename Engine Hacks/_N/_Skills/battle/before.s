@@ -32,7 +32,7 @@ gotSkill:
     bl Solo
     bl Fort
     bl Bond
-    bl BladeSession
+@    bl BladeSession
 	bl MagicSword
 	bl Frenzy
     bl asUp
@@ -41,6 +41,8 @@ gotSkill:
     bl DefenseForce
     bl passion
     bl DefenseForceM
+    bl Onnasuki
+    bl DoubleLion
 
 endNoEnemy:
 
@@ -218,6 +220,40 @@ asUp:
         pop {pc}
 
 
+DoubleLion:
+        push {lr}
+    ldr r0, [r5, #4]
+    cmp r0, #0
+    beq falseDoubleLion	@相手いない
+
+        bl GetDistance
+        ldrb r0, [r0]
+        cmp r0, #1
+        bne falseDoubleLion       @近距離のみ
+
+        mov r0, r4
+        mov r1, #0
+        bl HasDoubleLion
+        cmp r0, #0
+        beq falseDoubleLion
+        
+        ldrb r1, [r4, #18] @最大HP
+        ldrb r0, [r4, #19] @現在HP
+        cmp r0, r1
+        blt falseDoubleLion @現在が最大よりも小さい場合
+        mov r1, #90
+        ldrh r0, [r4, r1]
+        add r0, #2
+        strh r0, [r4, r1] @自分
+        
+        mov r1, #94
+        ldrh r0, [r4, r1]
+        add r0, #2
+        strh r0, [r4, r1] @自分
+    falseDoubleLion:
+        mov r0, #0
+        pop {pc}
+
 ShieldSession:
         push {r5, r6, r7, lr}
 
@@ -289,130 +325,130 @@ ShieldSession_impl:
     resultShieldSession:
         pop {pc}
 
-BladeSession:
-        push {r5, r6, r7, lr}
-        bl BladeSessionOne  @自己強化
-        bl BladeSessionAll  @周囲強化
-        pop {r5, r6, r7, pc}
-
-BladeSessionAll:
-        push {lr}
-        ldrb r6, [r4, #0xB]
-        mov r0, #0xC0
-        and r6, r0  @r6に部隊表ID
-       
-    loopBladeSessionAll:
-        add r6, #1
-        mov r0, r6
-        bl Get_Status
-        mov r5, r0
-        cmp r0, #0
-        beq falseBladeSessionAll  @リスト末尾
-        ldr r0, [r5]
-        cmp r0, #0
-        beq loopBladeSessionAll @死亡判定1
-        ldrb r0, [r5, #19]
-        cmp r0, #0
-        beq loopBladeSessionAll @死亡判定2
-        ldrb r0, [r4, #0xB]
-        ldrb r1, [r5, #0xB]
-        cmp r0, r1
-        beq loopBladeSessionAll @自分
-        ldr r0, [r5, #0xC]
-        bl GetExistFlagR1
-        tst r0, r1
-        bne loopBladeSessionAll @居ない
-        mov r1, #0x2
-        tst r0, r1
-        beq loopBladeSessionAll  @未行動
-        mov r0, r5
-        mov r1, #0
-        bl HasBladeSession
-        cmp r0, #0
-        beq loopBladeSessionAll
-  
-        mov r0, #2  @2マス指定
-        mov r1, r4
-        mov r2, r5
-        bl CheckXY
-        cmp r0, #0
-        bne trueBladeSessionAll
-        b loopBladeSessionAll
-    trueBladeSessionAll:
-        mov r1, #90
-        ldrh r0, [r4, r1]
-        add r0, #3
-        strh r0, [r4, r1]
-        mov r1, #94
-        ldrh r0, [r4, r1]
-        add r0, #3
-        strh r0, [r4, r1]
-    falseBladeSessionAll:
-        pop {pc}
-
-BladeSessionOne:
-        push {lr}
-        mov r0, r4
-        mov r1, #0
-        bl HasBladeSession
-        cmp r0, #0
-        beq falseBladeSession
-
-        ldrb r6, [r4, #0xB]
-        mov r0, #0xC0
-        and r6, r0  @r6に部隊表ID
-
-        mov r7, #0
-    loopBladeSession:
-        add r6, #1
-        mov r0, r6
-        bl Get_Status
-        mov r5, r0
-        cmp r0, #0
-        beq resultBladeSession  @リスト末尾
-        ldr r0, [r5]
-        cmp r0, #0
-        beq loopBladeSession @死亡判定1
-        ldrb r0, [r5, #19]
-        cmp r0, #0
-        beq loopBladeSession @死亡判定2
-        ldrb r0, [r4, #0xB]
-        ldrb r1, [r5, #0xB]
-        cmp r0, r1
-        beq loopBladeSession @自分
-        ldr r0, [r5, #0xC]
-        bl GetExistFlagR1
-        tst r0, r1
-        bne loopBladeSession
-        mov r1, #0x2
-        tst r0, r1
-        beq loopBladeSession  @未行動
-  
-        mov r0, #2  @2マス指定
-        mov r1, r4
-        mov r2, r5
-        bl CheckXY
-        cmp r0, #0
-        beq loopBladeSession
-        add r7, #1
-        b loopBladeSession
-    resultBladeSession:
-        mov r2, #3
-        mul r2, r7
-        cmp r2, #7
-        ble limitBladeSession
-        mov r2, #7
-    limitBladeSession:
-        mov r1, #90
-        ldrh r0, [r4, r1]
-        add r0, r0, r2
-        strh r0, [r4, r1] @自分
-        mov r1, #94
-        ldrh r0, [r4, r1]
-        add r0, r0, r2
-        strh r0, [r4, r1] @自分
-    falseBladeSession:
-        pop {pc}
+@BladeSession:
+@        push {r5, r6, r7, lr}
+@        bl BladeSessionOne  @自己強化
+@        bl BladeSessionAll  @周囲強化
+@        pop {r5, r6, r7, pc}
+@
+@BladeSessionAll:
+@        push {lr}
+@        ldrb r6, [r4, #0xB]
+@        mov r0, #0xC0
+@        and r6, r0  @r6に部隊表ID
+@       
+@    loopBladeSessionAll:
+@        add r6, #1
+@        mov r0, r6
+@        bl Get_Status
+@        mov r5, r0
+@        cmp r0, #0
+@        beq falseBladeSessionAll  @リスト末尾
+@        ldr r0, [r5]
+@        cmp r0, #0
+@        beq loopBladeSessionAll @死亡判定1
+@        ldrb r0, [r5, #19]
+@        cmp r0, #0
+@        beq loopBladeSessionAll @死亡判定2
+@        ldrb r0, [r4, #0xB]
+@        ldrb r1, [r5, #0xB]
+@        cmp r0, r1
+@        beq loopBladeSessionAll @自分
+@        ldr r0, [r5, #0xC]
+@        bl GetExistFlagR1
+@        tst r0, r1
+@        bne loopBladeSessionAll @居ない
+@        mov r1, #0x2
+@        tst r0, r1
+@        beq loopBladeSessionAll  @未行動
+@        mov r0, r5
+@        mov r1, #0
+@        bl HasBladeSession
+@        cmp r0, #0
+@        beq loopBladeSessionAll
+@  
+@        mov r0, #2  @2マス指定
+@        mov r1, r4
+@        mov r2, r5
+@        bl CheckXY
+@        cmp r0, #0
+@        bne trueBladeSessionAll
+@        b loopBladeSessionAll
+@    trueBladeSessionAll:
+@        mov r1, #90
+@        ldrh r0, [r4, r1]
+@        add r0, #3
+@        strh r0, [r4, r1]
+@        mov r1, #94
+@        ldrh r0, [r4, r1]
+@        add r0, #3
+@        strh r0, [r4, r1]
+@    falseBladeSessionAll:
+@        pop {pc}
+@
+@BladeSessionOne:
+@        push {lr}
+@        mov r0, r4
+@        mov r1, #0
+@        bl HasBladeSession
+@        cmp r0, #0
+@        beq falseBladeSession
+@
+@        ldrb r6, [r4, #0xB]
+@        mov r0, #0xC0
+@        and r6, r0  @r6に部隊表ID
+@
+@        mov r7, #0
+@    loopBladeSession:
+@        add r6, #1
+@       mov r0, r6
+@        bl Get_Status
+@        mov r5, r0
+@        cmp r0, #0
+@        beq resultBladeSession  @リスト末尾
+@        ldr r0, [r5]
+@        cmp r0, #0
+@        beq loopBladeSession @死亡判定1
+@        ldrb r0, [r5, #19]
+@        cmp r0, #0
+@        beq loopBladeSession @死亡判定2
+@        ldrb r0, [r4, #0xB]
+@        ldrb r1, [r5, #0xB]
+@        cmp r0, r1
+@        beq loopBladeSession @自分
+@        ldr r0, [r5, #0xC]
+@        bl GetExistFlagR1
+@        tst r0, r1
+@        bne loopBladeSession
+@        mov r1, #0x2
+@        tst r0, r1
+@        beq loopBladeSession  @未行動
+@  
+@        mov r0, #2  @2マス指定
+@        mov r1, r4
+@        mov r2, r5
+@        bl CheckXY
+@        cmp r0, #0
+@        beq loopBladeSession
+@        add r7, #1
+@        b loopBladeSession
+@    resultBladeSession:
+@        mov r2, #3
+@        mul r2, r7
+@        cmp r2, #7
+@        ble limitBladeSession
+@        mov r2, #7
+@    limitBladeSession:
+@        mov r1, #90
+@        ldrh r0, [r4, r1]
+@        add r0, r0, r2
+@        strh r0, [r4, r1] @自分
+@        mov r1, #94
+@        ldrh r0, [r4, r1]
+@        add r0, r0, r2
+@        strh r0, [r4, r1] @自分
+@    falseBladeSession:
+@        pop {pc}
 
 ImpregnableWall:
         push {lr}
@@ -1058,6 +1094,75 @@ Bond:
         strh r0, [r4, r1] @自分
     falseBond:
         pop {r4, r5, r6, r7, pc}
+
+
+Onnasuki:
+        push {r4, r5, r6, r7, lr}
+        ldrb r6, [r4, #0xB]
+        mov r0, #0xC0
+        and r6, r0	@r6に部隊表ID
+        
+        mov r0, r4
+        mov r1, #0
+        bl HasOnnasuki
+        cmp r0, #0
+        beq falseOnnasuki
+        mov r7, #0
+    loopOnnasuki:
+        add r6, #1
+        mov r0, r6
+        bl Get_Status
+        mov r5, r0
+        cmp r0, #0
+        beq resultOnnasuki	@リスト末尾
+        ldr r0, [r5]
+        cmp r0, #0
+        beq loopOnnasuki	@死亡判定1
+        ldrb r0, [r5, #19]
+        cmp r0, #0
+        beq loopOnnasuki	@死亡判定2
+        ldr r1, [r5]
+	ldr r1, [r1, #0x28]
+	mov r0, #0x40
+	lsl r0, r0, #8
+	and r0, r1
+        beq loopOnnasuki	@女性でない
+        ldrb r0, [r4, #0xB]
+        ldrb r1, [r5, #0xB]
+        cmp r0, r1
+        beq loopOnnasuki	@自分
+        ldr r0, [r5, #0xC]
+        bl GetExistFlagR1
+        and r0, r1
+        bne loopOnnasuki
+    
+    jumpOnnasuki:
+        mov r0, #2  @2マス指定
+        mov r1, r4
+        mov r2, r5
+        bl CheckXY
+        cmp r0, #0
+        beq loopOnnasuki
+        add r7, #1
+        b loopOnnasuki
+    resultOnnasuki:
+        mov r2, #2
+        mul r2, r7
+        cmp r2, #2
+        ble limitOnnasuki
+        mov r2, #2
+    limitOnnasuki:
+        mov r1, #90
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1] @自分
+        mov r1, #92
+        ldrh r0, [r4, r1]
+        add r0, r0, r2
+        strh r0, [r4, r1] @自分
+    falseOnnasuki:
+        pop {r4, r5, r6, r7, pc}
+
 
 Frenzy:
         push {r4, r5, r6, r7, lr}
@@ -2135,6 +2240,8 @@ DEFENSEFORSEM_ADDR = (EXTRA_OFFSET+64)
 SEIGAI_ADDR = (EXTRA_OFFSET+68)
 KAZEYOKE_ADDR = (EXTRA_OFFSET+72)
 YANDERE_ADDR = (EXTRA_OFFSET+76)
+ONNASUKI_ADDR = (EXTRA_OFFSET+80)
+DOUBLELION_ADDR = (EXTRA_OFFSET+84)
 
 GetWarList:
     ldr r1, COMBAT_TBL_SIZE
@@ -2285,6 +2392,12 @@ HasKazeyoke:
 	mov pc, r2
 HasYandere:
 	ldr r2, YANDERE_ADDR
+	mov pc, r2
+HasOnnasuki:
+	ldr r2, ONNASUKI_ADDR
+	mov pc, r2
+HasDoubleLion:
+	ldr r2, DOUBLELION_ADDR
 	mov pc, r2
 
 GetAttackerAddr:

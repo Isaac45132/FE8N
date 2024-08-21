@@ -77,6 +77,8 @@ battle_before:
     POIN HasSeigai
     POIN HasKazeyoke
     POIN HasYandere
+    POIN HasOnnasuki
+    POIN hasDoubleLion
 
 battle_after:
     #incbin main.dmp
@@ -116,6 +118,7 @@ battle_down:
   POIN IS_TEMP_SKILL_FLAG
   POIN TURN_ON_TEMP_SKILL_FLAG
   POIN HasMamoriteDef
+  POIN HasMazyo
   
 
 HasLunge:
@@ -344,3 +347,10 @@ HasKazeyoke:
 HasYandere:
     HAS_SKILL
     WORD YandereID
+
+HasOnnasuki:
+    HAS_SKILL
+    WORD OnnaSukiID
+HasMazyo:
+    HAS_SKILL
+    WORD MazyoID

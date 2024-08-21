@@ -47,6 +47,9 @@ START:
     mov	r1, r6
     bl Counter
 
+    mov	r0, r7
+    mov	r1, r6
+    bl Mazyo
 negative:
 @受け側スキル→攻め
     ldrb r0, [r6, #19]
@@ -122,8 +125,11 @@ DoubleLion:
     ldrb r0, [r4, #19]	@現在HP
     cmp r0, r1
     blt falseDouble
-    sub r0, #1
-    strb	r0, [r4, #19]
+    sub r0, #6
+    bgt LionHPcheck
+    mov r0, #1
+LionHPcheck:
+    strb r0, [r4, #19]
     mov	r0, #1
     b	retDouble
 falseDouble:
@@ -386,6 +392,79 @@ hpOk:
     mov	r0, #1
     .short 0xE000
 falseJadoku:
+    mov	r0, #0
+    pop	{r4, pc}
+    
+Mazyo:
+    push	{r4, lr}
+    mov r3, r0
+    mov r4, r1
+
+    mov r0, #COMBAT_HIT
+    mov r1, #0
+    bl IS_TEMP_SKILL_FLAG
+    cmp r0, #0
+    beq falseMazyo         @当たってないので終了
+
+    ldrb r0, [r3, #0xB]
+    lsl r0, r0, #24
+    bmi isRedMa
+
+    ldrb r0, [r4, #0xB]
+    lsl r0, r0, #24
+    bmi startMazyo
+    b falseMazyo	@相手チェック失敗
+    
+isRedMa:
+    ldrb r0, [r4, #0xB]
+    lsl r0, r0, #24
+    bpl startMazyo
+    b falseMazyo	@相手チェック失敗
+    
+startMazyo:
+    mov r0, r3
+    mov r1, r4
+        ldr r2, ADR+60
+        mov lr, r2
+        .short 0xF800
+    cmp r0, #0
+    beq falseMazyo	@魔女未所持なら終了
+
+    mov r3, #0x22	@スリープ2ターン
+    mov r0, #33
+    mov r1, #0
+    push {r3}
+        ldr r3, =0x0802A490
+        mov lr, r3
+        .short 0xF800
+    pop {r3}
+    cmp r0, #0
+    bne zyoutai
+    mov r3, #0x23	@サイレス2ターン
+    mov r0, #33
+    mov r1, #0
+    push {r3}
+        ldr r3, =0x0802A490
+        mov lr, r3
+        .short 0xF800
+    pop {r3}
+    cmp r0, #0
+    bne zyoutai
+    mov r3, #0x21	@ポイズン2ターン
+    
+zyoutai:
+	mov	r1, r4
+	add	r1, #0x30
+	strb	r3, [r1]
+
+    mov r0, #0xB7	@妥当な音のIDが分からん
+    mov r1, #0xB8
+        ldr r2, =0x08014B50 @音
+        mov lr, r2
+        .short 0xF800
+    mov	r0, #1
+    .short 0xE000
+falseMazyo:
     mov	r0, #0
     pop	{r4, pc}
     
