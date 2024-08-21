@@ -8,7 +8,22 @@
         mov lr, r1
         .short 0xF800
     mov r5, r0
-    
+
+	mov r0, #0x50
+	ldrb r0, [r4, r0]
+	add	r0, r4
+	add	r0, #40
+	ldrb	r0, [r0]
+	ldr r1, =0x08016b04
+        mov lr, r1
+        .short 0xF800
+	cmp r0, #6	@武器レベルS
+	blt next
+	sub r5, #3	@重さ-3
+	cmp r5, #0
+	bge next
+	mov r5, #0
+next:
     ldrb r0, [r4, #20]  @力
     mov r1, #5
     swi #6      @(r0)/(r1)
