@@ -49,6 +49,7 @@ POIN HAS_SCREAM_MASTERY
 POIN IS_TEMP_SKILL_FLAG
 POIN	hasGekishin
 POIN	hasWeaponB
+POIN	hasSinen
     
 hasFallenStar:
   HAS_OCCULT
@@ -93,3 +94,7 @@ hasGekishin:
 hasWeaponB:
     HAS_OCCULT
     WORD WeaponBID
+
+hasSinen:
+    HAS_OCCULT
+    WORD SinenID

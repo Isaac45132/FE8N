@@ -40,6 +40,9 @@ MasterySkill:
 		bl Meido
 		cmp r0, #1
 		beq endMasterySkill
+		bl Sinen
+		cmp r0, #1
+		beq endMasterySkill
 		bl Revenge
 		cmp r0, #1
 		beq endMasterySkill
@@ -340,6 +343,10 @@ MagicBind:
 		lsl	r1, r1, #16
 		bmi	Magicend		@敵将に無効
 @ここまで
+    ldrh r1, [r5, #6]
+    mov r0, #5		@+5ダメージ
+    add r1, r0
+    strh r1, [r5, #6]
 
 	mov	r1, r8
 	add	r1, #111
@@ -359,6 +366,11 @@ Stan:
     beq endWar
 	
 trueStan:
+    ldrh r1, [r5, #6]
+    mov r0, #5		@+5ダメージ
+    add r1, r0
+    strh r1, [r5, #6]
+
 	mov	r1, r8
 	add	r1, #111
 	mov	r0, #0x24		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
@@ -413,6 +425,11 @@ Stone:
     cmp r0, #0
     beq endWar
 trueStone:
+    ldrh r1, [r5, #6]
+    mov r0, #5		@+5ダメージ
+    add r1, r0
+    strh r1, [r5, #6]
+
 	mov	r1, r8
 	add	r1, #111
 	mov	r0, #0x1B		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
@@ -474,7 +491,6 @@ Gekishin:
     beq endGekishin
 @奥義目印
     ldrb r0, [r7, #20]	@力
-    lsl r0, r0, #1
     mov r1, #0
     bl random
     cmp r0, #0
@@ -497,6 +513,33 @@ Gekishin:
 endGekishin:
 	pop {pc}
 
+Sinen:
+	push {lr}
+	mov r0, r7
+	mov r1, #0
+    bl HasSinen
+    cmp r0, #0
+    beq endSinen
+@奥義目印
+    ldrb r0, [r7, #21]	@技
+    mov r1, #0
+    bl random
+    cmp r0, #0
+    beq endSinen
+
+    ldrb r0, [r7, #0x1A]	@魔力
+    lsr r0, r0, #1		@半減
+    ldrh r1, [r5, #6]
+    add r1, r0
+    strh r1, [r5, #6]
+
+    mov r0, r7
+    ldr r1, HAS_SINEN_FUNC
+    bl SetAtkSkillAnimation
+	mov r0, #1
+endSinen:
+	pop {pc}
+
 WeaponB:
 	push {lr}
     ldr r0, =0x0203a4d2
@@ -510,8 +553,16 @@ WeaponB:
     cmp r0, #0
     beq endWeaponB
 @奥義目印
+	mov r1, #0
+	ldr r0, [r7]
+	ldrb r0, [r0, #4]
+	cmp r0, #0x2F	@ヘラクレスのみ
+	bne WBhatudoru
+	mov r1, #10	@+10%
+
+WBhatudoru:
     ldrb r0, [r7, #8]	@レベル
-    lsl r0, r0, #1
+    add r0, r1
     mov r1, #0
     bl random
     cmp r0, #0
@@ -665,6 +716,12 @@ HAS_WEAPONB_FUNC = (adr+64)
 
 HasWeaponB:
 	ldr r2, HAS_WEAPONB_FUNC
+	mov pc, r2
+
+HAS_SINEN_FUNC = (adr+68)
+
+HasSinen:
+	ldr r2, HAS_SINEN_FUNC
 	mov pc, r2
 
 
