@@ -28,6 +28,9 @@ MasterySkill:
 		cmp r0, #1
 		beq endMasterySkill @見切り持ち
 		
+		bl WeaponB
+		cmp r0, #1
+		beq endMasterySkill
 		bl Pierce
 		cmp r0, #1
 		beq endMasterySkill
@@ -47,9 +50,6 @@ MasterySkill:
 		cmp r0, #1
 		beq endMasterySkill
 		bl Flower
-		cmp r0, #1
-		beq endMasterySkill
-		bl WeaponB
 		cmp r0, #1
 		beq endMasterySkill
 		bl StanMastery
@@ -510,7 +510,9 @@ Gekishin:
     ldr r1, HAS_GEKISHIN_FUNC
     bl SetAtkSkillAnimation
 	mov r0, #1
+	.short 0xE000
 endGekishin:
+	mov r0, #0
 	pop {pc}
 
 Sinen:
@@ -602,7 +604,9 @@ nonhyouzi:
     ldr r1, HAS_WEAPONB_FUNC
     bl SetAtkSkillAnimation
 	mov r0, #1
+	.short 0xE000
 endWeaponB:
+	mov r0, #0
 	pop {pc}
 
 
