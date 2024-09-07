@@ -65,9 +65,7 @@ endNoEnemy:
     bl Seigai
 
 endNeedEnemy:
-    bl tubame	@見切りでも発動
-    bl ouzya	@見切りでも発動
-    bl Yandere	@見切りでも発動
+	bl MikiriSkills
 
 @マイナス処理
     bl Domination
@@ -136,7 +134,7 @@ OtherSideSkill:
     DefSkill:
         bl DistantDef
         bl CloseDef
-        bl ShieldSession
+@        bl ShieldSession
         bl ImpregnableWall
         bl KishinR
         bl HienR
@@ -253,202 +251,6 @@ DoubleLion:
     falseDoubleLion:
         mov r0, #0
         pop {pc}
-
-ShieldSession:
-        push {r5, r6, r7, lr}
-
-        mov r0, r4
-        mov r1, #0
-        bl HasShieldSession
-        cmp r0, #0
-        beq endShieldSession
-    
-        mov r7, #0
-        ldrb r0, [r4, #0xB]
-        lsl r0, r0, #24
-        bmi isRedShieldSession
-        mov r6, #0x80
-    
-        bl ShieldSession_impl
-        b calcShieldSession
-    isRedShieldSession:
-        mov r6, #0x00
-        bl ShieldSession_impl
-        mov r6, #0x40
-        bl ShieldSession_impl
-    calcShieldSession:
-        mov r0, #6
-        mov r1, #2
-        mul r1, r7
-        sub r0, r0, r1
-        bgt jumpShieldSession
-        mov r0, #0
-    jumpShieldSession:
-        mov r1, #92
-        ldrh r2, [r4, r1]
-        add r2, r2, r0
-        strh r2, [r4, r1]
-    endShieldSession:
-        pop {r5, r6, r7, pc}
-
-ShieldSession_impl:
-        push {lr}
-    loopShieldSession:
-        add r6, #1
-        mov r0, r6
-        bl Get_Status
-        mov r5, r0
-        cmp r0, #0
-        beq resultShieldSession  @リスト末尾
-        ldr r0, [r5]
-        cmp r0, #0
-        beq loopShieldSession @死亡判定1
-        ldrb r0, [r5, #19]
-        cmp r0, #0
-        beq loopShieldSession @死亡判定2
-        ldr r0, [r5, #0xC]
-        bl GetExistFlagR1
-        tst r0, r1
-        bne loopShieldSession
-        mov r1, #0x2
-        tst r0, r1
-        beq loopShieldSession  @未行動
-
-        mov r0, #2  @2マス指定
-        mov r1, r4
-        mov r2, r5
-        bl CheckXY
-        cmp r0, #0
-        beq loopShieldSession
-        add r7, #1
-        b loopShieldSession
-    resultShieldSession:
-        pop {pc}
-
-@BladeSession:
-@        push {r5, r6, r7, lr}
-@        bl BladeSessionOne  @自己強化
-@        bl BladeSessionAll  @周囲強化
-@        pop {r5, r6, r7, pc}
-@
-@BladeSessionAll:
-@        push {lr}
-@        ldrb r6, [r4, #0xB]
-@        mov r0, #0xC0
-@        and r6, r0  @r6に部隊表ID
-@       
-@    loopBladeSessionAll:
-@        add r6, #1
-@        mov r0, r6
-@        bl Get_Status
-@        mov r5, r0
-@        cmp r0, #0
-@        beq falseBladeSessionAll  @リスト末尾
-@        ldr r0, [r5]
-@        cmp r0, #0
-@        beq loopBladeSessionAll @死亡判定1
-@        ldrb r0, [r5, #19]
-@        cmp r0, #0
-@        beq loopBladeSessionAll @死亡判定2
-@        ldrb r0, [r4, #0xB]
-@        ldrb r1, [r5, #0xB]
-@        cmp r0, r1
-@        beq loopBladeSessionAll @自分
-@        ldr r0, [r5, #0xC]
-@        bl GetExistFlagR1
-@        tst r0, r1
-@        bne loopBladeSessionAll @居ない
-@        mov r1, #0x2
-@        tst r0, r1
-@        beq loopBladeSessionAll  @未行動
-@        mov r0, r5
-@        mov r1, #0
-@        bl HasBladeSession
-@        cmp r0, #0
-@        beq loopBladeSessionAll
-@  
-@        mov r0, #2  @2マス指定
-@        mov r1, r4
-@        mov r2, r5
-@        bl CheckXY
-@        cmp r0, #0
-@        bne trueBladeSessionAll
-@        b loopBladeSessionAll
-@    trueBladeSessionAll:
-@        mov r1, #90
-@        ldrh r0, [r4, r1]
-@        add r0, #3
-@        strh r0, [r4, r1]
-@        mov r1, #94
-@        ldrh r0, [r4, r1]
-@        add r0, #3
-@        strh r0, [r4, r1]
-@    falseBladeSessionAll:
-@        pop {pc}
-@
-@BladeSessionOne:
-@        push {lr}
-@        mov r0, r4
-@        mov r1, #0
-@        bl HasBladeSession
-@        cmp r0, #0
-@        beq falseBladeSession
-@
-@        ldrb r6, [r4, #0xB]
-@        mov r0, #0xC0
-@        and r6, r0  @r6に部隊表ID
-@
-@        mov r7, #0
-@    loopBladeSession:
-@        add r6, #1
-@       mov r0, r6
-@        bl Get_Status
-@        mov r5, r0
-@        cmp r0, #0
-@        beq resultBladeSession  @リスト末尾
-@        ldr r0, [r5]
-@        cmp r0, #0
-@        beq loopBladeSession @死亡判定1
-@        ldrb r0, [r5, #19]
-@        cmp r0, #0
-@        beq loopBladeSession @死亡判定2
-@        ldrb r0, [r4, #0xB]
-@        ldrb r1, [r5, #0xB]
-@        cmp r0, r1
-@        beq loopBladeSession @自分
-@        ldr r0, [r5, #0xC]
-@        bl GetExistFlagR1
-@        tst r0, r1
-@        bne loopBladeSession
-@        mov r1, #0x2
-@        tst r0, r1
-@        beq loopBladeSession  @未行動
-@  
-@        mov r0, #2  @2マス指定
-@        mov r1, r4
-@        mov r2, r5
-@        bl CheckXY
-@        cmp r0, #0
-@        beq loopBladeSession
-@        add r7, #1
-@        b loopBladeSession
-@    resultBladeSession:
-@        mov r2, #3
-@        mul r2, r7
-@        cmp r2, #7
-@        ble limitBladeSession
-@        mov r2, #7
-@    limitBladeSession:
-@        mov r1, #90
-@        ldrh r0, [r4, r1]
-@        add r0, r0, r2
-@        strh r0, [r4, r1] @自分
-@        mov r1, #94
-@        ldrh r0, [r4, r1]
-@        add r0, r0, r2
-@        strh r0, [r4, r1] @自分
-@    falseBladeSession:
-@        pop {pc}
 
 ImpregnableWall:
         push {lr}
@@ -918,62 +720,8 @@ Heartseeker_impl:
         strh r0, [r4, r1] @自分
         pop {pc}
 
-Yandere:
-        push {r4, r5, r6, lr}
-        mov r0, r4
-        mov r1, #0
-        bl HasYandere
-        cmp r0, #0
-        beq endYandere    @スキル未所持
-
-        mov r6, #0
-    loopYandere:
-        add r6, #1
-        mov r0, r6
-        bl Get_Status
-        mov r5, r0
-        cmp r0, #0
-        beq endYandere		@リスト末尾
-	ldr r0, [r5]
-	ldrb r0, [r0, #4]
-        cmp r0, #1
-        bne loopYandere		@アイザック判定
-        ldr r0, [r5]
-        cmp r0, #0
-        beq loopYandere		@死亡判定1
-        ldrb r0, [r5, #19]
-        cmp r0, #0
-        beq loopYandere		@死亡判定2
-    
-        ldr r0, [r5, #0xC]
-	ldr r1, =0x1000C	@居ないフラグ@救出されてても発動
-        and r0, r1
-        bne loopYandere
-    
-        mov r0, #1  @範囲指定
-        mov r1, r4
-        mov r2, r5
-        bl CheckXY
-        cmp r0, #0
-        beq loopYandere		@近くにいない
-    
-        mov r1, #102 @必殺
-        ldrh r0, [r4, r1]
-        add r0, #10
-        strh r0, [r4, r1]
-
-        mov r1, #98 @回避
-        ldrh r0, [r4, r1]
-        add r0, #30
-        strh r0, [r4, r1]
-    endYandere:
-        pop {r4, r5, r6, pc}
-
-
 WarSkill:
         push {lr}
-
-
         bl GetAttackerAddr
         ldr r2, [r0]
         ldrb r2, [r2, #11]
@@ -1306,21 +1054,24 @@ shisen_A:	@自分死線
         mov r0, r4
         mov r1, #0
         bl HasShisen
-        
         cmp r0, #0
         beq falseShisen
         
+	mov r1, #0x4C
+	ldrb r0, [r4, r1]
+	mov r1, #0x80
+	and r0, r1
+	bne falseShisen
+
         mov r1, r4
-        mov r0, #90
-        ldrh r0, [r1, r0]
-        add r0, #10
         add r1, #90
+        ldrh r0, [r1]
+        add r0, #10
         strh r0, [r1] @自分
 @       mov r1, r4
-@       mov r0, #94
-@       ldrh r0, [r1, r0]
-@       add r0, #10
 @       add r1, #94
+@       ldrh r0, [r1]
+@       add r0, #10
 @       strh r0, [r1] @自分
         mov r0, #1
         b endShisen
@@ -1674,65 +1425,6 @@ koroshi:
         strh r0, [r4, r1] @自分
         bx lr
         
-tubame:
-        push {lr}	
-	mov r0, r5
-        bl HasNullify	@相手練達
-	cmp r0, #0
-	bne falseTubame
-
-gotTubame:
-	mov r0, r4
-	bl HasTubame
-	cmp r0, #0
-	beq falseTubame
-	bl TUBAME_TOKKOU
-	bl effect_test
-	cmp r0, #0
-	beq falseTubame
-    
-        mov r1, #96
-        ldrh r0, [r4, r1]
-        add r0, #50
-        strh r0, [r4, r1] @命中
-
-        mov r1, #98
-        ldrh r0, [r4, r1]
-        add r0, #50
-        strh r0, [r4, r1] @回避
-falseTubame:
-        pop {pc}
-
-ouzya:
-        push {lr}	
-	mov r0, r5
-        bl HasNullify	@相手練達
-	cmp r0, #0
-	bne falseOuzya
-
-gotOuzya:
-	mov r0, r4
-	bl HasOuzya
-	cmp r0, #0
-	beq falseOuzya
-	bl OUZYA_TOKKOU
-	bl effect_test
-	cmp r0, #0
-	beq falseOuzya
-    
-        mov r1, #96
-        ldrh r0, [r4, r1]
-        add r0, #50
-        strh r0, [r4, r1] @命中
-
-        mov r1, #98
-        ldrh r0, [r4, r1]
-        add r0, #50
-        strh r0, [r4, r1] @回避
-falseOuzya:
-        pop {pc}
-
-
 effect_test:
     ldr r3, [r5, #4]
     ldrb r3, [r3, #4]
@@ -2114,6 +1806,10 @@ breaker_impl:
     endBreaker:
         pop {pc}
 
+MikiriSkills:
+	ldr	r3, addr+248
+	mov	pc, r3
+
 fatigue:
         push {r2, r3, r5, lr}
 	mov r3, #0x0
@@ -2217,15 +1913,7 @@ HAS_DARTING_BREATH:
 
 EXTRA_OFFSET = (addr+160)
 DOMINATION_ADDR = (EXTRA_OFFSET+0)
-TUBAME_ADDR = (EXTRA_OFFSET+4)
-OUZYA_ADDR = (EXTRA_OFFSET+8)
 NULLIFY_ADDR = (EXTRA_OFFSET+12)
-TUBAME_TOKKOU:
-ldr r1, (EXTRA_OFFSET+16)
-bx lr
-OUZYA_TOKKOU:
-ldr r1, (EXTRA_OFFSET+20)
-bx lr
 HITUP_ADDR = (EXTRA_OFFSET+24)
 AGITATION_ADDR = (EXTRA_OFFSET+28)
 FATIGUESTATUS = (EXTRA_OFFSET+32)
@@ -2356,12 +2044,6 @@ Hasagitation:
 	mov pc, r2
 HasDomination:
 	ldr r2, DOMINATION_ADDR
-	mov pc, r2
-HasTubame:
-	ldr r2, TUBAME_ADDR
-	mov pc, r2
-HasOuzya:
-	ldr r2, OUZYA_ADDR
 	mov pc, r2
 HasNullify:
 	ldr r2, NULLIFY_ADDR

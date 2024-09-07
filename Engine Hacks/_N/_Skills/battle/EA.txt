@@ -79,6 +79,7 @@ battle_before:
     POIN HasYandere
     POIN HasOnnasuki
     POIN hasDoubleLion
+    POIN non_mikiriSkills
 
 battle_after:
     #incbin main.dmp
@@ -120,6 +121,15 @@ battle_down:
   POIN HasMamoriteDef
   POIN HasMazyo
   
+non_mikiriSkills:
+    #incbin non_mikiriSkills.dmp
+    POIN HasTubame
+    POIN HasOuzya
+    POIN effective_against3
+    POIN effective_against4
+    POIN HasNullify
+    POIN HasYandere
+    POIN HasKoigataki
 
 HasLunge:
     HAS_COMBAT
@@ -354,3 +364,6 @@ HasOnnasuki:
 HasMazyo:
     HAS_SKILL
     WORD MazyoID
+HasKoigataki:
+    HAS_SKILL
+    WORD KoigatakiID

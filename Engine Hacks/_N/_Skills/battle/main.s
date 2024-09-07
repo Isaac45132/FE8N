@@ -224,10 +224,16 @@ Shisen_B:	@相手強化
         cmp r0, #0
         beq endShisen
         
+	mov r1, #0x4C
+	ldrb r0, [r4, r1]
+	mov r1, #0x80
+	and r0, r1
+	bne endShisen
+
         mov r1, r6
         add r1, #90
         ldrh r0, [r1]
-        add r0, #5
+        add r0, #10
         strh r0, [r1] @相手
     endShisen:
         pop {pc}
