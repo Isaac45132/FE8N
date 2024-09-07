@@ -219,5 +219,6 @@
 #define OnnaSukiID 237 //0xED女好き
 #define MazyoID 238 //0xEE魔女
 #define SinenID 239 //0xEF深淵
+#define KoigatakiID 240 //0xF0恋敵
 
 
