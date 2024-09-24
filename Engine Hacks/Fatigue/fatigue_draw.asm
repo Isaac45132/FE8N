@@ -36,8 +36,13 @@ endloop:
 	ldrb	r3, [r1, r3]
 	cmp	r3, #0x40
 	bgt	end		@味方以外なら終了
-	ldr	r3, [r1, #0x0]	@ロムユニット
-	ldrb	r3, [r3, #0x4]	@ユニットID
+@	ldr	r3, [r1, #0x0]	@ロムユニット
+@	ldrb	r3, [r3, #0x4]	@ユニットID
+
+	ldr	r3, [r1, #4]	@クラス
+	ldrb	r3, [r3, #4]
+	cmp	r3, #0x51	@亡霊戦士
+	beq	end
 
 	ldr	r0, adr		@位置
 	add	r0, r8		@位置
