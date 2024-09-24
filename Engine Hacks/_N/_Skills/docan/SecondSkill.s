@@ -126,6 +126,13 @@ Shutdown:
         mov r1, r8
         add r1, #72
         strh r0, [r1]           @相手装備消去
+
+	sub r1, #0x10		@ウエポンブレイカーフラグ
+	ldrb r0, [r1]		@ウエポンブレイカーフラグ
+	cmp r0, #1		
+	beq falseShutdown	@ウエポンブレイカーフラグありなら武器消滅のまま
+
+	add r1, #0x10
         strb r0, [r1, #10]      @相手武器消滅防止
     falseShutdown:
         pop {pc}
