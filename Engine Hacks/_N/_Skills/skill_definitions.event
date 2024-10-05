@@ -220,5 +220,7 @@
 #define MazyoID 238 //0xEE魔女
 #define SinenID 239 //0xEF深淵
 #define KoigatakiID 240 //0xF0恋敵
+#define siroyuriID 241 //0xF1白百合の騎士
+
 
 
