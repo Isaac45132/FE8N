@@ -3,6 +3,13 @@
 	bl	staffLvBorns
 	pop	{r3}
 	add	r4, r0
+
+	ldr	r1, [r3]	@ユニット
+	ldrb	r1, [r1, #4]	@ユニットID
+	cmp	r1, #0x19	@ソフィア
+	bne	checkMAX
+	add	r4, #10		@回復+10
+checkMAX:
 	cmp	r4, #0x50
 	ble	nonMAX
 	bl	staffFatigue
