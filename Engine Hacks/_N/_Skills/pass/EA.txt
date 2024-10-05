@@ -5,7 +5,7 @@ BYTE	$00 $48 $87 $46
 POIN	passem
 POP
 passem:
-    #incbin pass.gba
+    #incbin pass.dmp
     POIN hasPass
 hasPass:
     HAS_SKILL
