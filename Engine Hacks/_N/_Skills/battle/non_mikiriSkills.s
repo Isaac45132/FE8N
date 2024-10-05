@@ -1,8 +1,13 @@
 .thumb
 @
 	push {lr}
+    ldr r0, [r5, #4]
+    cmp r0, #0
+    beq nonEnemy	@相手いない
 	bl tubame	@見切りでも発動
 	bl ouzya	@見切りでも発動
+
+nonEnemy:
 	bl Yandere	@見切りでも発動
 	bl Koigata	@見切りでも発動
 	pop {pc}

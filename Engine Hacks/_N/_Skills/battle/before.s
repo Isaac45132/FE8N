@@ -977,17 +977,17 @@ Frenzy:
 
         mov r1, #90	@攻撃
         ldrh r0, [r4, r1]
-        add r0, #4
+        add r0, #5
         strh r0, [r4, r1] @自分
 
         mov r1, #92	@防御
         ldrh r0, [r4, r1]
-        add r0, #4
+        add r0, #5
         strh r0, [r4, r1] @自分
 
         mov r1, #94	@攻速
         ldrh r0, [r4, r1]
-        add r0, #4
+        add r0, #5
         strh r0, [r4, r1] @自分
     falseFrenzy:
         pop {r4, r5, r6, r7, pc}
