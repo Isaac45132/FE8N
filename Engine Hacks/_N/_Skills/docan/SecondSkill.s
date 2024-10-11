@@ -46,22 +46,20 @@ Cancel:
         push {lr}
 
         mov r0, #COMBAT_HIT
-        mov r1, r7
+        mov r1, r8	@敵
         bl IS_TEMP_SKILL_FLAG
         cmp r0, #0
-        beq falseCancel  @当たってない(予測は常にOFF)
+        beq falseCancel  @敵の攻撃が当たってない(予測は常にOFF)
 
-        mov r0, r7
-        mov r1, r8
+        mov r0, r8
+        mov r1, r7
         bl HAS_CANCEL
         cmp r0, #0
-        beq falseCancel
+        beq falseCancel	@敵がスキル無しなら終了
 
         mov r0, #0
-        mov r1, r8
-        add r1, #106
-        strh r0, [r1]   @必殺ゼロ
-
+	ldr r1, =0x0203A4D0
+	strh r0, [r1, #0xC]	@自分の必殺を0にする
         mov r0, #1
         .short 0xE000
     falseCancel:
