@@ -98,12 +98,16 @@ WeaponB:
 	ldrb r0, [r6, #0xB]
 	cmp r0, #0x40
 	ble nextWeaponB		@味方キャラならジャンプ
-	mov r0, #0x26
-	ldrb r0, [r6, r0]
+	mov r1, #0x26
+	ldrb r0, [r6, r1]
 	cmp r0, #0
-	bne falseWeaponB	@アイテム5個所持なら終了
+	bne falseWeaponB	@攻撃側アイテム5個所持なら終了
+	ldrb r0, [r5, r1]
+	cmp r0, #0
+	bne falseWeaponB	@防御側アイテム5個所持なら終了
 				@同盟と赤軍がドロップ時に輸送体へ送れてしまう対策
 				@同盟VS赤または赤VSバサーク赤を想定
+				@敵から攻撃された時も無効
     nextWeaponB:
         ldr r0, [r4, #0]
         ldr r0, [r0, #40]
