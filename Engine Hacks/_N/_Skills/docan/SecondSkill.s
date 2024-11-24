@@ -129,8 +129,9 @@ Shutdown:
 	ldrb r0, [r1]		@ウエポンブレイカーフラグ
 	cmp r0, #1		
 	beq falseShutdown	@ウエポンブレイカーフラグありなら武器消滅のまま
-
+    nonEnemy:
 	add r1, #0x10
+	mov r0, #0
         strb r0, [r1, #10]      @相手武器消滅防止
     falseShutdown:
         pop {pc}
@@ -151,6 +152,13 @@ CriticalUp:
         cmp r0, #3
         beq falseCRT @HP1武器は無視
 
+	mov r0, r8
+        ldr r0, [r0, #76]
+        mov r1, #0x80
+	lsl r1, r1, #8
+        and r0, r1
+        bne falseCRT @敵が必殺無効武器所持時は無視
+    
         mov r0, r8
         mov r1, r7
         bl HasFortune
