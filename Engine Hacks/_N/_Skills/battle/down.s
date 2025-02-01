@@ -47,6 +47,14 @@ START:
     mov	r1, r6
     bl Counter
 
+	mov r0, r6
+	mov r1, r7
+        ldr r2, ADR+64	@プロテクトありならスキップ
+        mov lr, r2
+        .short 0xF800
+	cmp r0, #1
+	beq negative
+
     mov	r0, r7
     mov	r1, r6
     bl Mazyo

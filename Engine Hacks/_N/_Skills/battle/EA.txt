@@ -120,6 +120,7 @@ battle_down:
   POIN TURN_ON_TEMP_SKILL_FLAG
   POIN HasMamoriteDef
   POIN HasMazyo
+  POIN HasImmuneStatus
   
 non_mikiriSkills:
     #incbin non_mikiriSkills.dmp
@@ -367,3 +368,6 @@ HasMazyo:
 HasKoigataki:
     HAS_SKILL
     WORD KoigatakiID
+HasImmuneStatus:
+    HAS_SKILL
+    WORD ImmuneStatusID

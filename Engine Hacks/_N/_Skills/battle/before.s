@@ -1514,7 +1514,7 @@ Charge:
         
         mov r0, r4
         bl GetWalked
-        lsl r0, r0, #1
+@        lsl r0, r0, #1
         cmp r0, #10
         ble jumpCharge
         mov r0, #10
