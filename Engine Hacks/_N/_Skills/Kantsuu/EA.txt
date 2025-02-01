@@ -77,7 +77,7 @@ hasMagicBind:
     WORD MagicBindID
 
 HAS_PIERCE:
-    HAS_OCCULT
+    HAS_SKILL
     WORD PierceID
 
 HAS_STUN_MASTERY:
