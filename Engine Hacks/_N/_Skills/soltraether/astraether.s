@@ -9,6 +9,7 @@ SET_SKILLANIME_ATK_FUNC = (adr+24)
 HAS_NIHIL_FUNC = (adr+28)
 HAS_RAPTURE =  (adr+36)
 HAS_ATROCITY =  (adr+40)
+HAS_MAZINYAMI =  (adr+44)
 
 .thumb
 @.org	0802b484
@@ -25,9 +26,7 @@ HAS_ATROCITY =  (adr+40)
 	b	return
 start:
     mov r0, r8
-        ldr r2, HAS_NIHIL_FUNC
-        mov lr, r2
-        .short 0xF800
+	bl nihil_func	@見切り
 	cmp r0, #1
 	beq return	@見切り持ちなので終了
 
@@ -59,6 +58,7 @@ start:
 	cmp r0, #1
 	beq return
 	
+	bl mazinyami_impl @魔神闇
 
 	b return
 
@@ -98,17 +98,11 @@ RupturedSky:
     mov r1, #10
     swi #6      @3割
 
-    mov r1, #4
-    ldsh r1, [r5, r1] @ ダメージ
-    add r0, r0, r1
-    strh r0, [r5, #4]
+    bl dmgPlus
     
     mov r0, r7
     ldr r1, HAS_RAPTURE        @破天
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     mov r0, #1
     .short 0xE000
@@ -164,10 +158,8 @@ not_dec:
     
     mov r0, r7
     ldr r1, JIHAD_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
+
     
     b sol_crt
 falseJihad:
@@ -231,10 +223,7 @@ ecripse_impl:
     
     mov r0, r7
     ldr r1, ECRIPSE_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     b effect_crt
 falseEcripse:
@@ -273,17 +262,11 @@ impale_impl:
     sub r0, r0, r1
     asr r0, r0, #1
 
-    mov r1, #4
-    ldsh r1, [r5, r1] @ ダメージ
-    add r0, r0, r1
-    strh r0, [r5, #4]
+    bl dmgPlus
     
     mov r0, r7
     ldr r1, IMPALE_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     mov r0, #1
     .short 0xE000
@@ -357,10 +340,7 @@ nononon:
     
     mov r0, r7
     ldr r1, ASTRA_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     b effect_crt
 falseAstra:
@@ -415,8 +395,8 @@ TENKU:
     bne falseTenku @@手斧チェック
 jump:
 
-@    ldrb r0, [r7, #21]	@技
-    ldrb r0, [r7, #8]	@レベル
+    ldrb r0, [r7, #21]	@技
+@    ldrb r0, [r7, #8]	@レベル
     mov r1, #0
     bl random
     cmp r0, #0
@@ -430,18 +410,11 @@ jump:
     asr r0, r0, #1 @半減
     add r0, r1
 
-    mov r1, #4
-    ldsh r1, [r5, r1] @ダメージ
-
-    add r0, r0, r1
-    strh r0, [r5, #4]
+    bl dmgPlus
     
     mov r0, r7
     ldr r1, TENKU_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     b sol_crt
 
@@ -460,18 +433,11 @@ YOUKOU:
     asr r0, r0, #1 @半減
     add r0, r1
 
-    mov r1, #4
-    ldsh r1, [r5, r1]
-
-    add r0, r0, r1
-    strh r0, [r5, #4]
+    bl dmgPlus
 
     mov r0, r7
     ldr r1, YOUKO_ADR
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     
     b sol_ef
 falseTenku:
@@ -549,10 +515,8 @@ Atrocity:
 	add	r0, r0, r1
 	ldrb	r0, [r0, #0x15]
 	lsl	r0, r0, #1	@武器威力2倍を攻撃に足す
-    mov r1, #4
-    ldsh r1, [r5, r1] @ ダメージ
-    add r0, r0, r1
-    strh r0, [r5, #4]
+
+    bl dmgPlus
 
 	mov	r1, r8
 	add	r1, #111
@@ -562,16 +526,57 @@ Atrocity:
 
     mov r0, r7
     ldr r1, HAS_ATROCITY        @無惨
-    ldr r1, [r1, #12]
-        ldr r2, SET_SKILLANIME_ATK_FUNC
-        mov lr, r2
-        .short 0xF800
+    bl animefunc
     b effect_crt	@必殺モーション
     mov r0, #1
     .short 0xE000
 falseAtrocity:
     mov r0, #0
     pop {pc}
+
+mazinyami_impl:
+    push {lr}
+    mov r0, r7
+    ldr r1, HAS_MAZINYAMI        @魔神闇
+    mov lr, r1
+    .short 0xF800
+    cmp r0, #0
+    beq falseMazinyami
+@必殺と重複しない
+    ldr r0, [r6, #0]
+    ldr r0, [r0, #0]
+    lsl r0, r0, #31
+    bmi falseMazinyami
+@奥義目印
+    ldrb r0, [r7, #21]	@技
+    mov r1, #0
+    bl random
+    cmp r0, #0
+    beq falseMazinyami
+
+    mov r0, r8
+    ldrb r0, [r0, #0x17] @守備
+
+    lsl r1, r0, #31
+    lsr r1, r1, #31
+    asr r0, r0, #1 @半減
+    add r0, r1
+
+    bl dmgPlus
+    
+	mov	r1, r8
+	add	r1, #111
+	mov	r0, #0x32		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
+	strb	r0, [r1, #0]
+	mov	r0, #1
+
+    b effect_crt	@必殺モーション
+    mov r0, #1
+    .short 0xE000
+falseMazinyami:
+    mov r0, #0
+    pop {pc}
+
 
 effect_crt: @必殺
     ldr r3, [r6]
@@ -617,6 +622,28 @@ sol_ef: @吸収
     mov r0, #1
     pop {pc}
 
+dmgPlus:
+	push {lr}
+	mov r1, #4
+	ldsh r1, [r5, r1] @ ダメージ
+	add r0, r0, r1
+	strh r0, [r5, #4]
+	pop {pc}
+
+animefunc:
+	push {lr}
+	ldr r1, [r1, #12]
+        ldr r2, SET_SKILLANIME_ATK_FUNC
+        mov lr, r2
+        .short 0xF800
+	pop {pc}
+
+nihil_func:
+	push {lr}
+        ldr r2, HAS_NIHIL_FUNC
+        mov lr, r2
+        .short 0xF800
+	pop {pc}
 
 CHECK_FODES_FUNC = (adr+32)
 
