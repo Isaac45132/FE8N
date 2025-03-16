@@ -133,8 +133,8 @@ setMugEntry($35, ha,3, 5, 3, 3, 1)
 ha:
   #incext PortraitFormatter ha.png    
   
-setMugEntry($0E, zoku,3, 5, 3, 3, 1)
-//setMugExtra($0E, 0, 4, 10, 4)
+setMugEntry($0E, zoku,3, 4, 3, 2, 1)
+setMugExtra($0E, 0, 4, 10, 4)
 zoku:
   #incext PortraitFormatter zoku.png       
   
@@ -356,7 +356,7 @@ setMugEntry($1D, Don, 2, 5, 2, 3, 1)     //ドンキホーテ顔画像
 Don:
   #incext PortraitFormatter Don.png  
   
-setMugEntry($27, Grace, 4, 7, 4, 5, 1)     //グレース顔画像
+setMugEntry($27, Grace, 3, 6, 3, 4, 1)     //グレース顔画像
 //setMugExtra($27, 0, 2, 5, 2)
 Grace:
   #incext PortraitFormatter Grace.png  
