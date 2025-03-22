@@ -102,6 +102,10 @@ WeaponB:
 	ldrb r0, [r6, r1]
 	cmp r0, #0
 	bne falseWeaponB	@攻撃側アイテム5個所持なら終了
+
+	ldrb r0, [r5, #0xB]
+	cmp r0, #0x40
+	ble nextWeaponB		@味方キャラならジャンプ
 	ldrb r0, [r5, r1]
 	cmp r0, #0
 	bne falseWeaponB	@防御側アイテム5個所持なら終了
