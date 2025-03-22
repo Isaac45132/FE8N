@@ -128,7 +128,12 @@ DoubleLion:
     bl hasDoubleLion
     cmp	r0, #0
     beq falseDouble
-    
+
+    ldr r0, =0x0203a4d2
+    ldrb r0, [r0]
+    cmp r0, #1
+    bgt falseDouble       @近距離じゃなければ終了    
+
     ldrb r1, [r4, #18]	@最大HP
     ldrb r0, [r4, #19]	@現在HP
     cmp r0, r1
