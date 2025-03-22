@@ -1,6 +1,8 @@
 .equ hasRemove, (adr+0)
 .equ hasMeditation, (adr+4)
 @;0x01cefc
+DEFEATED = (0b01000000) @迅雷済みフラグ
+
 .thumb
 
 @	bl kaifuku	@ひろいぐい
@@ -11,6 +13,13 @@
     and r2, r1
     bne RETURN @;自軍以外は終了
 	
+    ldr r0, [r4]
+    add r0, #69
+    ldrb r1, [r0]
+    mov r2, #0x40
+    and r2, r1
+    bne RETURN    @再行動済み
+
     bl random	@再動
     cmp r0, #0
     beq RETURN
@@ -25,6 +34,12 @@ Sound:	@;再動の音
     ldr	r2, =0x080d4ef4
     mov	lr, r2
     .short 0xf800
+
+    ldr r0, [r4]	
+    add r0, #69		
+    ldrb r1, [r0]
+    add r1, #0x40	
+    strb r1, [r0]
 
 RETURN:
 	mov r0, #0
