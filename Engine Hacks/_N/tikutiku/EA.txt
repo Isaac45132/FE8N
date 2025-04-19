@@ -37,4 +37,4 @@ WORD $00000004 ////盗むの疲労値
 
 summon_tiku:
 #incbin "summon_tiku.dmp"
-WORD $00000004 ////召喚の疲労値
+WORD $00000006 ////召喚の疲労値
