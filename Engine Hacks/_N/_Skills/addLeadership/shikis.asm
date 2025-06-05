@@ -23,6 +23,15 @@ jump1:
     beq jump2
     add r5, #2
 jump2:
+    mov r0, r4
+        @align 4
+        ldr r1, [adr+8]
+        mov lr, r1
+        @dcw $F800
+    cmp r0, #0
+    beq jump3
+    add r5, #10
+jump3:
     ldr r0, [r4]
     add r0, #37
     ldrb r0, [r0]

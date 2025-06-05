@@ -14,6 +14,7 @@ hasLeadership:
 ALIGN 4
     POIN hasLeadership1
     POIN hasLeadership2
+    POIN hasLeadership10
 
 hasLeadership1:
     HAS_SKILL
@@ -21,5 +22,8 @@ hasLeadership1:
 hasLeadership2:
     HAS_SKILL
     WORD Leadership2ID
+hasLeadership10:
+    HAS_SKILL
+    WORD Leadership10ID
     
 ALIGN 4
