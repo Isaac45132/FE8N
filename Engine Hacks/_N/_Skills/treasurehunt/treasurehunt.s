@@ -139,6 +139,14 @@ WeaponB:
 	cmp r0, #0
 	bne falseWeaponB
 	
+	ldrb r0, [r5, #0x15]	@技
+    	mov r1, #0
+        push {r2, r3}
+        bl RollRN		@r0=確率, r1=#0 乱数
+        pop {r2, r3}
+    	cmp r0, #1
+    	bne falseWeaponB
+	
 	add r4, #0x4A
 	ldrh r0, [r4]
 	.short 0xE000
@@ -146,6 +154,32 @@ WeaponB:
 	mov r0, #0
 	pop {r4, pc}
 
+RollRN:				@王の器などで発動確率が加算されない
+push {lr}
+lsl r0, r0, #0x10
+lsr r3, r0, #0x10
+lsl r1, r1, #0x18
+asr r2, r1, #0x18
+ldr r0, =0x0203A4D0
+ldrh r1, [r0]
+mov r0, #2
+and r0, r1
+cmp r0, #0
+bne Rollend
+mov r0, r3
+bl Roll1RN
+lsl r0, r0, #0x18
+asr r0, r0, #0x18
+.short 0xE000
+
+Rollend:
+mov r0, r2
+pop {r1}
+bx r1
+
+Roll1RN:
+    ldr r3, =0x08000C78
+    mov pc, r3
 
 Get_Status:
     ldr r1, =0x08019108
