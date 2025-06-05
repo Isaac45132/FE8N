@@ -221,6 +221,8 @@
 #define SinenID 239 //0xEF深淵
 #define KoigatakiID 240 //0xF0恋敵
 #define siroyuriID 241 //0xF1白百合の騎士
+#define MazinyamiID 242 //0xF2魔神闇
+#define Leadership10ID 243 //0xF3指揮+10
 
 
 
