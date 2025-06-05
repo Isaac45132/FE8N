@@ -569,7 +569,10 @@ mazinyami_impl:
 	mov	r0, #0x32		@@状態異常(2スリプ,3サイレス,4バサク,Bストン)
 	strb	r0, [r1, #0]
 	mov	r0, #1
-
+    
+    mov r0, r7
+    ldr r1, HAS_MAZINYAMI       @無惨
+    bl animefunc
     b effect_crt	@必殺モーション
     mov r0, #1
     .short 0xE000
