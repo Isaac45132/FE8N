@@ -135,3 +135,5 @@ weaponb:
 #incext png2dmp "gazouWeaponB.png" --lz77
 sinen:
 #incext png2dmp "gazouSinen.png" --lz77
+mazinyami:
+#incext png2dmp "gazouMazinyami.png" --lz77
