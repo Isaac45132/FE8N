@@ -13,11 +13,26 @@
 	cmp	r0, #0x81	@敵
 	bge	teki		@敵なら分岐
 	ldr	r2, =0x0203AE42
+loopM:
+	ldrb	r0, [r2]
+	cmp	r0, #0
+	beq	nextM
+	add	r2, #4		@二つ目以降のスキルは+4hずつ
+	b	loopM
+nextM:
 	strb	r1, [r2, #0]	@味方と同盟
 	b	endskill
 teki:
 	ldr	r2, =0x0203AE44
+loopT:
+	ldrb	r0, [r2]
+	cmp	r0, #0
+	beq	nextT
+	add	r2, #4		@二つ目以降のスキルは+4hずつ
+	b	loopT
+nextT:
 	strb	r1, [r2, #0]	@敵
+
 endskill:
 @ここまで
 

@@ -65,6 +65,17 @@ Mikata:
 	ldr	r0, =0x0600612C
 	ldrh	r1, =0xD218
 	bl	icondisplay
+
+	ldr	r0, =0x0203AE42		@二つ目以降のスキルチェック呼び出し
+	ldrb	r1, [r0, #4]
+	strb	r1, [r0]
+	ldrb	r1, [r0, #8]
+	strb	r1, [r0, #4]
+	ldrb	r1, [r0, #12]
+	strb	r1, [r0, #8]
+	ldrb	r1, [r0, #16]
+	strb	r1, [r0, #12]
+
 	b	skillend
 
 Teki:
@@ -80,6 +91,17 @@ Teki:
 	ldr	r0, =0x0600610C
 	ldrh	r1, =0xD21C
 	bl	icondisplay
+
+	ldr	r0, =0x0203AE44		@二つ目以降のスキルチェック呼び出し
+	ldrb	r1, [r0, #4]
+	strb	r1, [r0]
+	ldrb	r1, [r0, #8]
+	strb	r1, [r0, #4]
+	ldrb	r1, [r0, #12]
+	strb	r1, [r0, #8]
+	ldrb	r1, [r0, #16]
+	strb	r1, [r0, #12]
+
 skillend:
 	pop	{r0, r1, r2}
 	ldr		r3,=0x08070950+1	@元に戻す

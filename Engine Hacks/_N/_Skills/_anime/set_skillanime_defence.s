@@ -6,6 +6,11 @@
     push {lr}
 
 @ここから新ルーチン
+	cmp	r1, #0x75		@裏ジェノサイド
+	bne	skip
+	mov	r1, #0x64		@表ジェノサイドのアイコンを出す
+
+skip:
 	push	{r1}
 	mov	r1, #0xB
 	ldrb	r0, [r0, r1]	@部隊表
@@ -13,10 +18,24 @@
 	cmp	r0, #0x81	@敵
 	bge	teki		@敵なら分岐
 	ldr	r2, =0x0203AE43
+loopM:
+	ldrb	r0, [r2]
+	cmp	r0, #0
+	beq	nextM
+	add	r2, #4		@二つ目以降のスキルは+4hずつ
+	b	loopM
+nextM:
 	strb	r1, [r2, #0]	@味方と同盟
 	b	endskill
 teki:
 	ldr	r2, =0x0203AE45
+loopT:
+	ldrb	r0, [r2]
+	cmp	r0, #0
+	beq	nextT
+	add	r2, #4		@二つ目以降のスキルは+4hずつ
+	b	loopT
+nextT:
 	strb	r1, [r2, #0]	@敵
 endskill:
 @ここまで

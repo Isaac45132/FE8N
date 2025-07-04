@@ -11,6 +11,11 @@ COMBAT_HIT            = (1)
     ldr	r0, =0x0802bfec
     mov	pc, r0
 START:
+	ldr r0, =0x0203AE40	@
+	mov r1, #0		@
+	strh r1, [r0, #2]	@毎戦闘後スキル表示リセット
+	strh r1, [r0, #4]	@
+	
     mov	r0, r6
     mov	r1, r4
         ldr	r2, =0x0802c134
